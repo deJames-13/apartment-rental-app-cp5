@@ -1,8 +1,8 @@
 TODO: VIEWS
-    -- ADD LIST HERE
+    -- Auth Pages
 
 TODO: DATABASE
-    -- ADD LIST HERE
+    -- ERD
 
 TODO: MIGRATIONS
     -- ADD LIST HERE
@@ -11,7 +11,11 @@ TODO: MODELS
     -- ADD LIST HERE
 
 TODO: CONTROLLERS
-    -- ADD LIST HERE
+    -- AuthController
+    -- PropertyListingController
+    -- UnitController
+    -- BookmarkController
+    -- LeaseInfoController
 
 TODO: RELATIONSHIPS
     -- ADD LIST HERE
