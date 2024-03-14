@@ -16,8 +16,13 @@ cp .env.example .env
 php artisan key:generate
 npm install
 php artisan mary:install
-// no (wag iinstall ung livewire volt
-// <()/
+// no (wag iinstall ung livewire volt)
+php artisan icons:cache
+php artisan views:cache
+php artisan config:cache
+php artisan route:cache
+php artisan cache:clear
+php artisan icons:clear
 php artisan serve | npm run dev
 ```
 
