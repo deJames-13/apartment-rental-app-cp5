@@ -1,0 +1,14 @@
+{
+    "tabWidth": 2,
+    "singleQuote": true,
+    "semi": false,
+    "trailingComma": "none",
+    "overrides": [
+        {
+            "files": "*.blade.php",
+            "options": {
+                "parser": "html"
+            }
+        }
+    ]
+}
