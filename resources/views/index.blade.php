@@ -1,5 +1,3 @@
-@extends('layouts.guest-layout')
-
-@section('guest')
-    {{-- TODO: LANDING PAGE --}}
-@endsection
+<x-guest-layout>
+    tite
+</x-guest-layout>

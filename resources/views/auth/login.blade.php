@@ -1,5 +1,3 @@
-@extends('layouts.guest-layout')
-
-@section('guest')
+<x-guest-layout>
     {{-- TODO: JADE LOGIN --}}
-@endsection
+</x-guest-layout>

@@ -14,7 +14,7 @@ class AuthController extends Controller
   {
     // TODO: ADD USER
   }
-  public function storelogin()
+  public function login()
   {
     return view('auth.login');
   }

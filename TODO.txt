@@ -20,3 +20,10 @@ TODO: CONTROLLERS
 TODO: RELATIONSHIPS
     -- ADD LIST HERE
 
+
+TODO: NOTES IN PUSHING A BRANCH
+
+git add .
+git commit -m 'my message'
+git checkout -b '<your branch name>'
+git push -u origin '<your branch name>'
