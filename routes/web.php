@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Livewire\Welcome;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,13 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/', function () {
   return view('index');
 });
 
-Route::middleware('guest')->group(function () {
-  Route::get('/login', [AuthController::class, 'login']);
-  Route::get('/register', [AuthController::class, 'register']);
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/register', [AuthController::class, 'register']);
+
+
+Route::middleware('auth')->group(function () {
   Route::get('/authenticate ', [AuthController::class, 'authenticate']);
   Route::post('/store', [AuthController::class, 'store']);
   Route::post('/logout ', [AuthController::class, 'logout']);

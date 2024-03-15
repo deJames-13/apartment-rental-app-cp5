@@ -16,8 +16,8 @@
     </div>
     <div class="navbar-end">
         {{-- if guest --}}
-        <a href="{{ route('login') }}" class="btn btn-ghost">Login</a>
-        <a href="{{ route('register') }}" class="btn btn-ghost">Register</a>
+        <a href="/login" class="btn btn-ghost">Login</a>
+        <a href="/register" class="btn btn-ghost">Register</a>
         {{-- if auth --}}
         <x-dropdown class="hidden lg:flex">
             <x-slot:trigger>
