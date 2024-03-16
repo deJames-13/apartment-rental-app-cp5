@@ -1,32 +1,19 @@
 {{-- TODO: HEADER DESIGN --}}
+<x-nav sticky full-width>
 
-<div class="w-full navbar bg-base-100">
-    <div class="navbar-start">
-        <x-dropdown class="">
-            <x-slot:trigger>
-                <x-button icon="jam.menu" class="rounded btn btn-ghost lg:hidden" />
-            </x-slot:trigger>
+    <x-slot:brand>
+        {{-- Drawer toggle for "main-drawer" --}}
+        <label for="main-drawer" class="lg:hidden mr-3">
+            <x-icon name="o-bars-3" class="cursor-pointer" />
+        </label>
 
-            <x-menu-item title="Home" />
-            <x-menu-item title="About Us" />
-        </x-dropdown>
-        <a class="text-xl btn btn-ghost">rent</a>
-    </div>
-    <div class="hidden navbar-center lg:flex">
-    </div>
-    <div class="navbar-end">
-        {{-- if guest --}}
-        <a href="/login" class="btn btn-ghost">Login</a>
-        <a href="/register" class="btn btn-ghost">Register</a>
-        {{-- if auth --}}
-        <x-dropdown class="hidden lg:flex">
-            <x-slot:trigger>
-                <x-button icon="jam.user" class="rounded btn btn-ghost" />
-            </x-slot:trigger>
+        {{-- Brand --}}
+        <span class='font-extrabold uppercase text-lg'>RENTAPP</span>
+    </x-slot:brand>
 
-            <x-menu-item title="Profile" />
-            <x-menu-item title="Settings" />
-            <x-menu-item title="Logout" />
-        </x-dropdown>
-    </div>
-</div>
+    {{-- Right side actions --}}
+    <x-slot:actions>
+        <x-button label="Log In" icon="o-arrow-right-on-rectangle" link="/login" class="btn-ghost btn-sm" responsive />
+        <x-button label="Register" link="/register" class="btn-ghost btn-sm" responsive />
+    </x-slot:actions>
+</x-nav>

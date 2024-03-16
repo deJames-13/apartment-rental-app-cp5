@@ -1,5 +1,6 @@
 <x-app-layout>
     @include('partials.header')
-    {{ $slot }}
-
+    <div>
+        {{ $slot }}
+    </div>
 </x-app-layout>
