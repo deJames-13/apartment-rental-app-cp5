@@ -1,3 +1,3 @@
 <x-guest-layout>
-    tite
+    Guests
 </x-guest-layout>
