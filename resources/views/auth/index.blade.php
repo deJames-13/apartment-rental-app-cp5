@@ -19,11 +19,11 @@
             </div>
             @switch($active)
                 @case('register')
-                    @include('auth.register')
+                    <livewire:register />
                 @break
 
                 @case('login')
-                    @include('auth.login')
+                    <livewire:login />
                 @break
 
                 @default
