@@ -1,5 +1,7 @@
-@extends('frontend.main');
+<x-default-layout>
 
-@section('main')
-    {{-- TODO: MAIN HOME PAGE --}}
-@endsection
+	<div>
+		Default Page for User: {{ auth()->user()->username }}
+
+	</div>
+</x-default-layout>

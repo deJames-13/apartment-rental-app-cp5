@@ -1,32 +1,39 @@
 {{-- TODO: HEADER DESIGN --}}
+@php
+	$page = $page ?? "app";
+	$navItems = [
+	    ["label" => "Home", "link" => "/"],
+	    ["label" => "About", "link" => "/about"],
+	    ["label" => "Contact", "link" => "/contact"],
+	    ["label" => "Services", "link" => "/services"],
+	];
+@endphp
 
-<div class="w-full navbar bg-base-100">
-    <div class="navbar-start">
-        <x-dropdown class="">
-            <x-slot:trigger>
-                <x-button icon="jam.menu" class="rounded btn btn-ghost lg:hidden" />
-            </x-slot:trigger>
+<x-nav full-width>
+	{{-- start --}}
+	<x-slot:brand>
+		<x-button class="border-none bg-transparent hover:bg-transparent" link="/"><span
+				class="text-lg font-extrabold uppercase">Rent
+				App</span></x-button>
+	</x-slot:brand>
 
-            <x-menu-item title="Home" />
-            <x-menu-item title="About Us" />
-        </x-dropdown>
-        <a class="text-xl btn btn-ghost">rent</a>
-    </div>
-    <div class="hidden navbar-center lg:flex">
-    </div>
-    <div class="navbar-end">
-        {{-- if guest --}}
-        <a href="/login" class="btn btn-ghost">Login</a>
-        <a href="/register" class="btn btn-ghost">Register</a>
-        {{-- if auth --}}
-        <x-dropdown class="hidden lg:flex">
-            <x-slot:trigger>
-                <x-button icon="jam.user" class="rounded btn btn-ghost" />
-            </x-slot:trigger>
+	{{-- end --}}
+	<x-slot:actions>
+		<div class="flex items-center space-x-4">
+			@switch($page)
+				@case("login")
+					<x-button class="btn btn-secondary" link="/register">Register</x-button>
+				@break
 
-            <x-menu-item title="Profile" />
-            <x-menu-item title="Settings" />
-            <x-menu-item title="Logout" />
-        </x-dropdown>
-    </div>
-</div>
+				@case("register")
+					<x-button class="btn btn-primary" link="/login">Login</x-button>
+				@break
+
+				@default
+					<x-button class="btn btn-secondary" link="/register">Join Now</x-button>
+				@break
+			@endswitch
+		</div>
+	</x-slot:actions>
+
+</x-nav>
