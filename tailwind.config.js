@@ -41,7 +41,7 @@ export default {
   ],
 
   daisyui: {
-    themes: ['dim', 'dark', 'business'],
+    themes: ['corporate', 'dark', 'business'],
     base: true,
     styled: true,
     utils: true,

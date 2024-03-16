@@ -1,3 +1,3 @@
 <x-app-layout>
-	{{ $slot }}
+	@include("frontend.partials.header")
 </x-app-layout>

@@ -1,9 +1,9 @@
 @if (Auth::check())
-    @include('frontend.index');
+	@include("frontend.index")
 @else
-    <x-guest-layout>
-        <div class="prose container mx-auto flex items-center justify-center h-screen">
-            <h1>Guests</h1>
-        </div>
-    </x-guest-layout>
+	<x-guest-layout>
+		<div class="container prose mx-auto flex h-screen items-center justify-center">
+			<h1>Guests</h1>
+		</div>
+	</x-guest-layout>
 @endif

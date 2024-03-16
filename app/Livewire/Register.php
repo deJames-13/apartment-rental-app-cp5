@@ -3,7 +3,7 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use Illuminate\Validation\Rules\Password;
+use App\Http\Controllers\AuthController;
 
 class Register extends Component
 {
@@ -20,7 +20,7 @@ class Register extends Component
         'last_name' => 'required|string',
         'username' => 'required|string|unique:users,username',
         'email' => 'required|string:email:unique:users,email',
-        'password' => 'required|min:6|max:12',
+        'password' => 'required|min:6|max:12|confirmed',
         // STRICT PASS
         // 'password' => 'required|min:6|max:12|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/|regex:/[@$!%*#?&]/'
     ];
@@ -38,7 +38,7 @@ class Register extends Component
     public function save()
     {
         $this->validate();
-        $request = new \Illuminate\Http\Request();
+        $request = request();
         $request->replace([
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
@@ -47,7 +47,7 @@ class Register extends Component
             'password' => $this->password,
             'password_confirmation' => $this->password_confirmation,
         ]);
-        app(\App\Http\Controllers\AuthController::class)->store($request);
+        app(AuthController::class)->store($request);
         $this->first_name = '';
         $this->last_name = '';
         $this->username = '';

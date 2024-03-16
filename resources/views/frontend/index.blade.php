@@ -1,3 +1,7 @@
 <x-default-layout>
-	Default Page for User: {{ auth()->user()->username }}
+
+	<div>
+		Default Page for User: {{ auth()->user()->username }}
+
+	</div>
 </x-default-layout>
