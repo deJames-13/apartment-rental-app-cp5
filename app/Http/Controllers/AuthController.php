@@ -15,7 +15,6 @@ class AuthController extends Controller
 
   public function store(Request $request)
   {
-    // FIXME: ADD USER
     $data = $request->validate([
       'first_name' => 'required|string',
       'last_name' => 'required|string',
@@ -36,7 +35,6 @@ class AuthController extends Controller
   }
   public function authenticate(Request $request)
   {
-    // FIXME: ADD AUTHENTICATE
     $data = $request->validate([
       'email' => ['required'],
       'password' => 'required'
@@ -51,7 +49,6 @@ class AuthController extends Controller
 
   public function logout(Request $request, string $id)
   {
-    // FIXME: ADD LOGOUT
     auth()->logout();
     $request->session()->invalidate();
     $request->session()->regenerateToken();
