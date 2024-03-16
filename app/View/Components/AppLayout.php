@@ -8,12 +8,10 @@ use Illuminate\View\Component;
 
 class AppLayout extends Component
 {
-    /**
-     * Create a new component instance.
-     */
+    public $page;
     public function __construct()
     {
-        //
+        $this->page = request()->route()->getName();
     }
 
     /**
@@ -21,6 +19,6 @@ class AppLayout extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('layouts.app');
+        return view('layouts.app', ['page' => $this->page]);
     }
 }

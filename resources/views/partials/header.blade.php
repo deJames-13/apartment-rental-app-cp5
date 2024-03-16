@@ -1,19 +1,42 @@
 {{-- TODO: HEADER DESIGN --}}
-<x-nav sticky full-width>
+@php
+    $page = $page ?? 'app';
+    $navItems = [
+        ['label' => 'Home', 'link' => '/'],
+        ['label' => 'About', 'link' => '/about'],
+        ['label' => 'Contact', 'link' => '/contact'],
+        ['label' => 'Services', 'link' => '/services'],
+    ];
+@endphp
 
+<x-nav full-width>
+    {{-- start --}}
     <x-slot:brand>
-        {{-- Drawer toggle for "main-drawer" --}}
-        <label for="main-drawer" class="lg:hidden mr-3">
-            <x-icon name="o-bars-3" class="cursor-pointer" />
-        </label>
-
-        {{-- Brand --}}
-        <span class='font-extrabold uppercase text-lg'>RENTAPP</span>
+        <x-button link="/" class="border-none hover:bg-transparent bg-transparent "><span
+                class="font-extrabold uppercase text-lg">Rent
+                App</span></x-button>
     </x-slot:brand>
 
-    {{-- Right side actions --}}
+
+
+    {{-- end --}}
     <x-slot:actions>
-        <x-button label="Log In" icon="o-arrow-right-on-rectangle" link="/login" class="btn-ghost btn-sm" responsive />
-        <x-button label="Register" link="/register" class="btn-ghost btn-sm" responsive />
+        <div class="flex items-center space-x-4">
+            @switch($page)
+                @case('login')
+                    <x-button link="/register" class="btn btn-secondary">Register</x-button>
+                @break
+
+                @case('register')
+                    <x-button link="/login" class="btn btn-primary">Login</x-button>
+                @break
+
+                @default
+                    <x-button link="/register" class="btn btn-secondary">Join Now</x-button>
+                @break
+            @endswitch
+        </div>
     </x-slot:actions>
+
+
 </x-nav>

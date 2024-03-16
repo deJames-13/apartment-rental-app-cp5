@@ -9,15 +9,16 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ isset($title) ? $title . ' - ' . config('app.name') : config('app.name') }}</title>
 
+    @livewireStyles
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body id="app" data-theme="dim" class="min-h-screen font-sans antialiased bg-base-200/50 dark:bg-base-200">
-
     {{ $slot }}
 
     {{-- Toast --}}
     <x-toast />
+    @livewireScripts
 </body>
 
 

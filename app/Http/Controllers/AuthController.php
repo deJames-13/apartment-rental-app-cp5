@@ -10,7 +10,7 @@ class AuthController extends Controller
 {
   public function register()
   {
-    return view('auth.register');
+    return view('auth.index', ['active' => 'register']);
   }
 
   public function store(Request $request)
@@ -32,7 +32,7 @@ class AuthController extends Controller
 
   public function login()
   {
-    return view('auth.login');
+    return view('auth.index', ['active' => 'login']);
   }
   public function authenticate(Request $request)
   {
