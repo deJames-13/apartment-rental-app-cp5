@@ -40,7 +40,7 @@
 
 @endphp
 
-<x-nav class="border-b-2 border-secondary" full-width>
+<x-nav class="border" full-width>
 	{{-- start --}}
 	<x-slot:brand>
 		<div class="block lg:hidden">
