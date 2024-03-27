@@ -40,7 +40,7 @@ _Each machine problem requires the following:_
 
 ## Quizzes
 
-- [ ] Quiz 1 (15pts): Form Validation. Check for validation errors on create and edit forms on MP1 - [ ] MP4
+- [ ] Quiz 1 (15pts): Form Validation. Check for validation errors on create and edit forms on MP1 - MP4
 - [ ] Quiz 2 (15pts): Search function. Search for products or services on the homepage. The result of the search is a list of products/services with links to its details. Datatables search is not applicable.
 - [ ] Quiz 3 (15pts): 3 charts (bar, line, pie) (10pts). 3 charts (bar, line, pie) with join query (15pts)
 - [ ] Quiz 4 (15pts): Basic authentication. Authenticated users can access CRUD pages (10pts). Manual user authentication with roles. Only admin users can access CRUD pages. Only authenticated users can complete a transaction (15pts)
