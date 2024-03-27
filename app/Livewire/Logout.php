@@ -18,13 +18,6 @@ class Logout extends Component
     }
     public function render()
     {
-        return <<<'HTML'
-        <div>
-            <x-form method='post' wire:submit='save'>
-                @csrf
-                <x-button class="btn-error text-white" spinner='save' type='submit'>Log out</x-button>
-            </x-form>
-        </div>
-        HTML;
+        return view('auth.logout');
     }
 }
