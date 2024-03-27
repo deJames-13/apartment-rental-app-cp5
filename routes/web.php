@@ -22,13 +22,17 @@ Route::get('/', function () {
 
 
 Route::middleware('guest')->group(function () {
-
   Route::get('/login', [AuthController::class, 'login'])->name('login');
   Route::get('/register', [AuthController::class, 'register'])->name('register');
   Route::get('/authenticate ', [AuthController::class, 'authenticate']);
   Route::post('/store', [AuthController::class, 'store']);
 });
-Route::middleware('auth')->group(function () {
 
+// AUTH
+Route::middleware('auth')->group(function () {
   Route::post('/logout ', [AuthController::class, 'logout'])->name('logout');
+
+  Route::get('/home', function () {
+    return view('frontend.index');
+  })->name('home');
 });

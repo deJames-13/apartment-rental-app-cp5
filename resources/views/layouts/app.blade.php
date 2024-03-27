@@ -11,6 +11,9 @@
 
 		<livewire:styles />
 		@vite(["resources/css/app.css", "resources/js/app.js"])
+
+		@yield("head")
+
 	</head>
 
 	<body class="min-h-screen bg-base-200/50 font-sans antialiased dark:bg-base-200" data-theme="dim" id="app">

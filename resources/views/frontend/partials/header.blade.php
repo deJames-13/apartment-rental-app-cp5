@@ -40,7 +40,7 @@
 
 @endphp
 
-<x-nav class="border-b-2 border-secondary" full-width>
+<x-nav class="border" full-width>
 	{{-- start --}}
 	<x-slot:brand>
 		<div class="block lg:hidden">
@@ -71,7 +71,7 @@
 						</div>
 
 						<ul
-							class="dropdown-content menu z-[1] mt-5 w-52 rounded-box border-t-2 border-primary bg-base-100 p-2 shadow transition duration-300 ease-in-out"
+							class="menu dropdown-content z-[1] mt-5 w-52 rounded-box border-t-2 border-primary bg-base-100 p-2 shadow transition duration-300 ease-in-out"
 							tabindex="0">
 							@foreach ($item["submenu"] as $subItem)
 								<li class='transition duration-500 ease-in-out'>
