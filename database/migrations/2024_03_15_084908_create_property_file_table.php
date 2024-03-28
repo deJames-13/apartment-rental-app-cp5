@@ -13,7 +13,13 @@ return new class extends Migration
   {
     Schema::create('property_file', function (Blueprint $table) {
       $table->id();
+      $table->unsignedBigInteger('property_id');
+      $table->string('file_name');
+      $table->string('file_path');
+      $table->string('file_type');
+      $table->string('file_size');
       $table->timestamps();
+      $table->softDeletes();
     });
   }
 

@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('user_file', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->string('file_name');
+            $table->string('file_path');
+            $table->string('file_type');
+            $table->string('file_size');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
