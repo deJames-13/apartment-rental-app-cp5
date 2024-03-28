@@ -37,8 +37,8 @@ Route::middleware(['auth'])->group(function () {
   Route::post('/logout ', [AuthController::class, 'logout'])->name('logout');
 
 
+  Route::post('/properties/posts/create', [PropertyListingController::class, 'store'])->name('properties.store');
   Route::get('/properties/posts/create', [PropertyListingController::class, 'create'])->name('properties.create');
-  Route::post('/properties/posts', [PropertyListingController::class, 'store'])->name('properties.store');
   Route::get('/properties/category', [PropertyListingController::class, 'category'])->name('properties.category');
   Route::get('/properties/popular', [PropertyListingController::class, 'popular'])->name('properties.popular');
 

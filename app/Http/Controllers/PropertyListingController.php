@@ -22,9 +22,10 @@ class PropertyListingController extends Controller
 
     public function store(StoreRequest $request)
     {
+        dd($request->all());
         $data = $request->validated();
         PropertyListing::create($data);
-        return redirect()->route('property-all');
+        return redirect()->route('properties.create');
     }
 
     public function show(string $id)
@@ -45,14 +46,14 @@ class PropertyListingController extends Controller
         $data = $request->validated();
         $listing = PropertyListing::findOrFail($id);
         $listing->update($data);
-        return redirect()->route('property-all');
+        return redirect()->route('properties.create');
     }
 
     public function destroy(string $id)
     {
         // Soft delete
         PropertyListing::destroy($id);
-        return redirect()->route('property-all');
+        return redirect()->route('properties.create');
     }
 
     public function category()
