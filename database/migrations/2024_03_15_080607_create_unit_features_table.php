@@ -19,6 +19,7 @@ return new class extends Migration
       $table->boolean('is_pets_allowed');
       $table->boolean('has_balcony');
       $table->boolean('has_security');
+      $table->softDeletes();
       $table->timestamps();
     });
   }

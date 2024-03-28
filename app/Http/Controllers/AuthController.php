@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Requests\Auth\StoreRequest;
 
 class AuthController extends Controller
 {
@@ -15,7 +14,6 @@ class AuthController extends Controller
 
   public function store(Request $request)
   {
-    // FIXME: ADD USER
     $data = $request->validate([
       'first_name' => 'required|string',
       'last_name' => 'required|string',
@@ -34,24 +32,24 @@ class AuthController extends Controller
   {
     return view('auth.index', ['active' => 'login']);
   }
+
   public function authenticate(Request $request)
   {
-    // FIXME: ADD AUTHENTICATE
     $data = $request->validate([
       'email' => ['required'],
       'password' => 'required'
-
     ]);
+
     if (auth()->attempt($data)) {
       $request->session()->regenerate();
-      return redirect('/')->with('message', 'Login successfully!');
+      return response()->json(['success' => true]);
     }
-    return back()->withErrors(['email' => 'Invalid credentials. '])->onlyInput('email');
+
+    return response()->json(['success' => false, 'error' => 'Invalid credentials. ']);
   }
 
   public function logout(Request $request, string $id)
   {
-    // FIXME: ADD LOGOUT
     auth()->logout();
     $request->session()->invalidate();
     $request->session()->regenerateToken();

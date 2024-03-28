@@ -13,7 +13,28 @@ return new class extends Migration
     {
         Schema::create('lease_transactions', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('tenant_id');
+            $table->unsignedBigInteger('landlord_id');
+            $table->unsignedBigInteger('property_id');
+            $table->unsignedBigInteger('unit_id');
+
+            $table->string('title')->nullable();
+
+
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->decimal('rent_amount', 10, 2);
+            $table->enum('status', ['active', 'inactive']);
+            $table->text('notes')->nullable();
+
+            // Foreign keys
+            $table->foreign('tenant_id')->references('id')->on('users');
+            $table->foreign('landlord_id')->references('id')->on('users');
+            $table->foreign('property_id')->references('id')->on('property_listings');
+            $table->foreign('unit_id')->references('id')->on('units');
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

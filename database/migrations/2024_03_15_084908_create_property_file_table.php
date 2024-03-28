@@ -13,6 +13,13 @@ return new class extends Migration
   {
     Schema::create('property_file', function (Blueprint $table) {
       $table->id();
+      $table->unsignedBigInteger('property_id');
+      $table->unsignedBigInteger('file_id');
+
+      $table->foreign('property_id')->references('id')->on('property_listings')->onDelete('cascade');
+      $table->foreign('file_id')->references('id')->on('files')->onDelete('cascade');
+
+      $table->softDeletes();
       $table->timestamps();
     });
   }

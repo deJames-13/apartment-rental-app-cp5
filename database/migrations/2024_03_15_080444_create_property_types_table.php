@@ -16,6 +16,7 @@ return new class extends Migration
       $table->string('type_name');
       $table->string('type_icon')->nullable();
       $table->timestamps();
+      $table->softDeletes();
     });
   }
 
