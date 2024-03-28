@@ -15,7 +15,8 @@ return new class extends Migration
       $table->id();
       $table->string('filename');
       $table->string('file_path');
-      $table->string('mime_type')->nullable();
+      $table->string('file_type')->nullable();
+      $table->string('file_size')->nullable();
       $table->softDeletes();
       $table->timestamps();
     });
