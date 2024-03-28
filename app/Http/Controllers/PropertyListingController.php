@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PropertyListing\StoreRequest;
+use App\Http\Requests\PropertyListing\UpdateRequest;
 use Illuminate\Http\Request;
+use App\Models\PropertyListing;
 
 class PropertyListingController extends Controller
 {
@@ -11,7 +14,8 @@ class PropertyListingController extends Controller
      */
     public function index()
     {
-        //
+        $propertyListings = PropertyListing::all();
+        return view('property-listings.index', compact('propertyListings'));
     }
 
     /**
@@ -19,15 +23,17 @@ class PropertyListingController extends Controller
      */
     public function create()
     {
-        //
+        return view('property-listings.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        $data = $request->validated();
+        PropertyListing::create($data);
+        return redirect()->route('property-listings.index');
     }
 
     /**
@@ -35,7 +41,8 @@ class PropertyListingController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $listing = PropertyListing::findOrFail($id);
+        return view('property-listings.show', compact('listing'));
     }
 
     /**
@@ -43,15 +50,19 @@ class PropertyListingController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $listing = PropertyListing::findOrFail($id);
+        return view('property-listings.edit', compact('listing'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateRequest $request, string $id)
     {
-        //
+        $data = $request->validated();
+        $listing = PropertyListing::findOrFail($id);
+        $listing->update($data);
+        return redirect()->route('property-listings.index');
     }
 
     /**
@@ -59,6 +70,7 @@ class PropertyListingController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // Soft delete
+        PropertyListing::destroy($id);
     }
 }

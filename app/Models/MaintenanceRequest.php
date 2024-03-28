@@ -6,14 +6,25 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class LeaseInfo extends Model
+class MaintenanceRequest extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
     protected $guarded = [];
+
+    public function propertyListing()
+    {
+        return $this->belongsTo(PropertyListing::class, 'property_id');
+    }
+
     public function unit()
     {
         return $this->belongsTo(Unit::class);
+    }
+
+    public function tenant()
+    {
+        return $this->belongsTo(User::class, 'tenant_id');
     }
 }
