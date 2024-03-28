@@ -15,6 +15,11 @@ use App\Http\Controllers\AuthController;
 |
 */
 
+// Test View
+Route::get('/test', function () {
+  return view('errors.404');
+});
+
 // GUEST
 Route::middleware('guest')->group(function () {
   Route::get('/', [AppController::class, 'guest'])->name('guest');
@@ -25,10 +30,18 @@ Route::middleware('guest')->group(function () {
 });
 
 // AUTH
-Route::middleware('auth')->group(function () {
-
+Route::middleware(['auth'])->group(function () {
   Route::get('/home', [AppController::class, 'default'])->name('home');
-
   Route::get('/logout', [AuthController::class, 'login']);
   Route::post('/logout ', [AuthController::class, 'logout'])->name('logout');
+
+
+  Route::middleware('role:landlord')->group(function () {
+  });
+
+  Route::middleware('role:tenant')->group(function () {
+  });
+
+  Route::middleware('role:admin')->group(function () {
+  });
 });

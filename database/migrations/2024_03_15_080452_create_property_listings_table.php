@@ -32,7 +32,7 @@ return new class extends Migration
       $table->string('country');
       $table->string('postal_code');
       $table->decimal('default_price');
-      $table->string('property_thambnail')->nullable();
+      $table->string('property_thumbnail')->nullable();
       $table->string('heading')->nullable();
       $table->string('description')->nullable();
       $table->decimal('lowest_price')->nullable();
