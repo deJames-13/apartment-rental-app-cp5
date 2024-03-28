@@ -2,18 +2,18 @@
 	<div class="relative">
 		<div class="relative z-10 mx-3 flex items-center">
 			<x-icon class="absolute -top-1 left-0 h-12" name="ri.bookmark-fill" />
-			<x-icon class="absolute left-4 top-1 h-4 text-primary" name="s-star" />
-			<div class="badge badge-primary absolute left-12 top-1 mt-2 text-xs font-bold text-white">Featured</div>
+			<x-icon class="absolute left-4 top-2 h-4 text-primary" name="s-star" />
+			<div class="badge bg-green-400 border-none absolute left-12 top-1 mt-2 text-xs font-bold text-white">Featured</div>
 		</div>
 		<div class="min-h-1/2 absolute left-0 top-0 z-0 h-[250px] w-full min-w-[370px] bg-gray-400">
-			<img alt="" class="h-full w-full object-cover" src="{{ asset("images/bg.jpg") }}">
+			<img alt="" class="h-full w-full object-cover" src="{{ asset('images/bg.jpg') }}">
 		</div>
 	</div>
 	<div class="flex flex-col space-y-3 p-6 pt-[260px]">
 
 		<div class="flex items-center justify-between space-x-2">
 			<div>
-				<img alt="" class="h-8 w-8 rounded-full" src="{{ asset("images/author.jpg") }}">
+				<img alt="" class="h-8 w-8 rounded-full" src="{{ asset('images/author.jpg') }}">
 				<span class="text-sm font-bold">John Doe</span>
 			</div>
 			<x-button class="btn-sm rounded bg-primary transition-all ease-in active:scale-95">Apply Rent</x-button>

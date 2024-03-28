@@ -54,4 +54,11 @@ class PropertyListingController extends Controller
         PropertyListing::destroy($id);
         return redirect()->route('property-all');
     }
+
+    public function category()
+    {
+    }
+    public function popular()
+    {
+    }
 }
