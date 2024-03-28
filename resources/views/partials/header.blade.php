@@ -1,39 +1,90 @@
-{{-- TODO: HEADER DESIGN --}}
 @php
 	$page = $page ?? "app";
 	$navItems = [
 	    ["label" => "Home", "link" => "/"],
-	    ["label" => "About", "link" => "/about"],
+	    [
+	        "label" => "Property",
+	        "link" => "/properties",
+	        "submenu" => [
+	            ["label" => "All Properties", "link" => "/properties"],
+	            ["label" => "Property Posts", "link" => "/properties/posts"],
+	            ["label" => "Categories", "link" => "/properties/category"],
+	            ["label" => "Popular Properties", "link" => "/properties/popular"],
+	        ],
+	    ],
+	    [
+	        "label" => "Units",
+	        "link" => "/units",
+	        "submenu" => [
+	            ["label" => "All Units", "link" => "/units"],
+	            ["label" => "Unit Posts", "link" => "/units/posts"],
+	            ["label" => "Categories", "link" => "/units/category"],
+	            ["label" => "Popular Units", "link" => "/units/popular"],
+	        ],
+	    ],
 	    ["label" => "Contact", "link" => "/contact"],
-	    ["label" => "Services", "link" => "/services"],
+	    ["label" => "About", "link" => "/about"],
 	];
+
 @endphp
 
-<x-nav full-width>
+<x-nav class="border-b-2 border-secondary" full-width>
 	{{-- start --}}
 	<x-slot:brand>
-		<x-button class="border-none bg-transparent hover:bg-transparent" link="/"><span
-				class="text-lg font-extrabold uppercase">Rent
-				App</span></x-button>
+		<div class="block lg:hidden">
+			@include("frontend.partials.mobile-header")
+		</div>
+
+		<x-button class="border-none bg-transparent hover:bg-transparent" link="/">
+			<span class="text-lg font-extrabold uppercase">Rent
+				App
+			</span>
+		</x-button>
 	</x-slot:brand>
 
 	{{-- end --}}
 	<x-slot:actions>
-		<div class="flex items-center space-x-4">
-			@switch($page)
-				@case("login")
-					<x-button class="btn btn-secondary" link="/register">Register</x-button>
-				@break
+		<div class="hidden items-center space-x-4 lg:flex">
+			{{-- Menu and Sub Menus --}}
+			@foreach ($navItems as $item)
+				@if (isset($item["submenu"]))
+					<div class="dropdown-end dropdown-hover dropdown transition duration-200 ease-in-out">
+						<div class="link flex items-center gap-2 font-bold no-underline hover:font-extrabold hover:text-primary"
+							role="button" tabindex="0">
+							<span>
+								{{ $item["label"] }}
 
-				@case("register")
-					<x-button class="btn btn-primary" link="/login">Login</x-button>
-				@break
+							</span>
+							<x-icon name='fas.angle-down' />
+						</div>
 
-				@default
-					<x-button class="btn btn-secondary" link="/register">Join Now</x-button>
-				@break
-			@endswitch
+						<ul
+							class="menu dropdown-content z-[1] mt-5 w-52 rounded-box border-t-2 border-primary bg-base-100 p-2 shadow transition duration-300 ease-in-out"
+							tabindex="0">
+							@foreach ($item["submenu"] as $subItem)
+								<li>
+									<a
+										class="animate__animated animate__fadeIn transition-all duration-300 ease-in-out hover:font-bold hover:text-primary"
+										href="{{ $subItem["link"] }}">
+										{{ $subItem["label"] }}
+									</a>
+								</li>
+							@endforeach
+						</ul>
+					</div>
+				@else
+					<div class="link font-bold no-underline hover:font-extrabold hover:text-primary" role="button" tabindex="0">
+						{{ $item["label"] }}
+					</div>
+				@endif
+
+				<div class="divider divider-horizontal"></div>
+			@endforeach
+
 		</div>
+		<x-button
+			class="hover:bg-btn-secondary btn-outline btn-primary bg-button-gradient bg-200% transition-all duration-500 ease-out hover:bg-right hover:text-white"
+			link="/register">Join Us</x-button>
 	</x-slot:actions>
 
 </x-nav>

@@ -1,8 +1,11 @@
 <x-app-layout>
-	@php
-		$id = Auth::user()->id;
-		$userData = App\Models\User::find($id);
-	@endphp
+
+	@if (Auth::check())
+		@php
+			$id = Auth::user()->id;
+			$userData = App\Models\User::find($id);
+		@endphp
+	@endif
 
 	@include("frontend.partials.header")
 	<div>

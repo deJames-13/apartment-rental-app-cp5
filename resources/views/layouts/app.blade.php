@@ -10,8 +10,7 @@
 		<title>{{ isset($title) ? $title . " - " . config("app.name") : config("app.name") }}</title>
 
 		<livewire:styles />
-		@vite(["resources/css/app.css", "resources/js/app.js"])
-
+		@vite(["resources/css/app.css"])
 		@yield("head")
 
 	</head>
@@ -22,6 +21,8 @@
 		{{-- Toast --}}
 		<x-toast />
 		<livewire:scripts />
+		@vite(["resources/js/app.js"])
+		<script src="frontend/assets/js/typing.js"></script>
 	</body>
 
 </html>

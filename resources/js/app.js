@@ -1,9 +1,8 @@
-import "./bootstrap";
+import './bootstrap'
 
-import Alpine from "alpinejs";
+import Alpine from 'alpinejs'
+import 'flowbite'
 
-window.Alpine = Alpine;
+window.Alpine = Alpine
 
-Alpine.start();
-
-import "flowbite";
+Alpine.start()

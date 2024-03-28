@@ -9,11 +9,17 @@ export default {
     './vendor/robsontenorio/mary/src/View/Components/**/*.php'
   ],
   variants: {
-    borderColor: ['responsive', 'hover', 'focus', 'focus-within']
+    borderColor: ['responsive', 'hover', 'focus', 'focus-within'],
+    backgroundSize: ['responsive', 'hover', 'focus'],
+    backgroundPosition: ['responsive', 'hover', 'focus']
   },
 
   theme: {
     extend: {
+      colors: {
+        'btn-primary': '#4D6EFF',
+        'btn-base': 'transparent'
+      },
       maxWidth: {
         a4: '210mm'
       },
@@ -22,6 +28,17 @@ export default {
       },
       zIndex: {
         '-1': '-1'
+      },
+      backgroundImage: (theme) => ({
+        'button-gradient':
+          'linear-gradient(to right, ' +
+          theme('colors.btn-base') +
+          ' 50%, ' +
+          theme('colors.btn-primary') +
+          ' 50%)'
+      }),
+      backgroundSize: {
+        '200%': '200%'
       }
     },
 

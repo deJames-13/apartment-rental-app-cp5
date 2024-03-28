@@ -30,9 +30,13 @@ Route::middleware('guest')->group(function () {
 
 // AUTH
 Route::middleware('auth')->group(function () {
-  Route::post('/logout ', [AuthController::class, 'logout'])->name('logout');
+
+
 
   Route::get('/home', function () {
     return view('frontend.index');
   })->name('home');
+
+  Route::get('/logout', [AuthController::class, 'login']);
+  Route::post('/logout ', [AuthController::class, 'logout'])->name('logout');
 });
