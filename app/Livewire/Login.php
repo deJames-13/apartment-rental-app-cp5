@@ -32,11 +32,17 @@ class Login extends Component
             'password' => $this->password,
         ]);
         app('session')->start();
-        app(AuthController::class)->authenticate($request);
+        $response = app(AuthController::class)->authenticate($request);
         $this->username = '';
         $this->email = '';
         $this->password = '';
-        return redirect()->to('/');
+
+        if ($response->getData()->success) {
+            return redirect()->to('/');
+        } else {
+            session()->flash('error', $response->getData()->error);
+            return redirect()->to('/login');
+        }
     }
 
     public function updated($propertyName)

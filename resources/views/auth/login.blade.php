@@ -1,4 +1,11 @@
 <div class="container prose mx-auto grid max-w-xl place-items-center p-6 lg:prose-xl">
+
+	@if (session('error'))
+		<div class="alert alert-error text-sm font-bold">
+			{{ session('error') }}
+		</div>
+	@endif
+
 	<x-form class='w-full py-6' method='post' wire:submit='save'>
 		@csrf
 		<x-input label="Username" type='text' wire:model='username' />
