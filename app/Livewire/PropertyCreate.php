@@ -46,25 +46,23 @@ class PropertyCreate extends Component
         'description' => 'nullable|string|max:255',
         'lowest_price' => 'nullable|numeric',
         'max_price' => 'nullable|numeric',
-        'status' => 'required|in:active,inactive',
+        'status' => 'sometimes',
     ];
 
     public function save()
     {
+
+        $this->validate($this->rules);
         $landlord_id = Auth::id();
         $data = request()->all()['components'][0]['updates'];
         $data['landlord_id'] = $landlord_id;
         $storeRequest = new StoreRequest();
         $storeRequest->merge($data);
         app('session')->start();
-
         $response = app(PropertyListingController::class)->store($storeRequest);
+        app('session')->save();
     }
 
-    public function updated($propertyName)
-    {
-        $this->validateOnly($propertyName);
-    }
 
     public function render()
     {

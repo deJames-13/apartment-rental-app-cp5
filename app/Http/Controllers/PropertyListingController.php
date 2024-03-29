@@ -42,7 +42,7 @@ class PropertyListingController extends Controller
             'max_price' => 'nullable|numeric',
         ]);
         PropertyListing::create($data);
-        return redirect()->route('properties.create');
+        return redirect()->route('properties.create')->with('message', 'Property Listing created successfully');
     }
 
     public function show(string $id)
