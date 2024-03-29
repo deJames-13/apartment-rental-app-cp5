@@ -20,10 +20,27 @@ class PropertyListingController extends Controller
         return view('frontend.property-listings.create');
     }
 
-    public function store(StoreRequest $request)
+    public function store(Request $request)
     {
-        dd($request->all());
-        $data = $request->validated();
+        $data = $request->validate([
+            'ptype_id' => 'nullable|exists:property_types,id',
+            'landlord_id' => 'required|exists:users,id',
+            'property_name' => 'required|string|max:255',
+            'property_status' => 'nullable|string|max:255',
+            'no_of_floors' => 'required|integer',
+            'no_of_units' => 'required|integer',
+            'address' => 'required|string|max:255',
+            'city' => 'required|string|max:255',
+            'region' => 'required|string|max:255',
+            'country' => 'required|string|max:255',
+            'postal_code' => 'required|string|max:255',
+            'default_price' => 'required|numeric',
+            'property_thumbnail' => 'nullable|string|max:255',
+            'heading' => 'nullable|string|max:255',
+            'description' => 'nullable|string|max:255',
+            'lowest_price' => 'nullable|numeric',
+            'max_price' => 'nullable|numeric',
+        ]);
         PropertyListing::create($data);
         return redirect()->route('properties.create');
     }

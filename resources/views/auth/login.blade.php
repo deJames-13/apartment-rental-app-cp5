@@ -6,7 +6,7 @@
 		</div>
 	@endif
 
-	<x-form class='w-full py-6' method='post' wire:submit='save'>
+	<x-form class='w-full py-6' method='post' wire:submit.prevent='save'>
 		@csrf
 		<x-input label="Username" type='text' wire:model='username' />
 		<x-input label="Email" type='email' wire:model='email' />

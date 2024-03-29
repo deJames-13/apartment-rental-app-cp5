@@ -14,7 +14,7 @@ return new class extends Migration
     Schema::create('property_listings', function (Blueprint $table) {
       $table->id();
 
-      $table->unsignedBigInteger('ptype_id');
+      $table->unsignedBigInteger('ptype_id')->nullable();
       $table->foreign('ptype_id')->references('id')->on('property_types')->onDelete('cascade');
 
 
