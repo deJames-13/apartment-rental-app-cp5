@@ -8,12 +8,19 @@ use Illuminate\View\Component;
 
 class Modal extends Component
 {
+    public $id;
+    public $title;
+
     /**
      * Create a new component instance.
+     *
+     * @param  string  $id
+     * @param  string  $title
      */
-    public function __construct()
+    public function __construct($id, $title)
     {
-        //
+        $this->id = $id;
+        $this->title = $title;
     }
 
     /**

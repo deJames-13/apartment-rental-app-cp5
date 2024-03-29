@@ -1,8 +1,7 @@
-<x-modal id="{{ $id }}" title="{{ $title }}">
+<x-modal wire:model="{{ $id }}" persistent class="backdrop-blur">
 	<div>
-		{{ $slot }}
+		{{ $body }}
 	</div>
-
 	<x-slot:actions>
 		{{ $actions ?? '' }}
 	</x-slot:actions>
