@@ -18,7 +18,7 @@ class CheckRole
     public function handle(Request $request, Closure $next, ...$roles)
     {
         if (!Auth::check() || !in_array(Auth::user()->role, $roles)) {
-            Auth::logout(); // Logout the user
+            // Auth::logout(); // Logout the user
             abort(403, 'Unauthorized action.');
         }
 

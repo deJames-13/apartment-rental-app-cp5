@@ -33,6 +33,12 @@ export default {
         '-1': '-1'
       },
       backgroundImage: (theme) => ({
+        'button-gradient-bottom':
+          'linear-gradient(to bottom, ' +
+          theme('colors.btn-base') +
+          ' 50%, ' +
+          theme('colors.btn-primary') +
+          ' 50%)',
         'button-gradient':
           'linear-gradient(to right, ' +
           theme('colors.btn-base') +

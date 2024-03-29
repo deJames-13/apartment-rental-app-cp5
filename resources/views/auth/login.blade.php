@@ -12,10 +12,14 @@
 		<x-input label="Email" type='email' wire:model='email' />
 		<x-input icon="o-key" label="Password" type="password" wire:model="password" />
 		<div class="divider"></div>
-		<x-button class='btn btn-primary w-full px-6' spinner="save" type="submit">LOG IN</x-button>
+		<x-button
+			class="hover:bg-btn-secondary btn-outline btn-primary bg-button-gradient bg-200% transition-all duration-500 ease-out hover:bg-right hover:text-white"
+			type="submit" spinner="save">
+			Log In
+		</x-button>
 	</x-form>
 	<p class="text-xs">Doesn't have an account?
-		<x-button class='link border-none bg-transparent p-1 hover:bg-transparent' link='login'>
+		<x-button class='link border-none bg-transparent p-1 hover:bg-transparent' link='register'>
 			Register
 		</x-button>
 	</p>

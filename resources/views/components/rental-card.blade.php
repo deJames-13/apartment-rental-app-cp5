@@ -1,4 +1,4 @@
-<div class="container relative overflow-hidden rounded-xl bg-transparent shadow-xl">
+<div class="container relative overflow-hidden rounded-xl bg-base-100 shadow-xl">
 	<div class="relative">
 		<div class="relative z-10 mx-3 flex items-center">
 			<x-icon class="absolute -top-1 left-0 h-12" name="ri.bookmark-fill" />

@@ -13,8 +13,9 @@
 		<x-card class="mx-auto my-6 container max-w-xl">
 			<div role="tablist" class="tabs tabs-boxed">
 				<x-button link='/login' role="tab"
-					class="tab btn-sm {{ $active === 'login' ? 'tab-active' : '' }}">Login</x-button>
-				<x-button link='/register' class="tab btn-sm {{ $active === 'register' ? 'tab-active' : '' }}">Register</x-button>
+					class="tab text-lg font-bold {{ $active === 'login' ? 'tab-active' : '' }}">Login</x-button>
+				<x-button link='/register'
+					class="tab text-lg font-bold {{ $active === 'register' ? 'tab-active' : '' }}">Register</x-button>
 			</div>
 			@switch($active)
 				@case('register')

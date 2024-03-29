@@ -10,14 +10,16 @@
 		<x-input label="Email" type='email' wire:model='email' value="{{ old('email') }}" debounce='300ms' />
 		<x-input label="Password" wire:model="password" icon="o-key" type="password" />
 		<x-input label="Confirm Password" type='password' icon="o-key" wire:model='password_confirmation' />
-		<x-slot:actions>
-			<x-button class='w-full px-6 btn btn-primary' type="submit" spinner="save">Submit</x-button>
-		</x-slot:actions>
+		<div class="divider"></div>
+		<x-button
+			class="hover:bg-btn-secondary btn-outline btn-primary bg-button-gradient bg-200% transition-all duration-500 ease-out hover:bg-right hover:text-white"
+			type="submit" spinner="save">
+			Submit
+		</x-button>
 	</x-form>
 	<p class="text-xs">Already have an account?
 		<x-button link='login' class='link bg-transparent border-none hover:bg-transparent p-1'>
 			Login
 		</x-button>
-
 	</p>
 </div>

@@ -51,3 +51,15 @@
     opacity: 1;
   }
 }
+
+/* bg color sliding effect top to bottom on hover */
+.bg-slide {
+  background: linear-gradient(to bottom, #fff 50%, #9999ff 50%);
+  background-size: 100% 200%;
+  transition: background-position 0.3s ease-in;
+}
+
+.bg-slide:hover {
+  background-position: 0% -100%;
+  color: #fff;
+}

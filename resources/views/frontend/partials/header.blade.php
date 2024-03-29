@@ -96,6 +96,12 @@
 
 		</div>
 
+		{{-- User Image --}}
+		<x-button link="/profile" class="avatar bg-transparent border-none hover:bg-transparent">
+			<div class="w-9 rounded ring ring-primary ring-offset-base-100 ring-offset-2">
+				<img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+			</div>
+		</x-button>
 		{{-- logout button form --}}
 		<livewire:logout />
 

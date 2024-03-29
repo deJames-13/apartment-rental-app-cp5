@@ -1,11 +1,16 @@
 @if (Auth::check())
-	@include("frontend.index")
+	@include('frontend.index')
 @else
 	<x-guest-layout>
 		<div class="bg-image">
-			@include("frontend.partials.banner")
+			@include('frontend.partials.banner')
 
-			@include("frontend.partials.featured")
+			{{-- FEATURED --}}
+			@include('frontend.partials.featured')
+
+			{{-- CATEGORIES --}}
+			@include('frontend.partials.categories')
+
 		</div>
 
 	</x-guest-layout>

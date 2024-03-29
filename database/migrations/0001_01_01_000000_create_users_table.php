@@ -25,6 +25,9 @@ return new class extends Migration
       $table->text('address')->nullable();
       $table->enum('role', ['admin', 'agent', 'landlord', 'tenant', 'user'])->default('user');
       $table->enum('status', ['active', 'inactive'])->default('active');
+      $table->date('birthdate')->nullable();
+      $table->int('age')->nullable();
+      $table->string('occupation')->nullable();
       $table->rememberToken();
       $table->timestamps();
       $table->softDeletes();
