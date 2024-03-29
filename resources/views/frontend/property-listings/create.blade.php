@@ -1,3 +1,3 @@
 <x-default-layout>
-	<livewire:property-create />
+	<livewire:property-form />
 </x-default-layout>

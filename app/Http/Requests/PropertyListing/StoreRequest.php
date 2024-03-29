@@ -22,7 +22,6 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'ptype_id' => 'nullable|exists:property_types,id',
             'landlord_id' => 'required|exists:users,id',
             'property_name' => 'required|string|max:255',
             'property_status' => 'nullable|string|max:255',
@@ -39,7 +38,8 @@ class StoreRequest extends FormRequest
             'description' => 'nullable|string|max:255',
             'lowest_price' => 'nullable|numeric',
             'max_price' => 'nullable|numeric',
-            'status' => 'nullable|in:active,inactive',
+            'status' => 'nullable',
+            'type' => 'nullable',
         ];
     }
 }

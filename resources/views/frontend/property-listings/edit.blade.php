@@ -1,3 +1,5 @@
 <x-default-layout>
-	<livewire:property-create />
+	@isset($property)
+		<livewire:property-form :property="$property" />
+	@endisset
 </x-default-layout>

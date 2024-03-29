@@ -11,7 +11,7 @@ class PropertyListingController extends Controller
 {
     public function index()
     {
-        $propertyListings = PropertyListing::all();
+        $propertyListings = PropertyListing::paginate(10)->sortByDesc('created_at');
         return view('frontend.property-listings.index', compact('propertyListings'));
     }
 
@@ -20,42 +20,25 @@ class PropertyListingController extends Controller
         return view('frontend.property-listings.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        $data = $request->validate([
-            'ptype_id' => 'nullable|exists:property_types,id',
-            'landlord_id' => 'required|exists:users,id',
-            'property_name' => 'required|string|max:255',
-            'property_status' => 'nullable|string|max:255',
-            'no_of_floors' => 'required|integer',
-            'no_of_units' => 'required|integer',
-            'address' => 'required|string|max:255',
-            'city' => 'required|string|max:255',
-            'region' => 'required|string|max:255',
-            'country' => 'required|string|max:255',
-            'postal_code' => 'required|string|max:255',
-            'default_price' => 'required|numeric',
-            'property_thumbnail' => 'nullable|string|max:255',
-            'heading' => 'nullable|string|max:255',
-            'description' => 'nullable|string|max:255',
-            'lowest_price' => 'nullable|numeric',
-            'max_price' => 'nullable|numeric',
-        ]);
-        PropertyListing::create($data);
+        dd($request->all());
+        $data = $request->validated();
+        PropertyListing::create($$data);
         return redirect()->route('properties.create')->with('message', 'Property Listing created successfully');
     }
 
     public function show(string $id)
     {
-        $listing = PropertyListing::findOrFail($id);
-        return view('frontend.property-listings.show', compact('listing'));
+        $property = PropertyListing::findOrFail($id);
+        return view('frontend.property-listings.show', compact('property'));
     }
 
 
     public function edit(string $id)
     {
-        $listing = PropertyListing::findOrFail($id);
-        return view('frontend.property-listings.edit', compact('listing'));
+        $property = PropertyListing::findOrFail($id);
+        return view('frontend.property-listings.edit', compact('property'));
     }
 
     public function update(UpdateRequest $request, string $id)

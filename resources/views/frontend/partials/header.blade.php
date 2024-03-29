@@ -40,7 +40,7 @@
 
 @endphp
 
-<x-nav class="border-b-2 border-secondary" full-width>
+<x-nav class="border-b-2 border-secondary relative z-50" full-width>
 	{{-- start --}}
 	<x-slot:brand>
 		<div class="block lg:hidden">
@@ -61,14 +61,15 @@
 			@foreach ($navItems as $item)
 				@if (isset($item['submenu']))
 					<div class="dropdown-end dropdown-hover dropdown transition duration-200 ease-in-out">
-						<div class="link flex items-center gap-2 font-bold no-underline hover:font-extrabold hover:text-primary"
-							role="button" tabindex="0">
+						<x-button
+							class="bg-transparent border-none m-0 p-0 shadow-none hover:bg-transparent link flex items-center gap-2 font-bold no-underline hover:font-extrabold hover:text-primary"
+							link="{{ $item['link'] }}" role="button" tabindex="0">
 							<span>
 								{{ $item['label'] }}
 
 							</span>
 							<x-icon name='fas.angle-down' />
-						</div>
+						</x-button>
 
 						<ul
 							class="menu dropdown-content z-[1] mt-5 w-52 rounded-box border-t-2 border-primary bg-base-100 p-2 shadow transition duration-300 ease-in-out"

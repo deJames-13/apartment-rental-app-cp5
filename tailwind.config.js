@@ -7,6 +7,7 @@ export default {
 
     // Add mary
     './vendor/robsontenorio/mary/src/View/Components/**/*.php',
+    './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
     // Add Blade UI
     './vendor/blade-ui-kit/blade-ui-kit/src/**/*.php'
   ],
