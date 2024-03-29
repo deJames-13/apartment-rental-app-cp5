@@ -6,7 +6,9 @@ export default {
     './resources/**/*.vue',
 
     // Add mary
-    './vendor/robsontenorio/mary/src/View/Components/**/*.php'
+    './vendor/robsontenorio/mary/src/View/Components/**/*.php',
+    // Add Blade UI
+    './vendor/blade-ui-kit/blade-ui-kit/src/**/*.php'
   ],
   variants: {
     borderColor: ['responsive', 'hover', 'focus', 'focus-within'],
