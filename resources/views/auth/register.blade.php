@@ -32,11 +32,18 @@
 					<x-input label="Password" wire:model="password" icon="o-key" type="password" />
 					<x-input label="Confirm Password" type='password' icon="o-key" wire:model='password_confirmation' />
 					<div class="divider"></div>
+
+
 					<x-button
 						class="bg-base-100 hover:bg-btn-secondary btn-outline btn-primary bg-button-gradient bg-200% transition-all duration-500 ease-out hover:bg-right hover:text-white"
 						type="submit" spinner="save">
-						Submit
+						Continue
 					</x-button>
+					{{-- <x-button
+						class="bg-base-100 hover:bg-btn-secondary btn-outline btn-primary bg-button-gradient bg-200% transition-all duration-500 ease-out hover:bg-right hover:text-white"
+						type="submit" spinner="save">
+						Submit
+					</x-button> --}}
 				</x-form>
 			</div>
 

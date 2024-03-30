@@ -78,3 +78,38 @@
   background-position: center;
   background-repeat: no-repeat;
 }
+
+.bg-slide {
+  background: linear-gradient(to bottom, #fff 50%, #4d6eff 50%);
+  background-size: 100% 200%;
+  transition: background-position 0.3s linear;
+}
+
+.bg-slide:hover {
+  background-color: #4d6eff;
+  background-position: 0% -100%;
+}
+
+.bg-slide-r {
+  background: linear-gradient(to right, #fff 50%, #4d6eff 50%);
+  background-size: 200% 100%;
+  transition: background-position 0.1s linear;
+}
+
+.bg-slide-r:hover {
+  background-color: #4d6eff;
+  background-position: -100% 0%;
+  color: #fff;
+}
+
+.bg-slide-l {
+  background: linear-gradient(to left, #4d6eff 50%, #fff 50%);
+  background-size: 200% 100%;
+  transition: background-position 0.1s linear;
+}
+
+.bg-slide-l:hover {
+  background-color: #4d6eff;
+  background-position: 100% 0%;
+  color: #fff;
+}

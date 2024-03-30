@@ -1,4 +1,4 @@
-<div class="relative z-1 min-h-sceen bg-white">
+<div id="featured" class="relative z-1 min-h-sceen bg-white">
 	<div class="min-h-sceen flex flex-col items-center space-y-6 bg-primary bg-opacity-10 p-6 md:p-12">
 
 		<h3 class="text-center text-lg font-bold uppercase text-primary">Features</h3>

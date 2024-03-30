@@ -88,9 +88,7 @@
 			@endforeach
 
 		</div>
-		<x-button
-			class="hover:bg-btn-secondary btn-outline btn-primary bg-button-gradient bg-200% transition-all duration-500 ease-out hover:bg-right hover:text-white"
-			link="/register">Join Us</x-button>
+		<x-button class="bg-slide-r border border-primary hover:text-white" link="/register">Join Us</x-button>
 	</x-slot:actions>
 
 </x-nav>

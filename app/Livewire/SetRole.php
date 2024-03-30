@@ -10,6 +10,10 @@ class SetRole extends Component
     public function setRole()
     {
         dd($this->role);
+        $user_data = session('user_data');
+        $user_data['role'] = $this->role;
+
+        dd(session('user_data'));
     }
 
     public function updatedRole($value)
