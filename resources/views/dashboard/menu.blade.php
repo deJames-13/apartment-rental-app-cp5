@@ -41,7 +41,7 @@
 	            [
 	                'label' => 'Add Units',
 	                'icon' => 'fas.plus',
-	                'link' => '/units/posts/create',
+	                'link' => '/units/create',
 	            ],
 	            [
 	                'label' => 'Search Unit',

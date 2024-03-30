@@ -13,6 +13,7 @@ Route::get('/verify/{token}', [AuthController::class, 'verifyEmail'])->name('ver
 
 Route::middleware(['verified'])->group(function () {
 
+    Route::get('/', [AppController::class, 'default'])->name('home');
     Route::get('/home', [AppController::class, 'default'])->name('home');
     Route::get('/logout', [AuthController::class, 'login']);
     Route::post('/logout ', [AuthController::class, 'logout'])->name('logout');
@@ -34,14 +35,12 @@ Route::middleware(['verified'])->group(function () {
 
 
         // Properties
-        Route::get('/properties', [PropertyListingController::class, 'index'])->name('properties.all');
         Route::get('/properties/posts/create', [PropertyListingController::class, 'create'])->name('properties.create');
         Route::post('/properties/posts/create', [PropertyListingController::class, 'store'])->name('properties.store');
         Route::get('/properties/posts/edit/{id}', [PropertyListingController::class, 'edit'])->name('properties.edit');
         Route::post('/properties/posts/edit/{id}', [PropertyListingController::class, 'update'])->name('properties.update');
 
         // Units
-        Route::get('/units', [UnitController::class, 'index'])->name('units.all');
         Route::get('/units/create', [UnitController::class, 'create'])->name('units.create');
         Route::post('/units/create', [UnitController::class, 'store'])->name('units.store');
         Route::get('/units/edit/{id}', [UnitController::class, 'edit'])->name('units.edit');

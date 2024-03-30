@@ -16,11 +16,9 @@
 			</div>
 
 			{{-- actions --}}
-			<div class="grid grid-cols-4 gap-4 ">
+			<div class="flex justify-end gap-4 ">
 				<div></div>
-				<div></div>
-				<x-button link="{{ route('properties.create') }}"
-					class="text-white max-w-xs btn-outline bg-green-400 border-green-400">
+				<x-button link="{{ route('units.create') }}" class="text-white max-w-xs btn-outline bg-green-400 border-green-400">
 					<x-icon name="fas.home" />
 					<span>Add Unit</span>
 				</x-button>
@@ -29,6 +27,11 @@
 					<x-icon name="fas.plus" />
 					<span>Add Property</span>
 				</x-button>
+				<div>
+					<x-button link="{{ route('properties.create') }}" class="text-white bg-red-400 ">
+						<x-icon name="fas.trash" />
+					</x-button>
+				</div>
 
 			</div>
 

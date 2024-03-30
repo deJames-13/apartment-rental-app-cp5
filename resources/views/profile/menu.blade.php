@@ -28,7 +28,7 @@
 	            [
 	                'label' => 'Add Property',
 	                'icon' => 'fas.plus',
-	                'link' => '/profile/properties/add',
+	                'link' => '/properties/posts/create',
 	            ],
 	            [
 	                'label' => 'Search Property',
@@ -50,12 +50,12 @@
 	            [
 	                'label' => 'Add Units',
 	                'icon' => 'fas.plus',
-	                'link' => '/profile/units/add',
+	                'link' => '/units/create',
 	            ],
 	            [
 	                'label' => 'Search Unit',
 	                'icon' => 'fas.magnifying-glass',
-	                'link' => '/profile/properties/search',
+	                'link' => '/profile/units/search',
 	            ],
 	        ],
 	    ],

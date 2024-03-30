@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\PropertyListing;
 use App\Models\Unit;
 use Livewire\Component;
 use Illuminate\Support\Str;
@@ -11,8 +12,9 @@ class UnitForm extends Component
 {
     use WithFileUploads;
     public $property;
-    public $propertyId, $unit_code, $floor_number, $no_of_bedroom, $no_of_bathroom, $unit_thumbnail, $date_posted, $date_available_from, $description, $heading, $status;
+    public $property_id, $unit_code, $floor_number, $no_of_bedroom, $no_of_bathroom, $unit_thumbnail, $date_posted, $date_available_from, $description, $heading, $status;
     protected $rules = [
+        'property_id' => 'required|string|max:255',
         'unit_code' => 'required|string|max:255',
         'floor_number' => 'required|integer',
         'no_of_bedroom' => 'required|integer',
@@ -27,7 +29,7 @@ class UnitForm extends Component
 
     public function mount()
     {
-        $this->unit_code = strtoupper(Str::random(10) . now()->second);
+        $this->unit_code = strtoupper(Str::random(10) . date('dHis'));
     }
 
     public function save()
@@ -40,9 +42,13 @@ class UnitForm extends Component
             $validatedData['unit_thumbnail'] = 'unit-thumbnails/' . $filename;
         }
 
-        $validatedData['property_id'] = $this->propertyId;
 
         Unit::create($validatedData);
+        // update the number of units of the property
+        $property = PropertyListing::find($this->property_id);
+        $property->update([
+            'no_of_units' => $property->units->count()
+        ]);
 
         session()->flash('message', 'Unit created successfully');
         return redirect()->route('units.create');
