@@ -51,9 +51,6 @@ class Register extends Component
 
         Session::put('user_data', $request->all());
         $this->dispatch('save-success');
-
-        // app(AuthController::class)->store($request);
-        // return redirect()->to('/');
     }
 
     public function updated($propertyName)

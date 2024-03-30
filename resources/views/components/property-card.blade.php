@@ -73,6 +73,9 @@
 			</div>
 		</div>
 
+		<h4 class="text-sm text-gray-500 font-bold">
+			{{ $property->heading }}
+		</h4>
 		<p class="text-sm text-gray-500">
 			{{ $property->description }}
 		</p>

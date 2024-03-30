@@ -1,5 +1,5 @@
 <x-guest-layout>
-	<div x-data="{ step: 2 }" x-on:save-success="step = 1"">
+	<div x-data="{ step: 0 }" x-on:save-success="step = 1"">
 		@switch($active)
 			@case('register')
 				{{-- Step 1 --}}

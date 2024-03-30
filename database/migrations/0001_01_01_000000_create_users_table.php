@@ -27,11 +27,10 @@ return new class extends Migration
       $table->string('postal_code')->nullable();
       $table->timestamp('email_verified_at')->nullable();
       $table->string('image_path')->nullable();
-      $table->text('address')->nullable();
       $table->enum('role', ['admin', 'agent', 'landlord', 'tenant', 'user'])->default('user');
       $table->enum('status', ['active', 'inactive'])->default('active');
       $table->date('birthdate')->nullable();
-      $table->int('age')->nullable();
+      $table->integer('age')->nullable();
       $table->string('occupation')->nullable();
       $table->rememberToken();
       $table->timestamps();

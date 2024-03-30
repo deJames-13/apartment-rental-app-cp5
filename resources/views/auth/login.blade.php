@@ -21,8 +21,14 @@
 					</x-button>
 				</p>
 
+
 				<x-form class='max-w-lg w-full py-6' method='post' wire:submit.prevent='save'>
 					@csrf
+					@if (session('error'))
+						<div class="max-w-lg text-red-600 text-sm font-bold">
+							{{ session('error') }}
+						</div>
+					@endif
 					<x-input label="Username" type='text' wire:model='username' />
 					<x-input label="Email" type='email' wire:model='email' />
 					<x-input icon="o-key" label="Password" type="password" wire:model="password" />

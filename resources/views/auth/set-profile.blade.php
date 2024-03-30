@@ -42,9 +42,9 @@
 
 										@if ($image_path)
 											@if (is_object($image_path))
-												<img id="profile_image" src="{{ $image_path->temporaryUrl() }}" class="mt-2">
+												<img id="profile_image" src="{{ $image_path->temporaryUrl() }}">
 											@else
-												<img src="{{ Storage::url($profile_image) }}" class="mt-2">
+												<img src="{{ Storage::url($profile_image) }}">
 											@endif
 										@else
 											<img id="profile_image" src="{{ asset('images/author.jpg') }}" />>
@@ -52,8 +52,15 @@
 									</div>
 								</div>
 								<div>
-									<x-input type="file" accept="image/*" class="text-white file-input file-input-bordered w-full max-w-1/4"
-										label="Profile Image" name="image_path" wire:model="image_path" />
+									<x-input hidden type="file" accept="image/*"
+										class="text-white file-input file-input-bordered w-full max-w-1/4" name="image_path"
+										wire:model="image_path" />
+									{{-- label for image --}}
+									<x-button class="bg-transparent border-primary bg-slide-l" type="button"
+										onclick="document.querySelector('.file-input').click()">
+										Upload Image
+									</x-button>
+
 								</div>
 							</div>
 							<div class="flex gap-4 max-w-lg">
@@ -67,9 +74,9 @@
 
 							<div class="max-w-lg flex gap-4" x-data="{ birthdate: '', age: '' }" x-init="$watch('birthdate', value => calculateAge(value))">
 								<div class="w-full">
-									<x-datetime class="" label="Birthdate" x-model="birthdate" icon="o-calendar" />
+									<x-datetime class="" label="Birthdate" x-model="birthdate" wire:model="birthdate" icon="o-calendar" />
 								</div>
-								<x-input class="w-1/5" label="Age" name="age" readonly type='text' x-text="age" />
+								<x-input class="w-1/5" label="Age" name="age" readonly type='text' wire:model="age" x-text="age" />
 							</div>
 
 
@@ -91,7 +98,7 @@
 
 						<div class="max-w-lg w-full flex justify-between">
 
-							<x-button class="mt-12 bg-transparent bg-slide-l" type="submit" spinner="setProfile">
+							<x-button class="mt-12 bg-transparent bg-slide-l" wire:click="skip" spinner="skip">
 								Skip for now
 							</x-button>
 							<x-button class="mt-12 bg-transparent bg-slide-l" type="submit" spinner="setProfile">

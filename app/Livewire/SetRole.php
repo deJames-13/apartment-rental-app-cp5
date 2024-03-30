@@ -10,10 +10,6 @@ class SetRole extends Component
     public function setRole()
     {
         dd($this->role);
-        $user_data = session('user_data');
-        $user_data['role'] = $this->role;
-
-        dd(session('user_data'));
     }
 
     public function updatedRole($value)
@@ -21,6 +17,13 @@ class SetRole extends Component
         $this->validate([
             'role' => 'required|in:landlord,tenant',
         ]);
+        $user_data = session('user_data');
+        $user_data['role'] = $this->role;
+
+        session()->put('user_data', $user_data);
+
+
+        // dd(session('user_data'));
     }
 
     public function render()

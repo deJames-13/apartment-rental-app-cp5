@@ -43,15 +43,6 @@ Route::middleware(['auth'])->group(function () {
   Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 
 
-  // PROPERTIES GLOBAL
-  Route::get('/properties', [PropertyListingController::class, 'index'])->name('properties.index');
-  Route::get('/properties/posts', [PropertyListingController::class, 'index'])->name('properties.posts');
-  Route::get('/properties', [PropertyListingController::class, 'index'])->name('properties.index');
-  Route::get('/properties/{id}', [PropertyListingController::class, 'show'])->name('properties.show');
-  Route::get('/properties/category', [PropertyListingController::class, 'category'])->name('properties.category');
-  Route::get('/properties/popular', [PropertyListingController::class, 'popular'])->name('properties.popular');
-
-
   Route::middleware('role:landlord')->group(function () {
 
     // PROPERTIES LANDLORD
@@ -67,3 +58,15 @@ Route::middleware(['auth'])->group(function () {
   Route::middleware('role:admin')->group(function () {
   });
 });
+
+
+
+// GLOBAL
+
+
+// PROPERTIES GLOBAL
+Route::get('/properties', [PropertyListingController::class, 'index'])->name('properties.index');
+Route::get('/properties/posts', [PropertyListingController::class, 'index'])->name('properties.posts');
+Route::get('/properties/{id}', [PropertyListingController::class, 'show'])->name('properties.show');
+Route::get('/properties/category', [PropertyListingController::class, 'category'])->name('properties.category');
+Route::get('/properties/popular', [PropertyListingController::class, 'popular'])->name('properties.popular');
