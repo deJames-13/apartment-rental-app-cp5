@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropertyListingController;
+use App\Http\Controllers\UnitController;
 
 // AUTH
 Route::get('/verify/{token}', [AuthController::class, 'verifyEmail'])->name('verify-email')->middleware('auth');
@@ -38,6 +39,13 @@ Route::middleware(['verified'])->group(function () {
         Route::post('/properties/posts/create', [PropertyListingController::class, 'store'])->name('properties.store');
         Route::get('/properties/posts/edit/{id}', [PropertyListingController::class, 'edit'])->name('properties.edit');
         Route::post('/properties/posts/edit/{id}', [PropertyListingController::class, 'update'])->name('properties.update');
+
+        // Units
+        Route::get('/units', [UnitController::class, 'index'])->name('units.all');
+        Route::get('/units/create', [UnitController::class, 'create'])->name('units.create');
+        Route::post('/units/create', [UnitController::class, 'store'])->name('units.store');
+        Route::get('/units/edit/{id}', [UnitController::class, 'edit'])->name('units.edit');
+        Route::post('/units/edit/{id}', [UnitController::class, 'update'])->name('units.update');
     });
 
     Route::middleware('role:tenant')->group(function () {

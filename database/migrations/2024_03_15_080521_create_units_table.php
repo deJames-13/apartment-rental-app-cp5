@@ -21,14 +21,14 @@ return new class extends Migration
       $table->tinyInteger('floor_number');
       $table->tinyInteger('no_of_bedroom')->default(0);
       $table->tinyInteger('no_of_bathroom')->default(0);
-      $table->string('unit_thambnail')->nullable();
+      $table->string('unit_thumbnail')->nullable();
       $table->tinyInteger('date_posted')->nullable();
       $table->tinyInteger('date_available_from')->nullable();
       $table->string('description')->nullable();
       $table->string('heading')->nullable();
 
 
-      $table->enum('status', ['available', 'occupied', 'inactive'])->default('inactive');
+      $table->enum('status', ['available', 'unavailable', 'inactive'])->default('inactive');
       $table->softDeletes();
       $table->timestamps();
     });

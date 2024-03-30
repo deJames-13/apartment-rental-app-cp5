@@ -30,7 +30,6 @@ class PropertyListingController extends Controller
 
     public function store(StoreRequest $request)
     {
-        dd($request->all());
         $data = $request->validated();
         PropertyListing::create($$data);
         return redirect()->route('properties.create')->with('message', 'Property Listing created successfully');
@@ -46,21 +45,31 @@ class PropertyListingController extends Controller
     public function edit(string $id)
     {
         $property = PropertyListing::findOrFail($id);
+        if ($property->landlord_id !== auth()->id()) {
+            abort(403);
+        }
         return view('frontend.property-listings.edit', compact('property'));
     }
 
     public function update(UpdateRequest $request, string $id)
     {
         $data = $request->validated();
-        $listing = PropertyListing::findOrFail($id);
-        $listing->update($data);
+        $property = PropertyListing::findOrFail($id);
+        if ($property->landlord_id !== auth()->id()) {
+            abort(403);
+        }
+        $property->update($data);
         return redirect()->route('properties.create');
     }
 
     public function destroy(string $id)
     {
         // Soft delete
-        PropertyListing::destroy($id);
+        $property = PropertyListing::findOrFail($id);
+        if ($property->landlord_id !== auth()->id()) {
+            abort(403);
+        }
+        $property = PropertyListing::destroy($id);
         return redirect()->route('properties.create');
     }
 

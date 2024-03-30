@@ -74,7 +74,6 @@ class PropertyForm extends Component
 
 
 
-        // dd($validatedData);
         PropertyListing::create($validatedData);
         session()->flash('message', 'Property Listing created successfully');
         return redirect()->route('properties.create');
@@ -94,7 +93,7 @@ class PropertyForm extends Component
             'country' => 'sometimes|string|max:255',
             'postal_code' => 'sometimes|string|max:255',
             'default_price' => 'sometimes|numeric',
-            'property_thumbnail' => 'nullable|string|max:255',
+            'property_thumbnail' => 'nullable',
             'heading' => 'nullable|string|max:255',
             'description' => 'nullable|string|max:255',
             'lowest_price' => 'nullable|numeric',

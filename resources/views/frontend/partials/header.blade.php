@@ -20,7 +20,7 @@
 	        'link' => '/units',
 	        'submenu' => [
 	            ['label' => 'All Units', 'link' => '/units'],
-	            ['label' => 'Post Unit', 'link' => '/unit/posts/create'],
+	            ['label' => 'Post Unit', 'link' => '/units/create'],
 	            ['label' => 'Unit Posts', 'link' => '/units/posts'],
 	            ['label' => 'Categories', 'link' => '/units/category'],
 	            ['label' => 'Popular Units', 'link' => '/units/popular'],

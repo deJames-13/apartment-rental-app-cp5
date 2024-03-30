@@ -1,3 +1,3 @@
-<x-default-layout>
-
-</x-default-layout>
+<x-dashboard-layout>
+	<livewire:unit-form />
+</x-dashboard-layout>
