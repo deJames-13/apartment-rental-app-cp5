@@ -8,8 +8,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropertyListingController;
 
 // AUTH
-Route::middleware(['auth'])->group(function () {
+Route::get('/verify/{token}', [AuthController::class, 'verifyEmail'])->name('verify-email')->middleware('auth');
 
+Route::middleware(['verified'])->group(function () {
 
     Route::get('/home', [AppController::class, 'default'])->name('home');
     Route::get('/logout', [AuthController::class, 'login']);
@@ -32,6 +33,7 @@ Route::middleware(['auth'])->group(function () {
 
 
         // Properties
+        Route::get('/properties', [PropertyListingController::class, 'index'])->name('properties.all');
         Route::get('/properties/posts/create', [PropertyListingController::class, 'create'])->name('properties.create');
         Route::post('/properties/posts/create', [PropertyListingController::class, 'store'])->name('properties.store');
         Route::get('/properties/posts/edit/{id}', [PropertyListingController::class, 'edit'])->name('properties.edit');

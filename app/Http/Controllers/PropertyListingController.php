@@ -11,7 +11,15 @@ class PropertyListingController extends Controller
 {
     public function index()
     {
-        $propertyListings = PropertyListing::paginate(10)->sortByDesc('created_at');
+        $propertyListings = PropertyListing::paginate(10);
+        return view('frontend.property-listings.index', compact('propertyListings'));
+    }
+    public function dash()
+    {
+        $userId = auth()->id();
+        $propertyListings = PropertyListing::where('landlord_id', $userId)
+            ->orderByDesc('created_at')
+            ->paginate(10);
         return view('frontend.property-listings.index', compact('propertyListings'));
     }
 

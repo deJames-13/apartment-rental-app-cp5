@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 // Test View
 Route::get('/test', function () {
-  return view('auth.index', ['active' => 'set-role']);
+  return view('mail.email-verify', ['user' => auth()->user(), 'verificationUrl' => url('/') . '/verify/' .  auth()->user()->remember_token]);
 });
 
 // GUEST

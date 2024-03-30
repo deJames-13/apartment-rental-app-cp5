@@ -37,7 +37,9 @@ final class PropertyTable extends PowerGridComponent
 
     public function datasource(): Builder
     {
-        return PropertyListing::query();
+        $user = auth()->user();
+        $landlord_id = auth()->id();
+        return PropertyListing::where('landlord_id', $landlord_id);
     }
 
     public function relationSearch(): array
@@ -49,7 +51,6 @@ final class PropertyTable extends PowerGridComponent
     {
         return PowerGrid::fields()
             ->add('id')
-            ->add('landlord_id')
             ->add('type')
             ->add('property_name')
             ->add('default_price')
@@ -63,7 +64,6 @@ final class PropertyTable extends PowerGridComponent
     {
         return [
             Column::make('Id', 'id'),
-            Column::make('Landlord id', 'landlord_id'),
             Column::make('Type', 'type')
                 ->sortable()
                 ->searchable(),
@@ -102,19 +102,29 @@ final class PropertyTable extends PowerGridComponent
     }
 
     #[\Livewire\Attributes\On('edit')]
-    public function edit($rowId): void
+    public function edit($rowId)
     {
-        $this->js('alert(' . $rowId . ')');
+        return redirect()->to('/properties/posts/edit/' . $rowId);
     }
 
+    #[\Livewire\Attributes\On('view')]
+    public function view($rowId)
+    {
+        return redirect()->to('/properties/' . $rowId);
+    }
     public function actions(PropertyListing $row): array
     {
         return [
             Button::add('edit')
-                ->slot('Edit: ' . $row->id)
+                ->slot('Edit')
                 ->id()
                 ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
-                ->dispatch('edit', ['rowId' => $row->id])
+                ->dispatch('edit', ['rowId' => $row->id]),
+            Button::add('view')
+                ->slot('View')
+                ->id()
+                ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
+                ->dispatch('view', ['rowId' => $row->id]),
         ];
     }
 

@@ -60,7 +60,7 @@
 
 						@if ($role)
 							<div class="max-w-lg w-full flex">
-								<x-button class="mt-12 bg-transparent bg-slide-l" type="button" @click="step = 2" spinner="setRole">
+								<x-button class="mt-12 bg-transparent bg-slide-l" type="button" @click="step++" spinner="setRole">
 									Continue
 								</x-button>
 							</div>

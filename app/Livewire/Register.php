@@ -49,6 +49,7 @@ class Register extends Component
             'password_confirmation' => $this->password_confirmation,
         ]);
 
+
         Session::put('user_data', $request->all());
         $this->dispatch('save-success');
     }

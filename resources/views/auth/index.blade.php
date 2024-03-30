@@ -1,5 +1,8 @@
+@php
+	$step = 0;
+@endphp
 <x-guest-layout>
-	<div x-data="{ step: 0 }" x-on:save-success="step = 1"">
+	<div x-data="{ step: {{ $step }} }" x-on:save-success="step = 1"">
 		@switch($active)
 			@case('register')
 				{{-- Step 1 --}}
@@ -13,14 +16,15 @@
 				</section>
 
 				{{-- Step 3 --}}
-				<section id="set-profile-form" :class="{ 'hidden': step !== 2 }">
+				<section id="set-profile-form" :class="{ 'hidden': step !== 3 }">
 					<livewire:set-profile />
 				</section>
+			@break
 
-				{{-- Step 4 --}}
-				{{-- <section id="set-address-form" :class="{ 'hidden': step !== 3 }">
-					<livewire:set-address />
-				</section> --}}
+			@case('verify-email')
+				<section id="verify-email">
+					<livewire:verify-email />
+				</section>
 			@break
 
 			@case('login')
