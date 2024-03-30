@@ -13,6 +13,15 @@ class PropertyListing extends Model
     use SoftDeletes;
 
     protected $guarded = [];
+    protected $fillable = [
+        'landlord_id',
+        'type',
+        'property_name',
+        'default_price',
+        'no_of_floors',
+        'no_of_units',
+        'status'
+    ];
 
     public function landlord()
     {

@@ -18,7 +18,9 @@
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.4",
         "mallardduck/blade-boxicons": "^2.4",
+        "openspout/openspout": "^4.23",
         "owenvoke/blade-fontawesome": "^2.6",
+        "power-components/livewire-powergrid": "^5.4",
         "robsontenorio/mary": "^1.25"
     },
     "require-dev": {

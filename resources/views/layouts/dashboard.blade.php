@@ -13,17 +13,36 @@
 			</div>
 		</div>
 		<div class="min-h-screen p-8 flex gap-8  m-0">
+			{{-- side bar --}}
+			<div x-data="{ minimized: true }" :class="{ 'w-24': minimized, 'max-w-xs w-full': !minimized }"
+				class="transition-all ease-in flex flex-col gap-8">
+				<div x-show="!minimized">
+					@include('profile.profile-card', ['page' => ucfirst($role)])
+				</div>
+				<div id="dash-menu" :class="{ 'w-24': minimized }">
+					<div class="fixed z-[100!important] bottom-2 left-2">
+						<div class="inline-block z-100 p-2">
+							<div x-show="minimized">
+								<x-button class="relative z-100 bg-slide-r btn-primary btn-outline justify-start" icon="fas.angle-right"
+									x-on:click="minimized = !minimized" />
+							</div>
+							<div x-show="!minimized">
+								<x-button class="relative z-100 bg-slide-r btn-primary btn-outline justify-start" icon="fas.angle-left"
+									x-on:click="minimized = !minimized" />
+							</div>
+						</div>
+					</div>
 
-			<div class="max-w-sm w-full flex flex-col gap-8">
-
-				@include('profile.profile-card', ['page' => ucfirst($role)])
-
-				@include('dashboard.menu')
-
+					<div x-show="minimized" class="animate__animated animate__fadeIn w-24 z-0">
+						@include('dashboard.menu', ['minimized' => true])
+					</div>
+					<div x-show="!minimized" class="animate__animated animate__fadeIn z-0">
+						@include('dashboard.menu', ['minimized' => false])
+					</div>
+				</div>
 			</div>
-
-			<div class="w-full flex flex-col gap-8">
-
+			{{-- main page --}}
+			<div class="w-full flex flex-col gap-8 overflow-hidden">
 				{{ $slot }}
 			</div>
 

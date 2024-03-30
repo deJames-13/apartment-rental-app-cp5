@@ -1,3 +1,4 @@
+@props(['minimized' => false])
 @php
 	$sideMenu = [
 	    [
@@ -123,4 +124,4 @@
 	];
 @endphp
 
-<x-side-menu :sideMenu="$sideMenu" />
+<x-side-menu :sideMenu="$sideMenu" :minimized="$minimized" />

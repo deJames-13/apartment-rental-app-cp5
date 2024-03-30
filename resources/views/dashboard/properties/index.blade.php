@@ -14,9 +14,9 @@
 				</x-button>
 			</div>
 		</div>
+		<div class="w-full overflow-hidden">
+			<livewire:property-table />
+		</div>
 
-		<x-table-card :title="''" :data="$properties" :columns="$columns">
-
-		</x-table-card>
 	</x-card>
 </x-dashboard-layout>

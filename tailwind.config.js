@@ -8,14 +8,24 @@ export default {
     // Add mary
     './vendor/robsontenorio/mary/src/View/Components/**/*.php',
     './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
+
     // Add Blade UI
-    './vendor/blade-ui-kit/blade-ui-kit/src/**/*.php'
+    './vendor/blade-ui-kit/blade-ui-kit/src/**/*.php',
+
+    // Add Livewire Powergrid
+    './app/Http/Livewire/**/*Table.php',
+    './vendor/power-components/livewire-powergrid/resources/views/**/*.php',
+    './vendor/power-components/livewire-powergrid/src/Themes/Tailwind.php'
   ],
   variants: {
     borderColor: ['responsive', 'hover', 'focus', 'focus-within'],
     backgroundSize: ['responsive', 'hover', 'focus'],
     backgroundPosition: ['responsive', 'hover', 'focus']
   },
+
+  presets: [
+    require('./vendor/power-components/livewire-powergrid/tailwind.config.js')
+  ],
 
   theme: {
     extend: {
