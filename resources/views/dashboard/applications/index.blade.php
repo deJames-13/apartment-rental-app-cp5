@@ -1,3 +1,3 @@
 <x-dashboard-layout>
-	<livewire:property-form />
+	<x-card :title="'Applications'"></x-card>
 </x-dashboard-layout>

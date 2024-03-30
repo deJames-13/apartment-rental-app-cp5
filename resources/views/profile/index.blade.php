@@ -2,10 +2,6 @@
 	{{-- route to home --}}
 @endif
 
-@php
-	$user = auth()->user();
-	$user_image = Storage::url($user->image_path) ?? 'images/author.jpg';
-@endphp
 
 <x-default-layout>
 

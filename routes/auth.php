@@ -3,8 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AppController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropertyListingController;
+
 // AUTH
 Route::middleware(['auth'])->group(function () {
 
@@ -20,7 +22,14 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware('role:landlord')->group(function () {
 
         // Dashboard
-        Route::get('/dashboard', [AppController::class, 'landlordDashboard'])->name('dashboard');
+        Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+        Route::get('/dashboard/properties', [DashboardController::class, 'properties'])->name('dashboard.properties');
+        Route::get('/dashboard/units', [DashboardController::class, 'units'])->name('units.index');
+        Route::get('/dashboard/transactions', [DashboardController::class, 'transactions'])->name('dashboard.transactions');
+        Route::get('/dashboard/applications', [DashboardController::class, 'applications'])->name('dashboard.applications');
+        Route::get('/dashboard/reports', [DashboardController::class, 'reports'])->name('dashboard.reports');
+        Route::get('/dashboard/bookmarks', [DashboardController::class, 'bookmarks'])->name('dashboard.bookmarks');
+
 
         // Properties
         Route::get('/properties/posts/create', [PropertyListingController::class, 'create'])->name('properties.create');

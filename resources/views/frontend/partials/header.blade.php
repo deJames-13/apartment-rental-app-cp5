@@ -34,6 +34,7 @@
 	        'submenu' => [
 	            ['label' => 'View Profile', 'link' => '/profile'],
 	            ['label' => 'Edit Profile', 'link' => '/profile/edit'],
+	            ['label' => 'Dashboard', 'link' => '/dashboard'],
 	            ['label' => 'Change Email', 'link' => '/change-email'],
 	            ['label' => 'Change Password', 'link' => '/change-password'],
 	        ],

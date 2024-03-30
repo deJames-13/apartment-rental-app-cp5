@@ -1,3 +1,3 @@
 <x-dashboard-layout>
-	<livewire:property-form />
+	@include('dashboard.main')
 </x-dashboard-layout>

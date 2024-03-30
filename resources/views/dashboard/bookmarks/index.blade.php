@@ -1,3 +1,3 @@
 <x-dashboard-layout>
-	<livewire:property-form />
+	<x-card :title="'Bookmarks'"></x-card>
 </x-dashboard-layout>

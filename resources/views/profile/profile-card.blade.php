@@ -1,4 +1,11 @@
-<x-card :title="'User Profile'">
+@props(['page' => 'User Profile'])
+@php
+	$id = Auth::user()->id;
+	$user = auth()->user();
+	$user_image = Storage::url($user->image_path) ?? 'images/author.jpg';
+@endphp
+
+<x-card :title="$page">
 	<div class="flex space-x-4 pb-2 items-center">
 		{{-- User Image --}}
 		<div class="avatar">

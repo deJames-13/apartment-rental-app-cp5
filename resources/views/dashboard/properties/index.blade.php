@@ -1,3 +1,3 @@
 <x-dashboard-layout>
-	<livewire:property-form />
+	<x-card :title="'Properties'"></x-card>
 </x-dashboard-layout>
