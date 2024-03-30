@@ -1,5 +1,5 @@
-<x-default-layout>
+<x-dashboard-layout>
 	@isset($property)
 		<livewire:property-form :property="$property" />
 	@endisset
-</x-default-layout>
+</x-dashboard-layout>

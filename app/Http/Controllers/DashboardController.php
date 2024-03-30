@@ -13,7 +13,16 @@ class DashboardController extends Controller
 
     public function properties()
     {
-        return view('dashboard.properties.index');
+
+        $properties = \App\Models\PropertyListing::all()->sortByDesc('created_at');
+        $columns = ['id', 'property_name', 'type', 'default_price'];
+        $tableData = null;
+        // dd($properties);
+
+        return view('dashboard.properties.index', compact(
+            'properties',
+            'columns'
+        ));
     }
 
 
