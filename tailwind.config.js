@@ -52,10 +52,10 @@ export default {
     },
 
     fontFamily: {
-      sans: ['Monsterrat', 'system-ui'],
-      serif: ['ui-serif', 'Georgia'],
+      sans: ['Rubik', 'system-ui'],
+      serif: ['Rubik', 'Georgia'],
       mono: ['ui-monospace', 'SFMono-Regular'],
-      body: ['"Monsterrat"', 'Font Awesome']
+      body: ['"Rubik"', 'Font Awesome']
       // display: ['""'],
     }
   },

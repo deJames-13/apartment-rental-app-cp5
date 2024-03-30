@@ -1,7 +1,7 @@
 @php
 	$page = $page ?? 'app';
 	$navItems = [
-	    ['label' => 'Home', 'link' => '/'],
+	    ['label' => 'Home', 'link' => '/home'],
 	    [
 	        'label' => 'Property',
 	        'link' => '/properties',
@@ -66,7 +66,6 @@
 							link="{{ $item['link'] }}" role="button" tabindex="0">
 							<span>
 								{{ $item['label'] }}
-
 							</span>
 							<x-icon name='fas.angle-down' />
 						</x-button>
@@ -86,9 +85,14 @@
 						</ul>
 					</div>
 				@else
-					<div class="link font-bold no-underline hover:font-extrabold hover:text-primary" role="button" tabindex="0">
-						{{ $item['label'] }}
-					</div>
+					<x-button
+						class="link flex items-center m-0 p-0 shadow-none font-bold no-underline hover:bg-transparent hover:font-extrabold hover:text-primary  bg-transparent border-none"
+						role="button" tabindex="0" link="{{ $item['link'] }}">
+						<span>
+							{{ $item['label'] }}
+
+						</span>
+					</x-button>
 				@endif
 
 				<div class="divider divider-horizontal"></div>

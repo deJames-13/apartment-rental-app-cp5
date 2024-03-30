@@ -19,12 +19,13 @@ use App\Http\Controllers\PropertyListingController;
 
 // Test View
 Route::get('/test', function () {
-  return view('errors.404');
+  return view('auth.index', ['active' => 'set-role']);
 });
 
 // GUEST
 Route::middleware('guest')->group(function () {
   Route::get('/', [AppController::class, 'guest'])->name('guest');
+  Route::get('/home', [AppController::class, 'guest'])->name('guest');
   Route::get('/login', [AuthController::class, 'login'])->name('login');
   Route::get('/register', [AuthController::class, 'register'])->name('register');
   Route::get('/authenticate ', [AuthController::class, 'authenticate']);
