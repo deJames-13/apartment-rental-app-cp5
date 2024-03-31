@@ -17,9 +17,15 @@
 
 			{{-- actions --}}
 			<div class="flex justify-end gap-4 ">
-				<x-button link="{{ route('dashboard.properties') }}" class="btn-primary max-w-xs btn-outline bg-slide-l">
+				<x-button link="{{ route('dashboard.properties') }}"
+					class="hover:text-[white!important] btn-primary max-w-xs btn-outline bg-slide-l">
 					<x-icon name="fas.images" />
 					<span>Gallery</span>
+				</x-button>
+				<x-button link="{{ route('units.create') }}"
+					class="hover:text-[white!important] btn-primary max-w-xs btn-outline bg-slide-l">
+					<x-icon name="fas.folder" />
+					<span>Leases</span>
 				</x-button>
 				<x-button link="{{ route('units.create') }}" class="text-white max-w-xs btn-outline bg-green-400 border-green-400">
 					<x-icon name="fas.file-lines" />

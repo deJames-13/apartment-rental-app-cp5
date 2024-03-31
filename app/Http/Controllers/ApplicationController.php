@@ -16,7 +16,7 @@ class ApplicationController extends Controller
     public function index()
     {
         $applications = LeaseApplication::all();
-        return view('frontend.applications.index', compact('applications'));
+        return view('dashboard.applications.index', compact('applications'));
     }
 
     /**

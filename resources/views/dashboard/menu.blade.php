@@ -52,18 +52,18 @@
 	    ],
 	    [
 	        'label' => 'Transactions',
-	        'icon' => 'fas.folder',
+	        'icon' => 'fas.file-pen',
 	        'link' => '/dashboard',
 	        'submenu' => [
 	            [
 	                'label' => 'View Transactions',
 	                'icon' => 'fas.eye',
-	                'link' => '/dashboard/transactions',
+	                'link' => '/transactions',
 	            ],
 	            [
 	                'label' => 'Add Transaction',
 	                'icon' => 'fas.plus',
-	                'link' => '/dashboard/transaction/add',
+	                'link' => '/transactions/create',
 	            ],
 	            [
 	                'label' => 'Search Transaction',
@@ -74,18 +74,18 @@
 	    ],
 	    [
 	        'label' => 'Application',
-	        'icon' => 'fas.file-pen',
+	        'icon' => 'fas.file-lines',
 	        'link' => '/dashboard',
 	        'submenu' => [
 	            [
 	                'label' => 'View Applications',
 	                'icon' => 'fas.eye',
-	                'link' => '/dashboard/applications',
+	                'link' => '/applications',
 	            ],
 	            [
 	                'label' => 'Add Application',
 	                'icon' => 'fas.plus',
-	                'link' => '/dashboard/applications/add',
+	                'link' => '/applications/create',
 	            ],
 	            [
 	                'label' => 'Search Application',
@@ -102,12 +102,12 @@
 	            [
 	                'label' => 'View Application',
 	                'icon' => 'fas.eye',
-	                'link' => '/dashboard/application',
+	                'link' => '/reports',
 	            ],
 	            [
 	                'label' => 'Add Application',
 	                'icon' => 'fas.plus',
-	                'link' => '/dashboard/application/add',
+	                'link' => '/reports/create',
 	            ],
 	            [
 	                'label' => 'Search Application',

@@ -57,17 +57,21 @@ Route::middleware(['verified'])->group(function () {
         Route::post('/leases/edit/{id}', [LeaseController::class, 'update'])->name('leases.update');
 
         // Applications
+        Route::get('/applications', [ApplicationController::class, 'index'])->name('applications.index');
         Route::get('/applications/create', [ApplicationController::class, 'create'])->name('applications.create');
         Route::post('/applications/create', [ApplicationController::class, 'store'])->name('applications.store');
         Route::get('/applications/edit/{id}', [ApplicationController::class, 'edit'])->name('applications.edit');
         Route::post('/applications/edit/{id}', [ApplicationController::class, 'update'])->name('applications.update');
 
         // Transactions
-        // Applications
+        Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
         Route::get('/transactions/create', [TransactionController::class, 'create'])->name('transactions.create');
         Route::post('/transactions/create', [TransactionController::class, 'store'])->name('transactions.store');
         Route::get('/transactions/edit/{id}', [TransactionController::class, 'edit'])->name('transactions.edit');
         Route::post('/transactions/edit/{id}', [TransactionController::class, 'update'])->name('transactions.update');
+
+        // Reports
+
     });
 
     Route::middleware('role:tenant')->group(function () {

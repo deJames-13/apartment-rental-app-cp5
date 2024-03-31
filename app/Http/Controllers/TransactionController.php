@@ -16,7 +16,7 @@ class TransactionController extends Controller
     public function index()
     {
         $transactions = LeaseTransaction::all();
-        return view('frontend.transactions.index', compact('transactions'));
+        return view('dashboard.transactions.index', compact('transactions'));
     }
 
     /**
