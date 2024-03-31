@@ -19,7 +19,7 @@
 	            [
 	                'label' => 'Add Property',
 	                'icon' => 'fas.plus',
-	                'link' => '/properties/posts/create',
+	                'link' => '/properties/create',
 	            ],
 	            [
 	                'label' => 'Search Property',
@@ -100,7 +100,7 @@
 	        'link' => '/dashboard',
 	        'submenu' => [
 	            [
-	                'label' => 'View Units',
+	                'label' => 'View Application',
 	                'icon' => 'fas.eye',
 	                'link' => '/dashboard/application',
 	            ],

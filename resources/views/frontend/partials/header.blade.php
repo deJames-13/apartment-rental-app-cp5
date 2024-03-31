@@ -9,7 +9,7 @@
 	        'link' => '/properties',
 	        'submenu' => [
 	            ['label' => 'All Properties', 'link' => '/properties'],
-	            ['label' => 'Post Property', 'link' => '/properties/posts/create'],
+	            ['label' => 'Post Property', 'link' => '/properties/create'],
 	            ['label' => 'Property Posts', 'link' => '/properties/posts'],
 	            ['label' => 'Categories', 'link' => '/properties/category'],
 	            ['label' => 'Popular Properties', 'link' => '/properties/popular'],

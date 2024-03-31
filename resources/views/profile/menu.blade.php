@@ -28,7 +28,7 @@
 	            [
 	                'label' => 'Add Property',
 	                'icon' => 'fas.plus',
-	                'link' => '/properties/posts/create',
+	                'link' => '/properties/create',
 	            ],
 	            [
 	                'label' => 'Search Property',
