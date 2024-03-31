@@ -112,6 +112,13 @@ final class PropertyTable extends PowerGridComponent
     {
         return redirect()->to('/properties/' . $rowId);
     }
+    #[\Livewire\Attributes\On('view')]
+    public function delete($rowId)
+    {
+        // emit a livewire delete event for property
+        $this->dispatch('deleteProperty', $rowId);
+    }
+
     public function actions(PropertyListing $row): array
     {
         return [

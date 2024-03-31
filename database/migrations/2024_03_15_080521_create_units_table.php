@@ -18,6 +18,7 @@ return new class extends Migration
       $table->foreign('property_id')->references('id')->on('property_listings')->onDelete('cascade');
 
       $table->string('unit_code');
+      $table->tinyInteger('room_number');
       $table->tinyInteger('floor_number');
       $table->tinyInteger('no_of_bedroom')->default(0);
       $table->tinyInteger('no_of_bathroom')->default(0);
