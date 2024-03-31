@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Models\Unit;
+use App\Models\LeaseInfo;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use PowerComponents\LivewirePowerGrid\Button;
@@ -16,7 +16,7 @@ use PowerComponents\LivewirePowerGrid\PowerGridFields;
 use PowerComponents\LivewirePowerGrid\PowerGridComponent;
 use PowerComponents\LivewirePowerGrid\Traits\WithExport;
 
-final class UnitTable extends PowerGridComponent
+final class LeasesTable extends PowerGridComponent
 {
     use WithExport;
 
@@ -37,7 +37,7 @@ final class UnitTable extends PowerGridComponent
 
     public function datasource(): Builder
     {
-        return Unit::query();
+        return LeaseInfo::query();
     }
 
     public function relationSearch(): array
@@ -49,11 +49,16 @@ final class UnitTable extends PowerGridComponent
     {
         return PowerGrid::fields()
             ->add('id')
-            ->add('property_id')
-            ->add('room_number')
-            ->add('floor_number')
-            ->add('no_of_bedroom')
-            ->add('no_of_bathroom')
+            ->add('unit_id')
+            ->add('lease_type')
+            ->add('lease_application_fee')
+            ->add('lease_fee')
+            ->add('security_deposit')
+            ->add('short_term_rent')
+            ->add('long_term_rent')
+            ->add('termination_amount')
+            ->add('is_termination_allowed')
+            ->add('is_sub_leasing_allowed')
             ->add('status')
             ->add('created_at');
     }
@@ -62,20 +67,40 @@ final class UnitTable extends PowerGridComponent
     {
         return [
             Column::make('Id', 'id'),
-            Column::make('Property id', 'property_id'),
-            Column::make('Room number', 'room_number')
+            Column::make('Unit id', 'unit_id'),
+            Column::make('Lease type', 'lease_type')
                 ->sortable()
                 ->searchable(),
 
-            Column::make('Floor number', 'floor_number')
+            Column::make('Lease application fee', 'lease_application_fee')
                 ->sortable()
                 ->searchable(),
 
-            Column::make('No of bedroom', 'no_of_bedroom')
+            Column::make('Lease fee', 'lease_fee')
                 ->sortable()
                 ->searchable(),
 
-            Column::make('No of bathroom', 'no_of_bathroom')
+            Column::make('Security deposit', 'security_deposit')
+                ->sortable()
+                ->searchable(),
+
+            Column::make('Short term rent', 'short_term_rent')
+                ->sortable()
+                ->searchable(),
+
+            Column::make('Long term rent', 'long_term_rent')
+                ->sortable()
+                ->searchable(),
+
+            Column::make('Termination amount', 'termination_amount')
+                ->sortable()
+                ->searchable(),
+
+            Column::make('Is termination allowed', 'is_termination_allowed')
+                ->sortable()
+                ->searchable(),
+
+            Column::make('Is sub leasing allowed', 'is_sub_leasing_allowed')
                 ->sortable()
                 ->searchable(),
 
@@ -103,21 +128,21 @@ final class UnitTable extends PowerGridComponent
     #[\Livewire\Attributes\On('edit')]
     public function edit($rowId)
     {
-        return redirect()->to('/units/edit/' . $rowId);
+        return redirect()->to('/leases/edit/' . $rowId);
     }
 
     #[\Livewire\Attributes\On('view')]
     public function view($rowId)
     {
-        return redirect()->to('/units/' . $rowId);
+        return redirect()->to('/leases/' . $rowId);
     }
-    #[\Livewire\Attributes\On('delete')]
+    #[\Livewire\Attributes\On('view')]
     public function delete($rowId)
     {
         // emit a livewire delete event for property
         $this->dispatch('deleteUnit', $rowId);
     }
-    public function actions(Unit $row): array
+    public function actions(LeaseInfo $row): array
     {
         return [
             Button::add('edit')

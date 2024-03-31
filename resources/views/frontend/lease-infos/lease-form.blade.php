@@ -4,7 +4,6 @@
 		$userData = App\Models\User::find($id);
 		$properties = App\Models\PropertyListing::pluck('id', 'property_name')->toArray();
 		$property_name = $property ? $property->property_name : false;
-
 		$types = [
 		    'Fixed-Term Lease',
 		    'Month-to-Month Lease',
@@ -16,13 +15,11 @@
 		    'Percentage Lease',
 		    'Lease with Option to Purchase',
 		];
-		$status = ['inactive', 'active'];
-
 	@endphp
 @endif
 
 @php
-	$isEdit = false;
+	$isEdit = isset($lease) && $lease->id;
 	$form = $isEdit ? 'update' : 'save';
 @endphp
 
@@ -116,7 +113,7 @@
 					</div>
 				</div>
 
-				<div x-data="{ unit_code: '{{ $isEdit ? ucfirst($unit_code) : 'Select Unit' }}' }" class="flex flex-col gap-1 justify-end">
+				<div x-data="{ unit_code: '{{ $isEdit ? ucfirst($unit_code) : ($unit_code ? $unit_code : 'Select Unit') }}' }" class="flex flex-col gap-1 justify-end">
 					<label for="unit_code" class="text-sm font-bold">Unit Code</label>
 					<x-input type="hidden" name="unit_code" id="unit_code" x-model="unit_code" wire:model.defer="unit_code" />
 					<div class="dropdown dropdown-bottom dropdown-start">
@@ -139,7 +136,7 @@
 				</div>
 
 
-				<div x-data="{ type: '{{ $isEdit ? ucfirst($lease_type) : 'Select Type' }}' }" class="flex flex-col gap-1 justify-end">
+				<div x-data="{ type: '{{ $isEdit ? ucfirst($lease_type) : ($lease_type ? $lease_type : 'Select Type') }}' }" class="flex flex-col gap-1 justify-end">
 					<label for="lease_type" class="text-sm font-bold">Lease Type</label>
 					<x-input type="hidden" name="lease_type" id="lease_type" x-model="lease_type" wire:model.defer="lease_type" />
 					<div class="dropdown dropdown-bottom dropdown-start">
@@ -197,11 +194,10 @@
 							name="termination_amount" wire:model="termination_amount" />
 					</div>
 				</div>
-
 				<div></div>
-				<div x-data="{ selectedStatus: 'Select Status' }" class="flex flex-col gap-1 justify-end">
+				<div x-data="{ selectedStatus: '{{ $isEdit ? ucfirst($status) : 'Select Status' }}' }" class="flex flex-col gap-1 justify-end">
 					<label for="status" class="text-sm font-bold">Status</label>
-					<x-input type="hidden" name="status" id="status" x-model="selectedStatus" />
+					<x-input type="hidden" name="status" id="status" x-model="selectedStatus" wire:model.defer="status" />
 					<div class="dropdown dropdown-bottom dropdown-start">
 						<x-button role="button" type="button" icon="o-home"
 							class="btn bg-base-100 w-full justify-start flex gap-1">

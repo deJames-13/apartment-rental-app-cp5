@@ -40,6 +40,10 @@ class DashboardController extends Controller
     {
         return view('dashboard.applications.index');
     }
+    public function leases()
+    {
+        return view('dashboard.leases.index');
+    }
 
     public function reports()
     {

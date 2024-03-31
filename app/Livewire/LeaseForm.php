@@ -8,6 +8,7 @@ use App\Models\LeaseInfo;
 
 class LeaseForm extends Component
 {
+    public $lease;
     public $property, $property_name, $property_id, $units, $unit, $unit_id, $unit_code, $lease_type, $lease_application_fee, $lease_fee, $security_deposit, $short_term_rent, $long_term_rent, $termination_amount;
     public $is_termination_allowed = false;
     public $is_sub_leasing_allowed = false;
@@ -30,9 +31,32 @@ class LeaseForm extends Component
 
 
 
-    public function mount()
+    public function mount(LeaseInfo $lease)
     {
+        $this->reset();
+        $this->lease = $lease->exists ? $lease : null;
         $this->units = Unit::all()->pluck('unit_code', 'id')->toArray();
+
+        if ($lease->exists) {
+            $this->lease = $lease;
+            $this->property = $lease->unit->propertyListing;
+            $this->property_name = $this->property->property_name;
+            $this->property_id =  $this->property->id;
+            $this->units = $this->property->units->pluck('unit_code', 'id')->toArray();
+            $this->unit = $lease->unit;
+            $this->unit_id = $lease->unit_id;
+            $this->unit_code = $this->unit->unit_code;
+            $this->lease_type = $lease->lease_type;
+            $this->lease_application_fee = $lease->lease_application_fee;
+            $this->lease_fee = $lease->lease_fee;
+            $this->security_deposit = $lease->security_deposit;
+            $this->short_term_rent = $lease->short_term_rent;
+            $this->long_term_rent = $lease->long_term_rent;
+            $this->termination_amount = $lease->termination_amount;
+            $this->is_termination_allowed = $lease->is_termination_allowed;
+            $this->is_sub_leasing_allowed = $lease->is_sub_leasing_allowed;
+            $this->status = $lease->status;
+        }
     }
 
     public function render()
@@ -47,12 +71,25 @@ class LeaseForm extends Component
 
         $validatedData = $this->validate();
         $validatedData['unit_id'] = $this->unit_id;
-        dd($validatedData);
+        unset($validatedData['property_id']);
+        unset($validatedData['unit_code']);
         LeaseInfo::create($validatedData);
-        session()->flash('success', 'Lease information created successfully.');
+        session()->flash('message', 'Lease information created successfully.');
+        return redirect()->route('leases.create');
     }
     public function update()
     {
+        if ($this->is_termination_allowed) {
+            $this->validateOnly('termination_amount', ['termination_amount' => 'required|numeric']);
+        }
+
+        $validatedData = $this->validate();
+        unset($validatedData['property_id']);
+        unset($validatedData['unit_code']);
+
+        $this->lease->update($validatedData);
+        session()->flash('message', 'Lease information updated successfully.');
+        return redirect()->route('leases.edit', $this->lease);
     }
 
     public function setProperty($propertyId)

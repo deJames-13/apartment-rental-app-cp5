@@ -83,8 +83,6 @@ class UnitForm extends Component
         }
 
         $this->unit->update($validatedData);
-        dd($this->unit);
-
 
         session()->flash('message', 'Unit updated successfully');
         return redirect()->route('units.edit', $this->unit);

@@ -33,6 +33,7 @@ Route::middleware(['verified'])->group(function () {
         Route::get('/dashboard/units', [DashboardController::class, 'units'])->name('dashboard.units');
         Route::get('/dashboard/transactions', [DashboardController::class, 'transactions'])->name('dashboard.transactions');
         Route::get('/dashboard/applications', [DashboardController::class, 'applications'])->name('dashboard.applications');
+        Route::get('/dashboard/leases', [DashboardController::class, 'leases'])->name('dashboard.leases');
         Route::get('/dashboard/reports', [DashboardController::class, 'reports'])->name('dashboard.reports');
         Route::get('/dashboard/bookmarks', [DashboardController::class, 'bookmarks'])->name('dashboard.bookmarks');
 
