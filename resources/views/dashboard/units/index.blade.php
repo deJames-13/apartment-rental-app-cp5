@@ -1,3 +1,7 @@
+@php
+	$controller = \App\Http\Controllers\UnitController::class;
+@endphp
+
 <x-dashboard-layout>
 	<x-card>
 		<div class="flex flex-col space-y-4">
@@ -47,7 +51,20 @@
 			<div class="w-full overflow-hidden">
 				<livewire:unit-table />
 			</div>
+			<x-my-modal :title="'Confirm Delete'" :listen="'delete-unit'" :clickAway="true">
 
+				<p class="font-bold text-lg">Unit ID: <span x-text="detail"></span></p>
+				<p>Are you sure you want to delete this unit?</p>
+				<x-slot:actions>
+					<div class="flex gap-4 items-center justify-end">
+						<button type="button" class="btn btn-primary" @click="openModal = false">
+							Close
+						</button>
+
+						<livewire:delete-button :controller="$controller" :redirect="'/dashboard/units'">
+					</div>
+				</x-slot:actions>
+			</x-my-modal>
 		</div>
 	</x-card>
 </x-dashboard-layout>

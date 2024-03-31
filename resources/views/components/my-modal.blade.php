@@ -3,13 +3,20 @@
     'listen' => 'open-modal',
     'clickAway' => false,
 ])
+
+<style>
+	[x-cloak] {
+		display: none;
+	}
+</style>
+
 <div x-data="{ openModal: false, detail: null }" x-on:{{ $listen }}.window="openModal = true, detail = $event.detail">
 	<!-- Button to open the modal -->
 	{{-- <button @click="openModal = true" class="btn btn-primary">Open Modal</button> --}}
 
 	<!-- Modal -->
-	<div x-show="openModal" class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog"
-		aria-modal="true">
+	<div x-cloak x-show="openModal" class="fixed z-[200!important] inset-0 overflow-y-auto" aria-labelledby="modal-title"
+		role="dialog" aria-modal="true">
 		<div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
 			<div @if ($clickAway) @click="openModal = false" @endif
 				class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
@@ -24,14 +31,11 @@
 					<div class="mt-2">
 						<p class="text-sm text-gray-500">
 							{{ $slot }}
-							{{ $listen }}
 						</p>
 					</div>
 				</div>
-				<div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-					<button type="button" class="btn btn-primary" @click="openModal = false">
-						Close
-					</button>
+				<div class="bg-gray-50 px-4 py-3">
+					{{ $actions ?? '' }}
 				</div>
 			</div>
 		</div>

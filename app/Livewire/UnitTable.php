@@ -19,7 +19,15 @@ use PowerComponents\LivewirePowerGrid\Traits\WithExport;
 final class UnitTable extends PowerGridComponent
 {
     use WithExport;
-
+    protected function getListeners(): array
+    {
+        return array_merge(
+            parent::getListeners(),
+            [
+                'refresh-record' => '$refresh'
+            ]
+        );
+    }
     public function setUp(): array
     {
         $this->showCheckBox();
@@ -115,7 +123,7 @@ final class UnitTable extends PowerGridComponent
     public function delete($rowId)
     {
         // emit a livewire delete event for property
-        $this->dispatch('deleteUnit', $rowId);
+        $this->dispatch('delete-unit', $rowId);
     }
     public function actions(Unit $row): array
     {
@@ -123,18 +131,18 @@ final class UnitTable extends PowerGridComponent
             Button::add('edit')
                 ->slot('Edit: ' . $row->id)
                 ->id()
-                ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
+                ->class('btn btn-outline btn-sm rounded border-primary bg-info dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
                 ->dispatch('edit', ['rowId' => $row->id]),
 
             Button::add('view')
                 ->slot('View: ' . $row->id)
                 ->id()
-                ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
+                ->class('btn btn-outline btn-sm rounded border-base-content bg-base-content dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
                 ->dispatch('view', ['rowId' => $row->id]),
             Button::add('delete')
                 ->slot('Delete: ' . $row->id)
                 ->id()
-                ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
+                ->class('btn btn-outline btn-sm rounded border-red-400 bg-red-400 dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
                 ->dispatch('delete', ['rowId' => $row->id]),
         ];
     }

@@ -1,3 +1,6 @@
+@php
+	$controller = \App\Http\Controllers\PropertyListingController::class;
+@endphp
 <x-dashboard-layout>
 	<x-card>
 		<div class="flex flex-col space-y-4">
@@ -42,6 +45,20 @@
 			<div class="w-full overflow-hidden">
 				<livewire:property-table />
 			</div>
+			<x-my-modal :title="'Confirm Delete'" :listen="'delete-property'" :clickAway="true">
+
+				<p class="font-bold text-lg">Property ID: <span x-text="detail"></span></p>
+				<p>Are you sure you want to delete this property?</p>
+				<x-slot:actions>
+					<div class="flex gap-4 items-center justify-end">
+						<button type="button" class="btn btn-primary" @click="openModal = false">
+							Close
+						</button>
+
+						<livewire:delete-button :controller="$controller" :redirect="'/dashboard/properties'">
+					</div>
+				</x-slot:actions>
+			</x-my-modal>
 
 		</div>
 	</x-card>

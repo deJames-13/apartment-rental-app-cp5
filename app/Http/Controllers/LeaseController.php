@@ -115,12 +115,11 @@ class LeaseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $lease = LeaseInfo::findOrFail($id);
+        $lease = LeaseInfo::find($request->id);
         $lease->delete();
-
-        return redirect()->route('leases.index')
+        return redirect()->route('dashboard.leases')
             ->with('success', 'Lease information deleted successfully.');
     }
 }

@@ -14,6 +14,7 @@ class UnitForm extends Component
     public $unit;
     public $property_id, $unit_code, $room_number, $floor_number, $no_of_bedroom, $no_of_bathroom, $unit_thumbnail, $date_posted, $date_available_from, $description, $heading, $status;
     protected $rules = [
+        'property_id' => 'required',
         'unit_code' => 'required|string|max:255',
         'room_number' => 'required|integer',
         'floor_number' => 'required|integer',
@@ -26,6 +27,10 @@ class UnitForm extends Component
         'heading' => 'nullable|string|max:255',
         'status' => 'required|in:available,occupied,inactive',
     ];
+    protected $messages = [
+        'property_id' => 'The property is required.'
+    ];
+
 
     public function mount(Unit $unit = null)
     {
@@ -58,7 +63,6 @@ class UnitForm extends Component
             $this->unit_thumbnail->storeAs('public/units', $filename);
             $validatedData['unit_thumbnail'] = 'units/' . $filename;
         }
-
         Unit::create($validatedData);
         $property = PropertyListing::find($this->property_id);
         $property->update([
@@ -69,6 +73,10 @@ class UnitForm extends Component
         return redirect()->route('units.create');
     }
 
+    public function setProperty($propertyId)
+    {
+        $this->property_id = $propertyId;
+    }
     public function update()
     {
         $validatedData = $this->validate($this->rules);
