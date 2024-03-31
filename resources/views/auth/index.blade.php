@@ -1,35 +1,55 @@
-<x-app-layout>
-	<div>
-
-		<!--Page Title-->
-		<section class="w-full flex justify-center py-8 border-b-2">
-			<div class='prose'>
-				<x-button link="/" class="font-extra-bold text-3xl btn-ghost bg-none border-none">
-					RENT APP
-				</x-button>
-			</div>
-		</section>
-		<!--End Page Title-->
-		<x-card class="mx-auto my-6 container max-w-xl">
-			<div role="tablist" class="tabs tabs-boxed">
-				<x-button link='/login' role="tab"
-					class="tab btn-sm {{ $active === 'login' ? 'tab-active' : '' }}">Login</x-button>
-				<x-button link='/register' class="tab btn-sm {{ $active === 'register' ? 'tab-active' : '' }}">Register</x-button>
-			</div>
-			@switch($active)
-				@case('register')
+@php
+	$step = 0;
+@endphp
+<x-guest-layout>
+	<div x-data="{ step: {{ $step }} }" x-on:save-success="step = 1"">
+		@switch($active)
+			@case('register')
+				{{-- Step 1 --}}
+				<section id="register-form" :class="{ 'hidden': step !== 0 }">
 					<livewire:register />
-				@break
+				</section>
 
-				@case('login')
-					<livewire:login />
-				@break
+				{{-- Step 2 --}}
+				<section id="set-role-form" :class="{ 'hidden': step !== 1 }">
+					<livewire:set-role />
+				</section>
 
-				@default
-			@endswitch
+				{{-- Step 3 --}}
+				<section id="set-profile-form" :class="{ 'hidden': step !== 3 }">
+					<livewire:set-profile />
+				</section>
+			@break
 
+			@case('verify-email')
+				<section id="verify-email">
+					<livewire:verify-email />
+				</section>
+			@break
 
+			@case('login')
+				<livewire:login />
+			@break
 
-		</x-card>
+			@default
+		@endswitch
 	</div>
-</x-app-layout>
+
+	<script>
+		function calculateAge(birthdate) {
+			if (birthdate) {
+				const dob = new Date(birthdate);
+				const diff_ms = Date.now() - dob.getTime();
+				const age_dt = new Date(diff_ms);
+				const age = Math.abs(age_dt.getUTCFullYear() - 1970);
+				console.log(age);
+				document.getElementsByName('age')[0].value = age;
+
+
+
+				return age;
+			}
+			return '';
+		}
+	</script>
+</x-guest-layout>

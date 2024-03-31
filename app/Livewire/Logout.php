@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 
 class Logout extends Component
 {
+    public $minimized = false;
     public function save()
     {
         $request = request();

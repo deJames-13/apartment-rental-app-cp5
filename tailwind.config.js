@@ -6,13 +6,26 @@ export default {
     './resources/**/*.vue',
 
     // Add mary
-    './vendor/robsontenorio/mary/src/View/Components/**/*.php'
+    './vendor/robsontenorio/mary/src/View/Components/**/*.php',
+    './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
+
+    // Add Blade UI
+    './vendor/blade-ui-kit/blade-ui-kit/src/**/*.php',
+
+    // Add Livewire Powergrid
+    './app/Http/Livewire/**/*Table.php',
+    './vendor/power-components/livewire-powergrid/resources/views/**/*.php',
+    './vendor/power-components/livewire-powergrid/src/Themes/Tailwind.php'
   ],
   variants: {
     borderColor: ['responsive', 'hover', 'focus', 'focus-within'],
     backgroundSize: ['responsive', 'hover', 'focus'],
     backgroundPosition: ['responsive', 'hover', 'focus']
   },
+
+  presets: [
+    require('./vendor/power-components/livewire-powergrid/tailwind.config.js')
+  ],
 
   theme: {
     extend: {
@@ -30,6 +43,12 @@ export default {
         '-1': '-1'
       },
       backgroundImage: (theme) => ({
+        'button-gradient-bottom':
+          'linear-gradient(to bottom, ' +
+          theme('colors.btn-base') +
+          ' 50%, ' +
+          theme('colors.btn-primary') +
+          ' 50%)',
         'button-gradient':
           'linear-gradient(to right, ' +
           theme('colors.btn-base') +
@@ -43,10 +62,10 @@ export default {
     },
 
     fontFamily: {
-      sans: ['Monsterrat', 'system-ui'],
-      serif: ['ui-serif', 'Georgia'],
+      sans: ['Rubik', 'system-ui'],
+      serif: ['Rubik', 'Georgia'],
       mono: ['ui-monospace', 'SFMono-Regular'],
-      body: ['"Monsterrat"', 'Font Awesome']
+      body: ['"Rubik"', 'Font Awesome']
       // display: ['""'],
     }
   },

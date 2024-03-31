@@ -1,27 +1,27 @@
-@props(["page" => "app"])
+@props(['page' => 'app'])
 
 <!DOCTYPE html>
-<html lang="{{ str_replace("_", "-", app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 	<head>
 		<meta charset="utf-8">
 		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover" name="viewport">
 		<meta content="{{ csrf_token() }}" name="csrf-token">
-		<title>{{ isset($title) ? $title . " - " . config("app.name") : config("app.name") }}</title>
+		<title>{{ isset($title) ? $title . ' - ' . config('app.name') : config('app.name') }}</title>
 
 		<livewire:styles />
-		@vite(["resources/css/app.css"])
-		@yield("head")
+		@vite(['resources/css/app.css'])
+		@yield('head')
 
 	</head>
 
-	<body class="min-h-screen bg-base-200/50 font-sans antialiased dark:bg-base-200" data-theme="dim" id="app">
+	<body class="min-h-screen bg-base-200/10 font-sans antialiased dark:bg-base-200" data-theme="dim" id="app">
 		{{ $slot }}
 
 		{{-- Toast --}}
 		<x-toast />
 		<livewire:scripts />
-		@vite(["resources/js/app.js"])
+		@vite(['resources/js/app.js'])
 		<script src="frontend/assets/js/typing.js"></script>
 	</body>
 

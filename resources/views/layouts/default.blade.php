@@ -3,11 +3,15 @@
 	@if (Auth::check())
 		@php
 			$id = Auth::user()->id;
-			$userData = App\Models\User::find($id);
+			$user = auth()->user();
+			$user_image = Storage::url($user->image_path) ?? 'images/author.jpg';
 		@endphp
+		@include('frontend.partials.header')
+	@else
+		@include('partials.header')
 	@endif
 
-	@include("frontend.partials.header")
+
 	<div>
 		{{ $slot }}
 	</div>

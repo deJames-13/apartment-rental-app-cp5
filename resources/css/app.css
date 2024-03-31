@@ -1,7 +1,23 @@
 @import 'animate.css';
+@import 'flatpickr/dist/flatpickr.min.css';
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: 'Rubik';
+  src: url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+}
+
+.hide-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scroll {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
 
 .bg-image::-webkit-scrollbar {
   display: none;
@@ -50,4 +66,60 @@
   100% {
     opacity: 1;
   }
+}
+
+/* bg color sliding effect top to bottom on hover */
+.bg-slide {
+  background: linear-gradient(to bottom, #fff 50%, #9999ff 50%);
+  background-size: 100% 200%;
+  transition: background-position 0.3s ease-in;
+}
+
+.bg-slide:hover {
+  background-position: 0% -100%;
+  color: #fff;
+}
+
+.bg-role {
+  background-image: url('../images/rolebg.webp');
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('../images/rolebg.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.bg-slide {
+  background: linear-gradient(to bottom, #fff 50%, #4d6eff 50%);
+  background-size: 100% 200%;
+  transition: background-position 0.3s linear;
+}
+
+.bg-slide:hover {
+  background-color: #4d6eff;
+  background-position: 0% -100%;
+}
+
+.bg-slide-r {
+  background: linear-gradient(to right, #fff 50%, #4d6eff 50%);
+  background-size: 200% 100%;
+  transition: background-position 0.3s linear;
+}
+
+.bg-slide-r:hover {
+  background-color: #4d6eff;
+  background-position: -100% 0%;
+  color: #fff;
+}
+
+.bg-slide-l {
+  background: linear-gradient(to left, #4d6eff 50%, #fff 50%);
+  background-size: 200% 100%;
+  transition: background-position 0.3s linear;
+}
+
+.bg-slide-l:hover {
+  background-color: #4d6eff;
+  background-position: 100% 0%;
+  color: #fff;
 }

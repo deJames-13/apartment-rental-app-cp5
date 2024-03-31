@@ -11,9 +11,12 @@ class AppLayout extends Component
     public $page;
     public function __construct()
     {
-        $this->page = request()->route()->getName();
+        if (request()->route()) {
+            $this->page = request()->route()->getName();
+        } else {
+            $this->page = 'Unknown';
+        }
     }
-
     /**
      * Get the view / contents that represent the component.
      */

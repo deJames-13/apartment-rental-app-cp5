@@ -1,8 +1,14 @@
 <x-default-layout>
 
 	<div class="bg-image">
-		@include("frontend.partials.banner")
+		{{-- BANNER --}}
+		@include('frontend.partials.banner')
 
-		@include("frontend.partials.featured")
+		{{-- FEATURED --}}
+		@include('frontend.partials.featured')
+
+		{{-- CATEGORIES --}}
+		@include('frontend.partials.categories')
+
 	</div>
 </x-default-layout>

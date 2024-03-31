@@ -9,68 +9,74 @@ use App\Models\PropertyListing;
 
 class PropertyListingController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $propertyListings = PropertyListing::all();
-        return view('property-listings.index', compact('propertyListings'));
+        $propertyListings = PropertyListing::paginate(10);
+        return view('frontend.property-listings.index', compact('propertyListings'));
+    }
+    public function dash()
+    {
+        $userId = auth()->id();
+        $propertyListings = PropertyListing::where('landlord_id', $userId)
+            ->orderByDesc('created_at')
+            ->paginate(10);
+        return view('frontend.property-listings.index', compact('propertyListings'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        return view('property-listings.create');
+        return view('frontend.property-listings.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreRequest $request)
     {
         $data = $request->validated();
-        PropertyListing::create($data);
-        return redirect()->route('property-listings.index');
+        PropertyListing::create($$data);
+        return redirect()->route('properties.create')->with('message', 'Property Listing created successfully');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        $listing = PropertyListing::findOrFail($id);
-        return view('property-listings.show', compact('listing'));
+        $property = PropertyListing::findOrFail($id);
+        return view('frontend.property-listings.show', compact('property'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(string $id)
     {
-        $listing = PropertyListing::findOrFail($id);
-        return view('property-listings.edit', compact('listing'));
+        $property = PropertyListing::findOrFail($id);
+        if ($property->landlord_id !== auth()->id()) {
+            abort(403);
+        }
+        return view('frontend.property-listings.edit', compact('property'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateRequest $request, string $id)
     {
         $data = $request->validated();
-        $listing = PropertyListing::findOrFail($id);
-        $listing->update($data);
-        return redirect()->route('property-listings.index');
+        $property = PropertyListing::findOrFail($id);
+        if ($property->landlord_id !== auth()->id()) {
+            abort(403);
+        }
+        $property->update($data);
+        return redirect()->route('properties.create');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         // Soft delete
-        PropertyListing::destroy($id);
+        $property = PropertyListing::findOrFail($id);
+        if ($property->landlord_id !== auth()->id()) {
+            abort(403);
+        }
+        $property = PropertyListing::destroy($id);
+        return redirect()->route('properties.create');
+    }
+
+    public function category()
+    {
+    }
+    public function popular()
+    {
     }
 }

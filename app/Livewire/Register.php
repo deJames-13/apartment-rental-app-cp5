@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\AuthController;
 
 class Register extends Component
@@ -47,14 +48,10 @@ class Register extends Component
             'password' => $this->password,
             'password_confirmation' => $this->password_confirmation,
         ]);
-        app(AuthController::class)->store($request);
-        $this->first_name = '';
-        $this->last_name = '';
-        $this->username = '';
-        $this->email = '';
-        $this->password = '';
-        $this->password_confirmation = '';
-        return redirect()->to('/');
+
+
+        Session::put('user_data', $request->all());
+        $this->dispatch('save-success');
     }
 
     public function updated($propertyName)

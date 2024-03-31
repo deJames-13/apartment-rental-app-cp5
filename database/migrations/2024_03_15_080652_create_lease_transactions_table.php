@@ -33,6 +33,11 @@ return new class extends Migration
             $table->foreign('property_id')->references('id')->on('property_listings');
             $table->foreign('unit_id')->references('id')->on('units');
 
+
+            $table->string('tenant_id_card')->nullable();
+            $table->string('signature')->nullable();
+
+
             $table->timestamps();
             $table->softDeletes();
         });

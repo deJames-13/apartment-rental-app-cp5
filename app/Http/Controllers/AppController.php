@@ -14,4 +14,8 @@ class AppController extends Controller
     {
         return view('index');
     }
+    public function landlordDashboard()
+    {
+        return view('landlord.dashboard.index');
+    }
 }

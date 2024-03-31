@@ -20,13 +20,21 @@ return new class extends Migration
       $table->string('email')->unique();
       $table->string('password');
       $table->string('phone')->nullable();
+      $table->string('address')->nullable();
+      $table->string('city')->nullable();
+      $table->string('region')->nullable();
+      $table->string('country')->nullable();
+      $table->string('postal_code')->nullable();
       $table->timestamp('email_verified_at')->nullable();
       $table->string('image_path')->nullable();
-      $table->text('address')->nullable();
       $table->enum('role', ['admin', 'agent', 'landlord', 'tenant', 'user'])->default('user');
       $table->enum('status', ['active', 'inactive'])->default('active');
+      $table->date('birthdate')->nullable();
+      $table->integer('age')->nullable();
+      $table->string('occupation')->nullable();
       $table->rememberToken();
       $table->timestamps();
+      $table->softDeletes();
     });
 
     Schema::create('password_reset_tokens', function (Blueprint $table) {

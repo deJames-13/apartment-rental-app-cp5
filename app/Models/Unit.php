@@ -12,6 +12,14 @@ class Unit extends Model
     use SoftDeletes;
 
     protected $guarded = [];
+    protected $fillable = [
+        'property_id',
+        'room_number',
+        'floor_number',
+        'no_of_bedroom',
+        'no_of_bathroom',
+        'status',
+    ];
 
     public function propertyListing()
     {
