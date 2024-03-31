@@ -27,7 +27,7 @@
 					<x-icon name="fas.folder" />
 					<span>Leases</span>
 				</x-button>
-				<x-button link="{{ route('units.create') }}" class="text-white max-w-xs btn-outline bg-green-400 border-green-400">
+				<x-button link="{{ route('leases.create') }}" class="text-white max-w-xs btn-outline bg-green-400 border-green-400">
 					<x-icon name="fas.file-lines" />
 					<span>Add Lease</span>
 				</x-button>

@@ -12,7 +12,7 @@
 	</div>
 	<div class="min-h-screen lg:p-8 flex p-3 lg:gap-8  m-0">
 		{{-- side bar --}}
-		<div x-data="{ minimized: true }" :class="{ 'w-24': minimized, 'max-w-xs w-full': !minimized }"
+		<div x-data="{ minimized: window.innerWidth <= 1024 }" :class="{ 'w-24': minimized, 'max-w-xs w-full': !minimized }"
 			class="transition-all ease-in flex flex-col gap-8">
 			<div x-show="!minimized">
 				@include('profile.profile-card', ['page' => ucfirst($role)])
