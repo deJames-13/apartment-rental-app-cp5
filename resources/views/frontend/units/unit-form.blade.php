@@ -84,7 +84,7 @@
 					<x-input type="hidden" name="status" id="status" x-model="property" />
 					<div class="dropdown dropdown-bottom dropdown-start">
 						<x-button role="button" type="button" icon="o-home"
-							class="btn btn-xs lg:btn-sm bg-base-100 w-full justify-start items-center flex gap-1">
+							class="btn bg-base-100 w-full justify-start items-center flex gap-1">
 							<span x-text="property"></span>
 						</x-button>
 						<ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">

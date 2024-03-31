@@ -104,7 +104,7 @@ final class PropertyTable extends PowerGridComponent
     #[\Livewire\Attributes\On('edit')]
     public function edit($rowId)
     {
-        return redirect()->to('/properties/posts/edit/' . $rowId);
+        return redirect()->to('/properties/edit/' . $rowId);
     }
 
     #[\Livewire\Attributes\On('view')]
