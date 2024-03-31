@@ -15,7 +15,7 @@
 	$form = $isEdit ? 'update' : 'save';
 @endphp
 <div>
-	<x-card class="min-h-screen flex flex-col space-y-12 shadow-xl container mx-auto p-12 mb-12 ">
+	<x-card class="min-h-screen flex flex-col shadow-xl container mx-auto gap-4 lg:gap-12 p-4 lg:p-12 mb-12 ">
 
 		<div class="flex items-center justify-between mb-12">
 			@if ($isEdit)
@@ -73,9 +73,9 @@
 
 		<x-form wire:submit.prevent="{{ $form }}" method="post">
 
-			<div class="grid lg:grid-cols-3 gap-4 items-start">
+			<div class="grid grid-cols-1 lg:grid-cols-3 gap-4 items-start">
 
-				<h1 class="font-bold text-lg uppercase col-span-3">
+				<h1 class="font-bold text-lg uppercase lg:col-span-3">
 					Unit Information
 				</h1>
 
@@ -104,12 +104,17 @@
 
 				<x-input type="text" class="input input-sm lg:input-md" label="Unit Code" name="unit_code" wire:model="unit_code"
 					readonly />
+
 				<div></div>
 
 
-				<x-input type="number" class="max-w-sm input input-sm lg:input-md" label="Floor Number" name="floor_number"
-					wire:model="floor_number" />
-				<div class="flex gap-1">
+				<div class="flex lg:flex-row flex-col gap-1">
+					<x-input type="number" class="max-w-sm input input-sm lg:input-md" label="Room Number" name="room_number"
+						wire:model="room_number" />
+					<x-input type="number" class="max-w-sm input input-sm lg:input-md" label="Floor Number" name="floor_number"
+						wire:model="floor_number" />
+				</div>
+				<div class="flex lg:flex-row flex-col gap-1">
 					<x-input type="number" class="max-w-sm input input-sm lg:input-md" label="# of Bedroom" name="no_of_bedroom"
 						wire:model="no_of_bedroom" />
 					<x-input type="number" class="max-w-sm input input-sm lg:input-md" label="# of Bathroom" name="no_of_bathroom"
@@ -138,18 +143,18 @@
 					</div>
 				</div>
 
-				<div class="divider col-span-3"></div>
+				<div class="divider lg:col-span-3"></div>
 
 				{{-- OTHER INFO --}}
-				<div class="col-span-3">
+				<div class="lg:col-span-3">
 					<x-input type="text" class="input input-sm lg:input-md" label="Heading" name="heading"
 						wire:model="heading" />
 				</div>
-				<div class="col-span-3">
+				<div class="lg:col-span-3">
 					<x-textarea label="Description" wire:model="description" placeholder="add description ..."
 						hint="Max 1000 chars" rows="5" inline class="resize-none" />
 				</div>
-				<div class="col-span-3 max-w-lg">
+				<div class="lg:col-span-3 max-w-lg">
 					<x-input type="file" accept="image/*" class="file-input file-input-bordered w-full " label="Unit Thumbnail"
 						name="unit_thumbnail" wire:model="unit_thumbnail" />
 

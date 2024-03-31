@@ -12,9 +12,10 @@ class UnitForm extends Component
 {
     use WithFileUploads;
     public $unit;
-    public $property_id, $unit_code, $floor_number, $no_of_bedroom, $no_of_bathroom, $unit_thumbnail, $date_posted, $date_available_from, $description, $heading, $status;
+    public $property_id, $unit_code, $room_number, $floor_number, $no_of_bedroom, $no_of_bathroom, $unit_thumbnail, $date_posted, $date_available_from, $description, $heading, $status;
     protected $rules = [
         'unit_code' => 'required|string|max:255',
+        'room_number' => 'required|integer',
         'floor_number' => 'required|integer',
         'no_of_bedroom' => 'required|integer',
         'no_of_bathroom' => 'required|integer',
@@ -35,6 +36,7 @@ class UnitForm extends Component
         if ($this->unit->exists) {
             $this->property_id = $unit->property_id;
             $this->unit_code = $unit->unit_code;
+            $this->room_number = $unit->room_number;
             $this->floor_number = $unit->floor_number;
             $this->no_of_bedroom = $unit->no_of_bedroom;
             $this->no_of_bathroom = $unit->no_of_bathroom;

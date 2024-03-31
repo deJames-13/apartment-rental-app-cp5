@@ -14,7 +14,7 @@
 	$form = $isEdit ? 'update' : 'save';
 @endphp
 <div>
-	<x-card class="min-h-screen flex flex-col space-y-12 shadow-xl container mx-auto p-12 mb-12 ">
+	<x-card class="min-h-screen flex flex-col shadow-xl container mx-auto gap-4 lg:gap-12 p-4 lg:p-12 mb-12 ">
 
 		<div class="flex items-center justify-between mb-12">
 			@if ($isEdit)
@@ -75,11 +75,11 @@
 
 			<div class="grid lg:grid-cols-3 gap-4 items-start">
 
-				<h1 class="font-bold text-lg uppercase col-span-3">
+				<h1 class="font-bold text-lg uppercase lg:col-span-3">
 					Property Information
 				</h1>
 
-				<div class="col-span-2">
+				<div class="lg:col-span-2">
 					<x-input type="text" class="input input-sm lg:input-md" label="Property Name" name="property_name"
 						wire:model="property_name" />
 				</div>
@@ -106,7 +106,7 @@
 					</div>
 				</div>
 
-				<div class="flex gap-1">
+				<div class="flex lg:flex-row flex-col gap-1">
 					<x-input type="number" class="max-w-sm input input-sm lg:input-md" label="# of Floors" name="no_of_floors"
 						wire:model="no_of_floors" />
 					<x-input type="number" class="max-w-sm input input-sm lg:input-md" label="# of Units" name="no_of_units"
@@ -137,11 +137,11 @@
 
 
 
-				<div class="divider col-span-3"></div>
+				<div class="divider lg:col-span-3"></div>
 
 
 				{{-- ADDRESS --}}
-				<h1 class="font-bold text-lg uppercase col-span-3">
+				<h1 class="font-bold text-lg uppercase lg:col-span-3">
 					Pricing
 				</h1>
 				<x-input type="number" class="input input-sm lg:input-md" label="Default Price" name="default_price"
@@ -151,13 +151,13 @@
 				<x-input type="number" class="input input-sm lg:input-md" label="Lowest Price" name="lowest_price"
 					wire:model="lowest_price" />
 
-				<div class="divider col-span-3"></div>
+				<div class="divider lg:col-span-3"></div>
 
 				{{-- ADDRESS --}}
-				<h1 class="font-bold text-lg uppercase col-span-3">
+				<h1 class="font-bold text-lg uppercase lg:col-span-3">
 					Property Address
 				</h1>
-				<div class="col-span-2">
+				<div class="lg:col-span-2">
 					<x-input type="text" class="input input-sm lg:input-md" label="Address" name="address"
 						wire:model="address" />
 				</div>
@@ -168,18 +168,18 @@
 				<x-input type="number" class="input input-sm lg:input-md" label="Postal Code" name="postal_code"
 					wire:model="postal_code" />
 
-				<div class="divider col-span-3"></div>
+				<div class="divider lg:col-span-3"></div>
 
 				{{-- OTHER INFO --}}
-				<div class="col-span-3">
+				<div class="lg:col-span-3">
 					<x-input type="text" class="input input-sm lg:input-md" label="Heading" name="heading"
 						wire:model="heading" />
 				</div>
-				<div class="col-span-3">
+				<div class="lg:col-span-3">
 					<x-textarea label="Description" wire:model="description" placeholder="add description ..."
 						hint="Max 1000 chars" rows="5" inline class="resize-none" />
 				</div>
-				<div class="col-span-3 lg:col-span-1">
+				<div class="lg:col-span-3 lg:lg:col-span-1">
 					<x-input type="file" accept="image/*" class="file-input file-input-bordered w-full "
 						label="Property Thumbnail" name="property_thumbnail" wire:model="property_thumbnail" />
 
