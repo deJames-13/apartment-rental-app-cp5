@@ -1,9 +1,11 @@
 {{-- if mobile --}}
-<section class="lg:hidden">
-	@include('layouts.mobile-dashboard')
+<x-default-layout>
+	{{-- <section class="lg:hidden">
+		@include('layouts.mobile-dashboard')
 
-</section>
-<section class="hidden lg:block">
-	@include('layouts.main-dashboard')
+	</section> --}}
+	<section class="hidden lg:block">
+		@include('layouts.main-dashboard')
 
-</section>
+	</section>
+</x-default-layout>
