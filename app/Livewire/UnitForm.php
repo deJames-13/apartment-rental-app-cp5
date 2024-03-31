@@ -11,15 +11,14 @@ use Livewire\WithFileUploads;
 class UnitForm extends Component
 {
     use WithFileUploads;
-    public $property;
+    public $unit;
     public $property_id, $unit_code, $floor_number, $no_of_bedroom, $no_of_bathroom, $unit_thumbnail, $date_posted, $date_available_from, $description, $heading, $status;
     protected $rules = [
-        'property_id' => 'required|string|max:255',
         'unit_code' => 'required|string|max:255',
         'floor_number' => 'required|integer',
         'no_of_bedroom' => 'required|integer',
         'no_of_bathroom' => 'required|integer',
-        'unit_thumbnail' => 'nullable|image|mimes:jpeg,png,webp',
+        'unit_thumbnail' => 'nullable',
         'date_posted' => 'nullable|date',
         'date_available_from' => 'nullable|date',
         'description' => 'nullable|string|max:255',
@@ -27,9 +26,22 @@ class UnitForm extends Component
         'status' => 'required|in:available,occupied,inactive',
     ];
 
-    public function mount()
+    public function mount(Unit $unit = null)
     {
         $this->unit_code = strtoupper(Str::random(10) . date('dHis'));
+        if ($unit) {
+            $this->property_id = $unit->property_id;
+            $this->unit_code = $unit->unit_code;
+            $this->floor_number = $unit->floor_number;
+            $this->no_of_bedroom = $unit->no_of_bedroom;
+            $this->no_of_bathroom = $unit->no_of_bathroom;
+            $this->date_posted = $unit->date_posted;
+            $this->date_available_from = $unit->date_available_from;
+            $this->description = $unit->description;
+            $this->unit_thumbnail = $unit->unit_thumbnail;
+            $this->heading = $unit->heading;
+            $this->status = $unit->status;
+        }
     }
 
     public function save()
@@ -37,9 +49,9 @@ class UnitForm extends Component
         $validatedData = $this->validate($this->rules);
 
         if ($this->unit_thumbnail) {
-            $filename = time() . '_' . Str::slug($this->unit_thumbnail->getClientOriginalName());
-            $this->unit_thumbnail->storeAs('public/unit-thumbnails', $filename);
-            $validatedData['unit_thumbnail'] = 'unit-thumbnails/' . $filename;
+            $filename = $this->unit_code . '_' . $this->unit_thumbnail->getClientOriginalName();
+            $this->unit_thumbnail->storeAs('public/units', $filename);
+            $validatedData['unit_thumbnail'] = 'units/' . $filename;
         }
 
 
@@ -52,6 +64,27 @@ class UnitForm extends Component
 
         session()->flash('message', 'Unit created successfully');
         return redirect()->route('units.create');
+    }
+
+    public function update()
+    {
+        $validatedData = $this->validate($this->rules);
+
+        if (is_object($this->unit_thumbnail)) {
+            try {
+                $filename = $this->unit_code . '_' . time() . '_' . $this->unit_thumbnail->getClientOriginalName();
+                $this->unit_thumbnail->storeAs('public/units', $filename);
+                $validatedData['unit_thumbnail'] = 'units/' . $filename;
+            } catch (\Exception $e) {
+            }
+        }
+
+        $this->unit->update($validatedData);
+        dd($this->unit);
+
+
+        session()->flash('message', 'Unit updated successfully');
+        return redirect()->route('units.edit', $this->unit);
     }
 
     public function render()

@@ -105,7 +105,7 @@ class PropertyForm extends Component
 
         if ($this->property_thumbnail && !is_string($this->property_thumbnail)) {
             try {
-                $filename = time() . '_' . Str::slug($this->property_thumbnail->getClientOriginalName());
+                $filename = 'property_thumbnail_' . time() . '_' . Str::slug($this->property_thumbnail->getClientOriginalName());
                 $this->property_thumbnail->storeAs('public/properties', $filename);
                 $validatedData['property_thumbnail'] = 'properties/' . $filename;
             } catch (\Exception $e) {

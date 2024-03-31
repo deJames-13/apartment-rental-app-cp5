@@ -4,7 +4,6 @@
 		$userData = App\Models\User::find($id);
 		// id => property_name
 		$properties = App\Models\PropertyListing::pluck('id', 'property_name')->toArray();
-
 		$types = ['Apartment', 'Condominium', 'House', 'Townhouse', 'Commercial', 'Industrial'];
 		$status = ['inactive', 'available', 'unavailable'];
 
@@ -85,7 +84,7 @@
 					<x-input type="hidden" name="status" id="status" x-model="property" />
 					<div class="dropdown dropdown-bottom dropdown-start">
 						<x-button role="button" type="button" icon="o-home"
-							class="btn bg-base-100 w-full justify-start items-center flex gap-1">
+							class="btn btn-xs lg:btn-sm bg-base-100 w-full justify-start items-center flex gap-1">
 							<span x-text="property"></span>
 						</x-button>
 						<ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
@@ -150,9 +149,9 @@
 					<x-textarea label="Description" wire:model="description" placeholder="add description ..."
 						hint="Max 1000 chars" rows="5" inline class="resize-none" />
 				</div>
-				<div class="col-span-3">
-					<x-input type="file" accept="image/*" class="file-input file-input-bordered w-full "
-						label="Property Thumbnail" name="property_thumbnail" wire:model="property_thumbnail" />
+				<div class="col-span-3 max-w-lg">
+					<x-input type="file" accept="image/*" class="file-input file-input-bordered w-full " label="Unit Thumbnail"
+						name="unit_thumbnail" wire:model="unit_thumbnail" />
 
 					@if ($unit_thumbnail)
 						@if (is_object($unit_thumbnail))

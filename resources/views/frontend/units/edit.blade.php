@@ -1,3 +1,5 @@
-<x-default-layout>
-
-</x-default-layout>
+<x-dashboard-layout>
+	@isset($unit)
+		<livewire:unit-form :unit="$unit" />
+	@endisset
+</x-dashboard-layout>
