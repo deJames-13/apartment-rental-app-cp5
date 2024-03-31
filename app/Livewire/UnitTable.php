@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Models\PropertyListing;
+use App\Models\Unit;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use PowerComponents\LivewirePowerGrid\Button;
@@ -16,7 +16,7 @@ use PowerComponents\LivewirePowerGrid\PowerGridFields;
 use PowerComponents\LivewirePowerGrid\PowerGridComponent;
 use PowerComponents\LivewirePowerGrid\Traits\WithExport;
 
-final class PropertyTable extends PowerGridComponent
+final class UnitTable extends PowerGridComponent
 {
     use WithExport;
     protected function getListeners(): array
@@ -45,9 +45,7 @@ final class PropertyTable extends PowerGridComponent
 
     public function datasource(): Builder
     {
-        $user = auth()->user();
-        $landlord_id = auth()->id();
-        return PropertyListing::where('landlord_id', $landlord_id);
+        return Unit::query();
     }
 
     public function relationSearch(): array
@@ -59,11 +57,11 @@ final class PropertyTable extends PowerGridComponent
     {
         return PowerGrid::fields()
             ->add('id')
-            ->add('type')
-            ->add('property_name')
-            ->add('default_price')
-            ->add('no_of_floors')
-            ->add('no_of_units')
+            ->add('property_id')
+            ->add('room_number')
+            ->add('floor_number')
+            ->add('no_of_bedroom')
+            ->add('no_of_bathroom')
             ->add('status')
             ->add('created_at');
     }
@@ -72,29 +70,29 @@ final class PropertyTable extends PowerGridComponent
     {
         return [
             Column::make('Id', 'id'),
-            Column::make('Type', 'type')
+            Column::make('Property id', 'property_id'),
+            Column::make('Room number', 'room_number')
                 ->sortable()
                 ->searchable(),
 
-            Column::make('Property name', 'property_name')
+            Column::make('Floor number', 'floor_number')
                 ->sortable()
                 ->searchable(),
 
-            Column::make('Default price', 'default_price')
+            Column::make('No of bedroom', 'no_of_bedroom')
                 ->sortable()
                 ->searchable(),
 
-            Column::make('No of floors', 'no_of_floors')
-                ->sortable()
-                ->searchable(),
-
-            Column::make('No of units', 'no_of_units')
+            Column::make('No of bathroom', 'no_of_bathroom')
                 ->sortable()
                 ->searchable(),
 
             Column::make('Status', 'status')
                 ->sortable()
                 ->searchable(),
+
+            Column::make('Created at', 'created_at_formatted', 'created_at')
+                ->sortable(),
 
             Column::make('Created at', 'created_at')
                 ->sortable()
@@ -109,25 +107,25 @@ final class PropertyTable extends PowerGridComponent
         return [];
     }
 
+
     #[\Livewire\Attributes\On('edit')]
     public function edit($rowId)
     {
-        return redirect()->to('/properties/edit/' . $rowId);
+        return redirect()->to('/units/edit/' . $rowId);
     }
 
     #[\Livewire\Attributes\On('view')]
     public function view($rowId)
     {
-        return redirect()->to('/properties/' . $rowId);
+        return redirect()->to('/units/' . $rowId);
     }
     #[\Livewire\Attributes\On('delete')]
     public function delete($rowId)
     {
         // emit a livewire delete event for property
-        $this->dispatch('delete-property', $rowId);
+        $this->dispatch('delete-unit', $rowId);
     }
-
-    public function actions(PropertyListing $row): array
+    public function actions(Unit $row): array
     {
         return [
             Button::add('edit')

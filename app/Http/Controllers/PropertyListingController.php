@@ -62,15 +62,31 @@ class PropertyListingController extends Controller
         return redirect()->route('properties.create');
     }
 
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
         // Soft delete
-        $property = PropertyListing::findOrFail($id);
+        $property = PropertyListing::findOrFail($request->id);
         if ($property->landlord_id !== auth()->id()) {
             abort(403);
         }
-        $property = PropertyListing::destroy($id);
-        return redirect()->route('properties.create');
+        foreach ($property->units as $unit) {
+            $unit->delete();
+        }
+        $property->delete();
+        return redirect()->route('dashboard.properties');
+    }
+    public function restore(Request $request)
+    {
+        $property = PropertyListing::withTrashed()->findOrFail($request->id);
+        if ($property->landlord_id !== auth()->id()) {
+            abort(403);
+        }
+        $property->restore();
+        foreach ($property->units()->withTrashed()->get() as $unit) {
+            $unit->restore();
+        }
+
+        return redirect()->route('dashboard.properties');
     }
 
     public function category()

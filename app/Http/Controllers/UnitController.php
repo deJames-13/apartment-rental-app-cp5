@@ -54,15 +54,35 @@ class UnitController extends Controller
         return redirect()->route('units.edit', $id);
     }
 
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
         // Soft delete
-        $unit = Unit::findOrFail($id);
+        $unit = Unit::findOrFail($request->id);
         if ($unit->propertyListing->landlord_id !== auth()->id()) {
             abort(403);
         }
-        Unit::destroy($id);
-        return redirect()->route('units.index');
+        // Manually soft delete related leases
+        foreach ($unit->leases as $lease) {
+            $lease->delete();
+        }
+        $unit->delete();
+        return redirect()->route('dashboard.units');
+    }
+
+    // Restore
+    public function restore($id)
+    {
+        $unit = Unit::withTrashed()->findOrFail($id);
+        if ($unit->propertyListing->landlord_id !== auth()->id()) {
+            abort(403);
+        }
+
+        $unit->restore();
+        foreach ($unit->leases()->withTrashed()->get() as $lease) {
+            $lease->restore();
+        }
+
+        return redirect()->route('dashboard.units');
     }
 
     public function category()

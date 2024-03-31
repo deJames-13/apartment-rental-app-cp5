@@ -14,7 +14,7 @@
 	</section>
 	<!--End Page Title-->
 	<div class="py-12 w-screen h-screen grid place-items-center">
-		<div class="flex flex-col gap-4">
+		<div class="flex flex-col gap-4 items-center">
 			<div class="text-2xl font-extrabold uppercase text-center">
 				403
 				<br>
@@ -23,11 +23,13 @@
 			<div class="mt-4 text-gray-500">
 				You are not authorized to access this page.
 			</div>
-			<x-button
-				class="hover:bg-btn-secondary btn-outline btn-primary bg-button-gradient bg-200% transition-all duration-500 ease-out hover:bg-right hover:text-white"
-				link="/">
-				Go Back to HomePage
-			</x-button>
+			<div>
+				<x-button
+					class="hover:bg-btn-secondary btn-outline btn-primary bg-button-gradient bg-200% transition-all duration-500 ease-out hover:bg-right hover:text-white"
+					link="/">
+					Go Back to HomePage
+				</x-button>
+			</div>
 		</div>
 	</div>
 

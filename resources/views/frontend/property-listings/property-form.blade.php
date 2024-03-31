@@ -84,28 +84,7 @@
 						wire:model="property_name" />
 				</div>
 
-				<div x-data="{ selectedType: '{{ $isEdit ? ucfirst($property->type) : 'Select Type' }}' }" class="flex flex-col gap-1 justify-end">
-					<label for="status" class="text-sm font-bold">Property Type</label>
-					<x-input type="hidden" name="type" id="type" x-model="selectedType" />
-					<div class="dropdown dropdown-bottom dropdown-start">
-						<x-button role="button" type="button" icon="o-home" class="btn bg-base-100 w-full justify-start flex gap-1">
-							<span x-text="selectedType"></span>
-						</x-button>
-						<ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-							@foreach ($types as $type)
-								<li>
-									<button wire:click="$set('type', '{{ $type }}')"
-										x-on:click="selectedType='{{ $type }}' ;
-										document.getElementById('type').value='{{ $type }}'"
-										class="btn btn-xs justify-start btn-ghost font-normal hover:font-bold hover:text-primary" type="button">
-										{{ $type }}
-									</button>
-								</li>
-							@endforeach
-						</ul>
-					</div>
-				</div>
-
+				<div></div>
 				<div class="flex lg:flex-row flex-col gap-1">
 					<x-input type="number" class="max-w-sm input input-sm lg:input-md" label="# of Floors" name="no_of_floors"
 						wire:model="no_of_floors" />
@@ -135,7 +114,27 @@
 					</div>
 				</div>
 
-
+				<div x-data="{ selectedType: '{{ $isEdit ? ucfirst($property->type) : 'Select Type' }}' }" class="flex flex-col gap-1 justify-end">
+					<label for="status" class="text-sm font-bold">Property Type</label>
+					<x-input type="hidden" name="type" id="type" x-model="selectedType" />
+					<div class="dropdown dropdown-bottom dropdown-start">
+						<x-button role="button" type="button" icon="o-home" class="btn bg-base-100 w-full justify-start flex gap-1">
+							<span x-text="selectedType"></span>
+						</x-button>
+						<ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+							@foreach ($types as $type)
+								<li>
+									<button wire:click="$set('type', '{{ $type }}')"
+										x-on:click="selectedType='{{ $type }}' ;
+										document.getElementById('type').value='{{ $type }}'"
+										class="btn btn-xs justify-start btn-ghost font-normal hover:font-bold hover:text-primary" type="button">
+										{{ $type }}
+									</button>
+								</li>
+							@endforeach
+						</ul>
+					</div>
+				</div>
 
 				<div class="divider lg:col-span-3"></div>
 
@@ -157,15 +156,19 @@
 				<h1 class="font-bold text-lg uppercase lg:col-span-3">
 					Property Address
 				</h1>
-				<div class="lg:col-span-2">
+				<div class="lg:col-span-3">
 					<x-input type="text" class="input input-sm lg:input-md" label="Address" name="address"
 						wire:model="address" />
 				</div>
 				<x-input type="text" class="input input-sm lg:input-md" label="City" name="city" wire:model="city" />
-				<x-input type="text" class="input input-sm lg:input-md" label="Region" name="region" wire:model="region" />
-				<x-input type="text" class="input input-sm lg:input-md" label="Country" name="country"
-					wire:model="country" />
-				<x-input type="number" class="input input-sm lg:input-md" label="Postal Code" name="postal_code"
+
+				<div class="flex lg:flex-row flex-col gap-1">
+					<x-input type="text" class="input input-sm lg:input-md" label="Region" name="region"
+						wire:model="region" />
+					<x-input type="text" class="input input-sm lg:input-md" label="Country" name="country"
+						wire:model="country" />
+				</div>
+				<x-input type="text" class="input input-sm lg:input-md" label="Postal Code" name="postal_code"
 					wire:model="postal_code" />
 
 				<div class="divider lg:col-span-3"></div>

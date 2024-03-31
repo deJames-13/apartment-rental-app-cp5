@@ -87,6 +87,6 @@ class AuthController extends Controller
       $user->save();
       return redirect('/')->with(['message', 'Email verified successfully!']);
     }
-    return abort(403, 'Unauthorized action.');
+    return abort(419, 'Unauthorized action.');
   }
 }

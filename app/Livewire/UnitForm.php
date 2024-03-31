@@ -14,6 +14,7 @@ class UnitForm extends Component
     public $unit;
     public $property_id, $unit_code, $room_number, $floor_number, $no_of_bedroom, $no_of_bathroom, $unit_thumbnail, $date_posted, $date_available_from, $description, $heading, $status;
     protected $rules = [
+        'property_id' => 'required',
         'unit_code' => 'required|string|max:255',
         'room_number' => 'required|integer',
         'floor_number' => 'required|integer',
@@ -26,14 +27,17 @@ class UnitForm extends Component
         'heading' => 'nullable|string|max:255',
         'status' => 'required|in:available,occupied,inactive',
     ];
+    protected $messages = [
+        'property_id' => 'The property is required.'
+    ];
+
 
     public function mount(Unit $unit = null)
     {
         $this->reset();
-        $this->unit = $unit ?? null;
+        $this->unit = $unit->exists ? $unit : null;
         $this->unit_code = strtoupper(Str::random(10) . date('dHis'));
-
-        if ($this->unit->exists) {
+        if ($unit->exists) {
             $this->property_id = $unit->property_id;
             $this->unit_code = $unit->unit_code;
             $this->room_number = $unit->room_number;
@@ -53,13 +57,12 @@ class UnitForm extends Component
     {
         $validatedData = $this->validate($this->rules);
         $validatedData['property_id'] = $this->property_id;
-
+        $validatedData['unit_code'] = $this->unit_code;
         if ($this->unit_thumbnail) {
             $filename = $this->unit_code . '_' . $this->unit_thumbnail->getClientOriginalName();
             $this->unit_thumbnail->storeAs('public/units', $filename);
             $validatedData['unit_thumbnail'] = 'units/' . $filename;
         }
-
         Unit::create($validatedData);
         $property = PropertyListing::find($this->property_id);
         $property->update([
@@ -70,6 +73,10 @@ class UnitForm extends Component
         return redirect()->route('units.create');
     }
 
+    public function setProperty($propertyId)
+    {
+        $this->property_id = $propertyId;
+    }
     public function update()
     {
         $validatedData = $this->validate($this->rules);
@@ -84,8 +91,6 @@ class UnitForm extends Component
         }
 
         $this->unit->update($validatedData);
-        dd($this->unit);
-
 
         session()->flash('message', 'Unit updated successfully');
         return redirect()->route('units.edit', $this->unit);

@@ -2,11 +2,15 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AppController;
+use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LeaseController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropertyListingController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UnitController;
+use App\Livewire\LeasesPage;
 
 // AUTH
 Route::get('/verify/{token}', [AuthController::class, 'verifyEmail'])->name('verify-email')->middleware('auth');
@@ -30,6 +34,7 @@ Route::middleware(['verified'])->group(function () {
         Route::get('/dashboard/units', [DashboardController::class, 'units'])->name('dashboard.units');
         Route::get('/dashboard/transactions', [DashboardController::class, 'transactions'])->name('dashboard.transactions');
         Route::get('/dashboard/applications', [DashboardController::class, 'applications'])->name('dashboard.applications');
+        Route::get('/dashboard/leases', [DashboardController::class, 'leases'])->name('dashboard.leases');
         Route::get('/dashboard/reports', [DashboardController::class, 'reports'])->name('dashboard.reports');
         Route::get('/dashboard/bookmarks', [DashboardController::class, 'bookmarks'])->name('dashboard.bookmarks');
 
@@ -45,6 +50,30 @@ Route::middleware(['verified'])->group(function () {
         Route::post('/units/create', [UnitController::class, 'store'])->name('units.store');
         Route::get('/units/edit/{id}', [UnitController::class, 'edit'])->name('units.edit');
         Route::post('/units/edit/{id}', [UnitController::class, 'update'])->name('units.update');
+
+
+        // Lease Info
+        Route::get('/leases/create', [LeaseController::class, 'create'])->name('leases.create');
+        Route::post('/leases/create', [LeaseController::class, 'store'])->name('leases.store');
+        Route::get('/leases/edit/{id}', [LeaseController::class, 'edit'])->name('leases.edit');
+        Route::post('/leases/edit/{id}', [LeaseController::class, 'update'])->name('leases.update');
+
+        // Applications
+        Route::get('/applications', [ApplicationController::class, 'index'])->name('applications.index');
+        Route::get('/applications/create', [ApplicationController::class, 'create'])->name('applications.create');
+        Route::post('/applications/create', [ApplicationController::class, 'store'])->name('applications.store');
+        Route::get('/applications/edit/{id}', [ApplicationController::class, 'edit'])->name('applications.edit');
+        Route::post('/applications/edit/{id}', [ApplicationController::class, 'update'])->name('applications.update');
+
+        // Transactions
+        Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
+        Route::get('/transactions/create', [TransactionController::class, 'create'])->name('transactions.create');
+        Route::post('/transactions/create', [TransactionController::class, 'store'])->name('transactions.store');
+        Route::get('/transactions/edit/{id}', [TransactionController::class, 'edit'])->name('transactions.edit');
+        Route::post('/transactions/edit/{id}', [TransactionController::class, 'update'])->name('transactions.update');
+
+        // Reports
+
     });
 
     Route::middleware('role:tenant')->group(function () {
