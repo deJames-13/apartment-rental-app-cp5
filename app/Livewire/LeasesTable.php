@@ -136,11 +136,11 @@ final class LeasesTable extends PowerGridComponent
     {
         return redirect()->to('/leases/' . $rowId);
     }
-    #[\Livewire\Attributes\On('view')]
+    #[\Livewire\Attributes\On('delete')]
     public function delete($rowId)
     {
-        // emit a livewire delete event for property
-        $this->dispatch('deleteUnit', $rowId);
+        // emit a livewire delete event for lease
+        $this->dispatch('delete-lease', $rowId);
     }
     public function actions(LeaseInfo $row): array
     {

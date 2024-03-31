@@ -10,6 +10,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropertyListingController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UnitController;
+use App\Livewire\LeasesPage;
 
 // AUTH
 Route::get('/verify/{token}', [AuthController::class, 'verifyEmail'])->name('verify-email')->middleware('auth');
