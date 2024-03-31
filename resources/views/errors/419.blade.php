@@ -16,12 +16,17 @@
 	<div class="py-12 w-screen h-screen grid place-items-center">
 		<div class="flex flex-col gap-4 items-center">
 			<div class="text-2xl font-extrabold uppercase text-center">
-				500
+				419
 				<br>
-				Internal Server Error
+				Page Expired
 			</div>
 			<div class="mt-4 text-gray-500">
-				An unexpected error occurred. Please try again later.
+				<p>
+					The page you are trying to access has already expired.
+					<br>
+					If you think this is an error, please contact the
+					<developer class=""></developer>
+				</p>
 			</div>
 			<div>
 				<x-button

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\LeaseTransaction;
+use App\Models\LeaseApplication;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class TransactionController extends Controller
+class ApplicationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $transactions = LeaseTransaction::all();
-        return view('frontend.transactions.index', compact('transactions'));
+        $applications = LeaseApplication::all();
+        return view('frontend.applications.index', compact('applications'));
     }
 
     /**
@@ -26,7 +26,7 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        return view('frontend.transactions.create');
+        return view('frontend.applications.create');
     }
 
     /**
@@ -37,6 +37,7 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
+        // Validate the request
         $request->validate([
             'tenant_id' => 'required',
             'landlord_id' => 'required',
@@ -56,8 +57,7 @@ class TransactionController extends Controller
         $tenantIdCardPath = $request->file('tenant_id_card') ? $request->file('tenant_id_card')->store('public/applications') : null;
         $signaturePath = $request->file('signature') ? $request->file('signature')->store('public/applications') : null;
 
-        // Create new transaction
-        $transaction = LeaseTransaction::create(array_merge(
+        $application = LeaseApplication::create(array_merge(
             $request->except(['tenant_id_card', 'signature']),
             [
                 'tenant_id_card' => $tenantIdCardPath,
@@ -65,43 +65,44 @@ class TransactionController extends Controller
             ]
         ));
 
-        return redirect()->route('transactions.index')
-            ->with('success', 'Lease transaction created successfully.');
+        return redirect()->route('applications.index')
+            ->with('success', 'Lease application created successfully.');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  string  $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(string $id)
+    public function show($id)
     {
-        $transaction = LeaseTransaction::findOrFail($id);
-        return view('frontend.transactions.show', compact('transaction'));
+        $application = LeaseApplication::findOrFail($id);
+        return view('frontend.applications.show', compact('application'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  string  $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        $transaction = LeaseTransaction::findOrFail($id);
-        return view('frontend.transactions.edit', compact('transaction'));
+        $application = LeaseApplication::findOrFail($id);
+        return view('frontend.applications.edit', compact('application'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  string  $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
+        // Validate the request
         $request->validate([
             'tenant_id' => 'required',
             'landlord_id' => 'required',
@@ -117,21 +118,22 @@ class TransactionController extends Controller
             'signature' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $transaction = LeaseTransaction::findOrFail($id);
+        // Find the application and update
+        $application = LeaseApplication::findOrFail($id);
 
         // Update file paths if new files are uploaded
-        $tenantIdCardPath = $transaction->tenant_id_card;
-        $signaturePath = $transaction->signature;
+        $tenantIdCardPath = $application->tenant_id_card;
+        $signaturePath = $application->signature;
         if ($request->file('tenant_id_card')) {
             $tenantIdCardPath = $request->file('tenant_id_card')->store('public/applications');
-            Storage::delete($transaction->tenant_id_card);
+            Storage::delete($application->tenant_id_card); // Delete old file
         }
         if ($request->file('signature')) {
             $signaturePath = $request->file('signature')->store('public/applications');
-            Storage::delete($transaction->signature);
+            Storage::delete($application->signature); // Delete old file
         }
 
-        $transaction->update(array_merge(
+        $application->update(array_merge(
             $request->except(['tenant_id_card', 'signature']),
             [
                 'tenant_id_card' => $tenantIdCardPath,
@@ -139,23 +141,23 @@ class TransactionController extends Controller
             ]
         ));
 
-        return redirect()->route('transactions.index')
-            ->with('success', 'Lease transaction updated successfully.');
+        return redirect()->route('applications.index')
+            ->with('success', 'Lease application updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  string  $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        $transaction = LeaseTransaction::findOrFail($id);
-        Storage::delete([$transaction->tenant_id_card, $transaction->signature]); // Delete associated files
-        $transaction->delete();
+        $application = LeaseApplication::findOrFail($id);
+        Storage::delete([$application->tenant_id_card, $application->signature]);
+        $application->delete();
 
-        return redirect()->route('transactions.index')
-            ->with('success', 'Lease transaction deleted successfully.');
+        return redirect()->route('applications.index')
+            ->with('success', 'Lease application deleted successfully.');
     }
 }

@@ -17,7 +17,7 @@
 			@if ($isEdit)
 				<h2 class="text-2xl font-semibold text-gray-700">Edit Form: {{ $property->id }}</h2>
 			@else
-				<h2 class="text-2xl font-semibold text-gray-700">Create</h2>
+				<h2 class="text-2xl font-semibold text-gray-700">Create Form</h2>
 			@endif
 			<div class="flex justify-end">
 				<x-button onclick="window.history.back()"
@@ -73,7 +73,7 @@
 			<div class="grid lg:grid-cols-3 gap-4 items-start">
 
 				<h1 class="font-bold text-lg uppercase lg:col-span-3">
-					Lease Information
+					Application Form
 				</h1>
 
 
