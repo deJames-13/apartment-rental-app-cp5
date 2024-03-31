@@ -30,10 +30,9 @@ class UnitForm extends Component
     public function mount(Unit $unit = null)
     {
         $this->reset();
-        $this->unit = $unit ?? null;
+        $this->unit = $unit->exists ? $unit : null;
         $this->unit_code = strtoupper(Str::random(10) . date('dHis'));
-
-        if ($this->unit->exists) {
+        if ($unit->exists) {
             $this->property_id = $unit->property_id;
             $this->unit_code = $unit->unit_code;
             $this->room_number = $unit->room_number;
@@ -53,7 +52,7 @@ class UnitForm extends Component
     {
         $validatedData = $this->validate($this->rules);
         $validatedData['property_id'] = $this->property_id;
-
+        $validatedData['unit_code'] = $this->unit_code;
         if ($this->unit_thumbnail) {
             $filename = $this->unit_code . '_' . $this->unit_thumbnail->getClientOriginalName();
             $this->unit_thumbnail->storeAs('public/units', $filename);
