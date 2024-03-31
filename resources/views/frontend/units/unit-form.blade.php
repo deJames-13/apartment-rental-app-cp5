@@ -80,8 +80,8 @@
 				</h1>
 
 				<div x-data="{ property: '{{ $isEdit ? ucfirst($unit->propertyListing->property_name) : 'Select Property' }}' }" class="flex flex-col gap-1 justify-end">
-					<label for="status" class="text-sm font-bold">Property</label>
-					<x-input type="hidden" name="status" id="status" x-model="property" />
+					<label for="property_id" class="text-sm font-bold">Property</label>
+					<x-input type="hidden" name="property_id" id="property_id" x-model="property" wire:model="property_id" />
 					<div class="dropdown dropdown-bottom dropdown-start">
 						<x-button role="button" type="button" icon="o-home"
 							class="btn bg-base-100 w-full justify-start items-center flex gap-1">
@@ -92,7 +92,7 @@
 								<li>
 									<button wire:click="$set('property_id', '{{ $k }}')"
 										x-on:click="property='{{ ucfirst($p) }}' ;
-										document.elementById('status').value='{{ $p }}'"
+										document.elementById('property_id').value='{{ $p }}'"
 										class="btn btn-xs justify-start btn-ghost font-normal hover:font-bold hover:text-primary" type="button">
 										{{ ucfirst($k) }}: {{ ucfirst($p) }}
 									</button>

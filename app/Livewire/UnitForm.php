@@ -28,8 +28,11 @@ class UnitForm extends Component
 
     public function mount(Unit $unit = null)
     {
+        $this->reset();
+        $this->unit = $unit ?? null;
         $this->unit_code = strtoupper(Str::random(10) . date('dHis'));
-        if ($unit) {
+
+        if ($this->unit->exists) {
             $this->property_id = $unit->property_id;
             $this->unit_code = $unit->unit_code;
             $this->floor_number = $unit->floor_number;
@@ -47,6 +50,7 @@ class UnitForm extends Component
     public function save()
     {
         $validatedData = $this->validate($this->rules);
+        $validatedData['property_id'] = $this->property_id;
 
         if ($this->unit_thumbnail) {
             $filename = $this->unit_code . '_' . $this->unit_thumbnail->getClientOriginalName();
@@ -54,9 +58,7 @@ class UnitForm extends Component
             $validatedData['unit_thumbnail'] = 'units/' . $filename;
         }
 
-
         Unit::create($validatedData);
-        // update the number of units of the property
         $property = PropertyListing::find($this->property_id);
         $property->update([
             'no_of_units' => $property->units->count()

@@ -37,7 +37,6 @@ class PropertyForm extends Component
     {
         $this->property = null;
         $this->reset();
-
         $this->property = $property ?? null;
         if ($this->property->exists) {
             $this->property_name = $this->property->property_name;
