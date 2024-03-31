@@ -18,6 +18,10 @@ Route::get('/test', function () {
   return view('mail.email-verify', ['user' => auth()->user(), 'verificationUrl' => url('/') . '/verify/' .  auth()->user()->remember_token]);
 });
 
+Route::get('/test/sample', function () {
+  return view('frontend.test.sample');
+});
+
 // GUEST
 require __DIR__ . '/guest.php';
 
