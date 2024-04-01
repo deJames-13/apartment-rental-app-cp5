@@ -33,7 +33,7 @@
 	}
 @endphp
 
-<div class="container relative h-full overflow-hidden bg-transparent shadow-xl rounded-xl">
+<div class="h-full container relative overflow-hidden bg-transparent flex flex-col justify-between shadow-xl rounded-xl">
 	<div class="relative items-center">
 		<div class="relative z-10 flex items-center mx-3">
 			{{-- <x-icon class="absolute z-[100] -top-1 left-0 h-12" name="ri.bookmark-fill" /> --}}
@@ -42,11 +42,9 @@
 				{{ $property->status }}
 			</div>
 		</div>
-		<div>
-			<img alt="" class="z-0 object-cover object-center" src="{{ $image }}">
-		</div>
+		<img alt="" class="z-0 object-cover object-center" src="{{ $image }}">
 	</div>
-	<div class="flex flex-col h-full gap-2 p-6">
+	<div class="h-full flex flex-col gap-2 p-6">
 
 		<div class="flex items-end justify-between gap-2 py-2">
 			<div class="flex items-center gap-2">
@@ -105,9 +103,10 @@
 				</span>
 			</div>
 		</div>
-		<x-button
-			class="hover:bg-btn-secondary btn-outline btn-primary bg-button-gradient bg-200% transition-all duration-500 ease-out hover:bg-right hover:text-white">
-			See Details
-		</x-button>
 	</div>
+
+	<x-button
+		class="hover:bg-btn-secondary rounded-b-xl btn-outline btn-primary bg-button-gradient bg-200% transition-all duration-500 ease-out hover:bg-right hover:text-white">
+		See Details
+	</x-button>
 </div>

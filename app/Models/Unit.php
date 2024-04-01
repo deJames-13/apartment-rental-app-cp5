@@ -57,11 +57,15 @@ class Unit extends Model
     return $this->belongsToMany(File::class, 'unit_file')->withTimestamps();
   }
 
+
   public function scopeSearch($query, $unit_code, $location, $property_type)
   {
     return $query->where('unit_code', 'like', '%' . $unit_code . '%')
-      ->whereHas('property', function ($query) use ($location, $property_type) {
-        $query->where('location', 'like', '%' . $location . '%')
+      ->whereHas('propertyListing', function ($query) use ($location, $property_type) {
+        $query->where('address', 'like', '%' . $location . '%')
+          ->orWhere('city', 'like', '%' . $location . '%')
+          ->orWhere('region', 'like', '%' . $location . '%')
+          ->orWhere('country', 'like', '%' . $location . '%')
           ->where('type', 'like', '%' . $property_type . '%');
       });
   }
@@ -69,8 +73,11 @@ class Unit extends Model
   public function scopeFilter($query, $search)
   {
     return $query->where('unit_code', 'like', '%' . $search . '%')
-      ->orWhereHas('property', function ($query) use ($search) {
-        $query->where('location', 'like', '%' . $search . '%')
+      ->orWhereHas('propertyListing', function ($query) use ($search) {
+        $query->where('address', 'like', '%' . $search . '%')
+          ->orWhere('city', 'like', '%' . $search . '%')
+          ->orWhere('region', 'like', '%' . $search . '%')
+          ->orWhere('country', 'like', '%' . $search . '%')
           ->orWhere('type', 'like', '%' . $search . '%');
       });
   }
