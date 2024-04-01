@@ -31,6 +31,14 @@ Route::get('/ui/categories-properties', function () {
 Route::get('/ui/view', function () {
   return view('frontend.ui.view');
 });
+Route::get('/ui/view-units-table', function () {
+  return view('frontend.ui.view-units-table');
+});
+
+// profile
+Route::get('/profile/edit-profile', function () {
+  return view('profile.edit-profile');
+});
 
 
 Route::get('/test/sample', function () {

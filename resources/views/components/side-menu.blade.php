@@ -6,7 +6,7 @@
 @if ($sideMenu)
 	<x-card class="relative z-0 {{ $minimized ? 'border  p-[0!important]' : '' }}">
 
-		<div class="menu w-full">
+		<div class="w-full menu">
 
 			@foreach ($sideMenu as $item)
 				@if (isset($item['submenu']))
@@ -15,7 +15,7 @@
 						label="{{ $minimized ? '' : $item['label'] }}" icon="{{ $item['icon'] }}">
 						@foreach ($item['submenu'] as $subItem)
 							<x-menu-item link="{{ $subItem['link'] }}" icon="{{ $subItem['icon'] }}"
-								label="{{ $minimized ? '' : $subItem['label'] }}" class="text-gray-600 btn-ghost justify-start" />
+								label="{{ $minimized ? '' : $subItem['label'] }}" class="justify-start text-gray-600 btn-ghost" />
 						@endforeach
 					</x-dropdown>
 				@else
@@ -23,7 +23,7 @@
 					<x-button link="{{ $item['link'] }}" icon="{{ $item['icon'] }}" label="{{ $minimized ? '' : $item['label'] }}"
 						class="text-gray-600 btn-ghost {{ $minimized ? 'justify-center' : 'justify-start' }}" />
 				@endif
-				<div class="divider m-0 p-0"></div>
+				<div class="p-0 m-0 divider"></div>
 			@endforeach
 			{{-- LOGOUT --}}
 			<livewire:logout :minimized="$minimized" />
