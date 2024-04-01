@@ -25,6 +25,25 @@ Route::middleware(['verified'])->group(function () {
   Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 
 
+
+  // GLOBAL
+  Route::get('/dashboard/applications', [DashboardController::class, 'applications'])->name('dashboard.applications');
+  Route::get('/dashboard/transactions', [DashboardController::class, 'transactions'])->name('dashboard.transactions');
+  Route::get('/dashboard/bookmarks', [DashboardController::class, 'bookmarks'])->name('dashboard.bookmarks');
+
+
+  // Applications
+  Route::get('/applications', [ApplicationController::class, 'index'])->name('applications.index');
+  Route::get('/applications/new', [ApplicationController::class, 'new'])->name('applications.new');
+  Route::get('/applications/create/{id}', [ApplicationController::class, 'create'])->name('applications.create.rent');
+  Route::post('/applications/create', [ApplicationController::class, 'store'])->name('applications.store');
+  Route::get('/applications/edit/{id}', [ApplicationController::class, 'edit'])->name('applications.edit');
+  Route::post('/applications/edit/{id}', [ApplicationController::class, 'update'])->name('applications.update');
+
+  // Transactions
+  Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
+
+
   // LANDLORD
   Route::middleware('role:landlord')->group(function () {
 
@@ -32,11 +51,8 @@ Route::middleware(['verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::get('/dashboard/properties', [DashboardController::class, 'properties'])->name('dashboard.properties');
     Route::get('/dashboard/units', [DashboardController::class, 'units'])->name('dashboard.units');
-    Route::get('/dashboard/transactions', [DashboardController::class, 'transactions'])->name('dashboard.transactions');
-    Route::get('/dashboard/applications', [DashboardController::class, 'applications'])->name('dashboard.applications');
     Route::get('/dashboard/leases', [DashboardController::class, 'leases'])->name('dashboard.leases');
     Route::get('/dashboard/reports', [DashboardController::class, 'reports'])->name('dashboard.reports');
-    Route::get('/dashboard/bookmarks', [DashboardController::class, 'bookmarks'])->name('dashboard.bookmarks');
 
 
     // Properties
@@ -58,15 +74,8 @@ Route::middleware(['verified'])->group(function () {
     Route::get('/leases/edit/{id}', [LeaseController::class, 'edit'])->name('leases.edit');
     Route::post('/leases/edit/{id}', [LeaseController::class, 'update'])->name('leases.update');
 
-    // Applications
-    Route::get('/applications', [ApplicationController::class, 'index'])->name('applications.index');
-    Route::get('/applications/create', [ApplicationController::class, 'create'])->name('applications.create');
-    Route::post('/applications/create', [ApplicationController::class, 'store'])->name('applications.store');
-    Route::get('/applications/edit/{id}', [ApplicationController::class, 'edit'])->name('applications.edit');
-    Route::post('/applications/edit/{id}', [ApplicationController::class, 'update'])->name('applications.update');
 
     // Transactions
-    Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
     Route::get('/transactions/create', [TransactionController::class, 'create'])->name('transactions.create');
     Route::post('/transactions/create', [TransactionController::class, 'store'])->name('transactions.store');
     Route::get('/transactions/edit/{id}', [TransactionController::class, 'edit'])->name('transactions.edit');

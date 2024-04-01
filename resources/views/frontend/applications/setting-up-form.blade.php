@@ -81,7 +81,7 @@
 		@endif
 
 
-		<x-form wire:submit.prevent="{{ $form }}" method="post">
+		<x-form wire:submit.prevent="{{ 'submit' }}" method="post">
 
 			<div class="grid items-start gap-4 lg:grid-cols-3">
 
@@ -141,6 +141,18 @@
 					</div>
 				</div>
 
+				@if ($property && $property->id)
+					<div class="lg:col-span-3">
+						<x-range wire:model.debounce="rent_amount" min="{{ $property->lowest_price ?? $property->default_price }}"
+							max="{{ $property->max_price ?? $property->default_price + 10000 }}" step="1000" label="Select a level"
+							class="range-accent" />
+						{{-- value of $rent_amount --}}
+						<label for="rent_amount">
+							Rent Amount: {{ $rent_amount }}
+						</label>
+					</div>
+				@endif
+
 				<div></div>
 
 
@@ -153,8 +165,8 @@
 						rows="5" inline class="resize-none" />
 				</div>
 				<div class="lg:col-span-3 max-w-lg">
-					<x-input type="file" accept="image/*" class="file-input file-input-bordered w-full " label="Applicant Signature"
-						name="tenant_signature" wire:model="tenant_signature" />
+					<x-input type="file" accept="image/*" class="file-input file-input-bordered w-full "
+						label="Applicant Signature" name="tenant_signature" wire:model="tenant_signature" />
 
 					@if ($tenant_signature)
 						@if (is_object($tenant_signature))
@@ -191,11 +203,17 @@
 
 <x-slot:actions>
 	<x-button link="/">Cancel</x-button>
+
 	<x-button
+		class="hover:bg-btn-secondary btn-outline btn-primary bg-button-gradient bg-200% transition-all duration-500 ease-out hover:bg-right hover:text-white"
+		type="submit">
+		Save
+	</x-button>
+	{{-- <x-button
 		class="hover:bg-btn-secondary btn-outline btn-primary bg-button-gradient bg-200% transition-all duration-500 ease-out hover:bg-right hover:text-white"
 		type="button" onclick="showApplicationForm()">
 		Fill Up a Form Now
-	</x-button>
+	</x-button> --}}
 
 </x-slot:actions>
 </x-form>

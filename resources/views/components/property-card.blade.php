@@ -101,7 +101,7 @@
 
 	</div>
 
-	<x-button
+	<x-button link="{{ route('properties.show', $property->id) }}"
 		class="hover:bg-btn-secondary rounded-b-xl btn-outline btn-primary bg-button-gradient bg-200% transition-all duration-500 ease-out hover:bg-right hover:text-white">
 		See Details
 	</x-button>

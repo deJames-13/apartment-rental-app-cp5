@@ -37,9 +37,12 @@ final class TransactionTable extends PowerGridComponent
 
   public function datasource(): Builder
   {
-    return LeaseTransaction::query();
-  }
+    $landlord_id = auth()->id();
 
+    return LeaseTransaction::whereHas('unit.propertyListing', function ($query) use ($landlord_id) {
+      $query->where('landlord_id', $landlord_id);
+    });
+  }
   public function relationSearch(): array
   {
     return [];

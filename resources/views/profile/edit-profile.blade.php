@@ -1,77 +1,72 @@
-@if (!Auth::check())
-	{{-- route to home --}}
-@endif
+<x-form wire:submit.prevent='setProfile' method="post"
+	class="flex flex-col w-full gap-4 px-10 py-5 border-blue-500 border-xl">
 
+	@csrf
 
-<x-default-layout>
+	<div class="w-48 grid place-items-center rounded ring ring-primary ring-offset-base-100 ring-offset-2 aspect-square">
 
-	<div class="h-[250px] bg-gray-400 ">
-		<div class="flex items-center justify-center h-full">
-			<h1 class="text-6xl font-extrabold text-white">User Profile</h1>
+		@if ($image_path)
+			@if (is_object($image_path))
+				<img id="profile_image" src="{{ $image_path->temporaryUrl() }}">
+			@else
+				<img src="{{ asset($image_path) }}">
+			@endif
+		@else
+			<img id="profile_image" src="{{ asset('images/author.jpg') }}" />>
+		@endif
+	</div>
+
+	<div>
+		<x-input hidden type="file" accept="image/*" class="text-white file-input file-input-bordered w-full max-w-1/4"
+			name="image_path" wire:model="image_path" />
+		{{-- label for image --}}
+		<x-button class="bg-transparent border-primary bg-slide-l" type="button"
+			onclick="document.querySelector('.file-input').click()">
+			Upload Image
+		</x-button>
+
+	</div>
+
+	<div class="flex gap-4 max-w-lg">
+		<x-input label="First Name" wire:model='first_name' value="{{ old('first_name') }}" debounce='300ms' />
+		<x-input label="Last Name" wire:model='last_name' value="{{ old('last_name') }}" debounce='300ms' />
+	</div>
+	<x-input class="max-w-lg" label="Email" type='text' wire:model='email' value="{{ old('email') }}"
+		debounce='300ms' />
+	<x-input class="max-w-lg" label="Occupation" type='text' wire:model='occupation' value="{{ old('occupation') }}"
+		debounce='300ms' />
+	<x-input class="max-w-lg" label="Phone Number" type='text' wire:model='phone' value="{{ old('phone') }}"
+		debounce='300ms' />
+
+	<div class="max-w-lg flex gap-4" x-data="{ birthdate: '', age: '' }" x-init="$watch('birthdate', value => calculateAge(value))">
+		<div class="w-full">
+			<x-datetime class="" label="Birthdate" x-model="birthdate" wire:model="birthdate" icon="o-calendar" />
 		</div>
+		<x-input class="w-1/5" label="Age" name="age" readonly type='text' wire:model="age" x-text="age" />
 	</div>
 
-	<div class="flex min-h-screen gap-8 p-8 m-0">
 
-      <div class="flex flex-col w-full max-w-sm gap-8">
-
-
-        @include('profile.profile-card')
-
-        @include('profile.menu')
-
-      </div>
-
-		<div class="flex flex-col w-full gap-4 px-10 py-5 border-blue-500 border-xl">
-
-      <x-input label="Username" placeholder="New Username"/>
-
-      <div class="grid grid-cols-2 gap-4">
-        <div class="">
-          <x-input label="First Name" placeholder="First Name"/>
-        </div>
-        <div class="">
-          <x-input label="Last Name" placeholder="Last Name"/>
-        </div>
-      </div>
-
-      <x-input label="Email" placeholder="New Email"/>
-
-      <x-input label="Password" placeholder="New Password" icon="o-eye"/>
-
-      <x-input label="Confirm Password" placeholder="Confirm New Password" icon="o-eye"/>
-
-      <x-input label="Occupation" placeholder="New Occupation"/>
-
-      <x-input label="Phone Number" placeholder="New Phone Number"/>
-
-      <div class="grid grid-cols-3 gap-4">
-        <div class="col-span-2">
-          <x-datepicker label="Date" wire:model="myDate1" icon="o-calendar"/>
-        </div>
-        <div class="col-span-1">
-          <x-input label="Age" placeholder="Age"/>
-        </div>
-      </div>
-
-      <x-input label="New Address" placeholder="New Address"/>
-
-      <div class="grid grid-cols-3 gap-4">
-        <div class="col-span-1">
-          <x-input label="City" placeholder="City"/>
-        </div>
-        <div class="col-span-1">
-          <x-input label="Region" placeholder="Region"/>
-        </div>
-        <div class="col-span-1">
-          <x-input label="Country" placeholder="Country"/>
-        </div>
-      </div>
-
-      <x-input label="New Postal Code" placeholder="New Postal Code"/>
-
-    </div>
+	<x-input class="max-w-lg" label="Address" type='text' wire:model='address' value="{{ old('address') }}"
+		debounce='300ms' />
+	<div class="grid grid-cols-3 gap-3 max-w-lg">
+		<x-input class="max-w-1/4" label="City" type='text' wire:model='city' value="{{ old('city') }}"
+			debounce='300ms' />
+		<x-input class="max-w-1/4" label="Region" type='text' wire:model='region' value="{{ old('region') }}"
+			debounce='300ms' />
+		<x-input class="max-w-1/4" label="Country" type='text' wire:model='country' value="{{ old('country') }}"
+			debounce='300ms' />
+		<x-input class="max-w-1/4" label="Postal Code" type='text' wire:model='postal_code'
+			value="{{ old('postal_code') }}" debounce='300ms' />
 
 
 	</div>
-</x-default-layout>
+	<div class="max-w-lg w-full flex justify-end ">
+
+
+		<x-button class="mt-12 bg-transparent bg-slide-l btn-outline btn-primary" type="submit" spinner="setProfile">
+			Update
+		</x-button>
+	</div>
+
+
+</x-form>

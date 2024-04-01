@@ -23,7 +23,7 @@
 			{{-- actions --}}
 			<div class="flex justify-end gap-4 ">
 
-				<x-button link="{{ route('applications.create') }}"
+				<x-button link="{{ route('applications.new') }}"
 					class="max-w-xs text-white bg-green-400 border-green-400 btn-outline">
 					<x-icon name="fas.file-pen" />
 					<span>New Application</span>

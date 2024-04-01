@@ -2,20 +2,25 @@
 
 namespace App\Livewire;
 
-use Carbon\Carbon;
+use Mary\Traits\Toast;
 use Livewire\Component;
 use Illuminate\Support\Str;
-use Livewire\WithFileUploads;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
+use Livewire\Features\SupportFileUploads\WithFileUploads;
 
-class SetProfile extends Component
+class EditProfile extends Component
 {
   use WithFileUploads;
+  use Toast;
+  public $user;
   public $image_path;
   public $first_name;
   public $last_name;
+  public $email;
   public $occupation;
   public $birthdate;
-  public $phone_number;
+  public $phone;
   public $age;
   public $address;
   public $city;
@@ -23,25 +28,34 @@ class SetProfile extends Component
   public $country;
   public $postal_code;
 
-
   public function mount()
   {
-    $this->image_path = '';
-    if (isset(session('user_data')['first_name'])) {
-      $this->first_name = session('user_data')['first_name'];
-      $this->last_name = session('user_data')['last_name'];
-    }
+    $this->user = auth()->user();
+    $this->image_path = $this->user->image_path ? Storage::url($this->user->image_path) : 'images/author.jpg';
+
+    // Set the user's data
+    $this->first_name = $this->user->first_name;
+    $this->last_name = $this->user->last_name;
+    $this->email = $this->user->email;
+    $this->occupation = $this->user->occupation;
+    $this->birthdate = $this->user->birthdate;
+    $this->phone = $this->user->phone;
+    $this->age = $this->user->age;
+    $this->address = $this->user->address;
+    $this->city = $this->user->city;
+    $this->region = $this->user->region;
+    $this->country = $this->user->country;
+    $this->postal_code = $this->user->postal_code;
   }
-  public function updatedBirthdate()
-  {
-    $this->age = Carbon::parse($this->birthdate)->age;
-  }
+
+
   public function setProfile()
   {
     $validatedData = $this->validate([
       'first_name' => 'required|string|max:255',
       'last_name' => 'required|string|max:255',
-      'phone_number' => 'nullable|string|max:255',
+      'phone' => 'nullable|string|max:255',
+      'email' => 'required|email|max:255',
       'address' => 'nullable|string|max:255',
       'city' => 'nullable|string|max:255',
       'region' => 'nullable|string|max:255',
@@ -62,26 +76,22 @@ class SetProfile extends Component
       $validatedData['image_path'] = 'profile/' . $filename;
     }
 
-    session()->put('user_data', array_merge(session('user_data'), $validatedData));
+    $this->user->update($validatedData);
 
-    $request = new \Illuminate\Http\Request();
-    $request->merge(session('user_data'));
-    app(\App\Http\Controllers\AuthController::class)->store($request);
-    return redirect()->to('/');
-  }
-
-
-  public function skip()
-  {
-    $request = new \Illuminate\Http\Request();
-    $request->merge(session('user_data'));
-    app(\App\Http\Controllers\AuthController::class)->store($request);
-    return redirect()->to('/');
+    $this->toast(
+      type: 'success',
+      title: 'Updated successfully',
+      description: null,
+      position: 'toast-top toast-end',
+      icon: 'o-information-circle',
+      css: 'alert-success',
+      timeout: 3000,
+    );
   }
 
 
   public function render()
   {
-    return view('auth.set-profile');
+    return view('profile.edit-profile');
   }
 }

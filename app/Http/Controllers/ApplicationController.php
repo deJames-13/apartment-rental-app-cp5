@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\LeaseApplication;
 use Illuminate\Http\Request;
+use App\Models\PropertyListing;
+use App\Models\LeaseApplication;
 use Illuminate\Support\Facades\Storage;
 
 class ApplicationController extends Controller
@@ -24,9 +25,21 @@ class ApplicationController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function create()
+  public function new()
   {
+    // if there is an id get the property
     return view('frontend.applications.create');
+  }
+  /**
+   * Show the form for creating a new resource.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function create($id = null)
+  {
+    // if there is an id get the property
+    $property = PropertyListing::find($id) ?? null;
+    return view('frontend.applications.create', compact('property'));
   }
 
   /**

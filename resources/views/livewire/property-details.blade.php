@@ -131,14 +131,14 @@
 			<div class="border-b pt-3 border-gray-400 w-full"></div>
 
 			<div class="flex items-center pt-10 relative">
-				<x-button link="{{ $rentLink }}"
+				<x-button link="{{ route('applications.create.rent', $property->id) }}"
 					class="flex-grow bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-4 mx-2 rounded">
 					Apply Rent
 				</x-button>
-				<button link="{{ $viewUnits }}"
+				{{-- <button link="{{ $viewUnits }}"
 					class="flex-grow bg-green-500 hover:bg-green-700 text-white font-bold py-4 px-4 mx-2 rounded">
 					View Units
-				</button>
+				</button> --}}
 			</div>
 
 		</div>

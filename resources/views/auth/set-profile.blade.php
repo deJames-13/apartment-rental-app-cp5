@@ -32,7 +32,7 @@
 					</p>
 
 					<x-form wire:submit.prevent='setProfile' class='w-full py-6 grid place-items-center lg:place-items-start'
-						method='get'>
+						method='post'>
 						@csrf
 
 						<div class="flex flex-col gap-4 w-full justify-center lg:justify-start">

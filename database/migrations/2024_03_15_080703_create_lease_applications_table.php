@@ -19,12 +19,10 @@ return new class extends Migration
       $table->unsignedBigInteger('unit_id');
 
 
-      $table->date('start_date');
-      $table->date('end_date');
       $table->decimal('rent_amount', 10, 2);
-      $table->enum('status', ['active', 'inactive']);
-      $table->string('title')->nullable();
-      $table->text('notes')->nullable();
+      $table->enum('status', ['accepted', 'pending', 'rejected']);
+      $table->string('title');
+      $table->longText('notes');
 
       // Foreign keys
       $table->foreign('tenant_id')->references('id')->on('users');
@@ -34,8 +32,8 @@ return new class extends Migration
 
       // images/file documentation for application
 
-      $table->string('tenant_id_card')->nullable();
-      $table->string('tenant_signature')->nullable();
+      $table->string('tenant_id_card');
+      $table->string('tenant_signature');
 
 
 

@@ -2,7 +2,7 @@
 @php
 	$id = Auth::user()->id;
 	$user = auth()->user();
-	$user_image = Storage::url($user->image_path) ?? 'images/author.jpg';
+	$user_image = $user->image_path ? Storage::url($user->image_path) : 'images/author.jpg';
 @endphp
 
 <x-card :title="$page">
@@ -10,7 +10,7 @@
 		{{-- User Image --}}
 		<div class="avatar">
 			<div class="w-20 rounded ring ring-primary ring-offset-base-100 ring-offset-2">
-				<img src="{{ $user_image }}" />
+				<img src="{{ asset($user_image) }}" />
 			</div>
 		</div>
 		<div class="flex flex-col">

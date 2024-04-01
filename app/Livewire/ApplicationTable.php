@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Models\Unit;
+use App\Models\LeaseApplication;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use PowerComponents\LivewirePowerGrid\Button;
@@ -16,18 +16,10 @@ use PowerComponents\LivewirePowerGrid\PowerGridFields;
 use PowerComponents\LivewirePowerGrid\PowerGridComponent;
 use PowerComponents\LivewirePowerGrid\Traits\WithExport;
 
-final class UnitTable extends PowerGridComponent
+final class ApplicationTable extends PowerGridComponent
 {
   use WithExport;
-  protected function getListeners(): array
-  {
-    return array_merge(
-      parent::getListeners(),
-      [
-        'refresh-record' => '$refresh'
-      ]
-    );
-  }
+
   public function setUp(): array
   {
     $this->showCheckBox();
@@ -46,10 +38,12 @@ final class UnitTable extends PowerGridComponent
   public function datasource(): Builder
   {
     $user = auth()->user();
-    $landlord_id = auth()->id();
-    return Unit::whereHas('propertyListing', function ($query) use ($landlord_id) {
-      $query->where('landlord_id', $landlord_id);
-    });
+    if ($user->role === 'landlord') {
+      return LeaseApplication::query()->where('landlord_id', $user->id);
+    }
+    if ($user->role === 'tenant') {
+      return LeaseApplication::query()->where('tenant_id', $user->id);
+    }
   }
 
   public function relationSearch(): array
@@ -61,12 +55,16 @@ final class UnitTable extends PowerGridComponent
   {
     return PowerGrid::fields()
       ->add('id')
+      ->add('tenant_id')
+      ->add('landlord_id')
       ->add('property_id')
-      ->add('room_number')
-      ->add('floor_number')
-      ->add('no_of_bedroom')
-      ->add('no_of_bathroom')
+      ->add('unit_id')
+      ->add('rent_amount')
       ->add('status')
+      ->add('title')
+      ->add('notes')
+      ->add('tenant_id_card')
+      ->add('tenant_signature')
       ->add('created_at');
   }
 
@@ -74,24 +72,31 @@ final class UnitTable extends PowerGridComponent
   {
     return [
       Column::make('Id', 'id'),
+      Column::make('Tenant id', 'tenant_id'),
+      Column::make('Landlord id', 'landlord_id'),
       Column::make('Property id', 'property_id'),
-      Column::make('Room number', 'room_number')
-        ->sortable()
-        ->searchable(),
-
-      Column::make('Floor number', 'floor_number')
-        ->sortable()
-        ->searchable(),
-
-      Column::make('No of bedroom', 'no_of_bedroom')
-        ->sortable()
-        ->searchable(),
-
-      Column::make('No of bathroom', 'no_of_bathroom')
+      Column::make('Unit id', 'unit_id'),
+      Column::make('Rent amount', 'rent_amount')
         ->sortable()
         ->searchable(),
 
       Column::make('Status', 'status')
+        ->sortable()
+        ->searchable(),
+
+      Column::make('Title', 'title')
+        ->sortable()
+        ->searchable(),
+
+      Column::make('Notes', 'notes')
+        ->sortable()
+        ->searchable(),
+
+      Column::make('Tenant id card', 'tenant_id_card')
+        ->sortable()
+        ->searchable(),
+
+      Column::make('Tenant signature', 'tenant_signature')
         ->sortable()
         ->searchable(),
 
@@ -111,43 +116,20 @@ final class UnitTable extends PowerGridComponent
     return [];
   }
 
-
   #[\Livewire\Attributes\On('edit')]
-  public function edit($rowId)
+  public function edit($rowId): void
   {
-    return redirect()->to('/units/edit/' . $rowId);
+    $this->js('alert(' . $rowId . ')');
   }
 
-  #[\Livewire\Attributes\On('view')]
-  public function view($rowId)
-  {
-    return redirect()->to('/units/' . $rowId);
-  }
-  #[\Livewire\Attributes\On('delete')]
-  public function delete($rowId)
-  {
-    // emit a livewire delete event for property
-    $this->dispatch('delete-unit', $rowId);
-  }
-  public function actions(Unit $row): array
+  public function actions(LeaseApplication $row): array
   {
     return [
       Button::add('edit')
         ->slot('Edit: ' . $row->id)
         ->id()
-        ->class('btn btn-outline btn-sm rounded border-primary bg-info dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
-        ->dispatch('edit', ['rowId' => $row->id]),
-
-      Button::add('view')
-        ->slot('View: ' . $row->id)
-        ->id()
-        ->class('btn btn-outline btn-sm rounded border-base-content bg-base-content dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
-        ->dispatch('view', ['rowId' => $row->id]),
-      Button::add('delete')
-        ->slot('Delete: ' . $row->id)
-        ->id()
-        ->class('btn btn-outline btn-sm rounded border-red-400 bg-red-400 dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
-        ->dispatch('delete', ['rowId' => $row->id]),
+        ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
+        ->dispatch('edit', ['rowId' => $row->id])
     ];
   }
 

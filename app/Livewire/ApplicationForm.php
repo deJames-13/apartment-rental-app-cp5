@@ -5,12 +5,13 @@ namespace App\Livewire;
 use App\Models\Unit;
 use Livewire\Component;
 use App\Models\LeaseApplication;
+use App\Models\PropertyListing;
 
 class ApplicationForm extends Component
 {
   public $application, $property, $property_id, $property_name, $units, $unit, $unit_id, $unit_code;
   public $tenant_id, $landlord_id, $start_date, $end_date, $rent_amount, $status, $title, $notes, $tenant_id_card, $tenant_signature;
-  public function mount(LeaseApplication $application = null)
+  public function mount(LeaseApplication $application = null, PropertyListing $property = null)
   {
     $this->reset();
     $this->application = $application->exists ? $application : null;
@@ -18,7 +19,13 @@ class ApplicationForm extends Component
     if ($application->exists) {
       # code...
     }
+    if ($property->exists) {
+      $this->property = $property;
+      $this->property_id = $property->id;
+      $this->property_name = $property->name;
+    }
   }
+
   public function save()
   {
   }

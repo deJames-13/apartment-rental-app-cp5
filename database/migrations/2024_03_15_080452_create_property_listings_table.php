@@ -34,8 +34,8 @@ return new class extends Migration
       $table->string('property_thumbnail')->nullable();
       $table->string('heading')->nullable();
       $table->longText('description')->nullable();
-      $table->decimal('lowest_price')->nullable();
-      $table->decimal('max_price')->nullable();
+      $table->decimal('lowest_price');
+      $table->decimal('max_price');
       $table->softDeletes();
       $table->timestamps();
     });

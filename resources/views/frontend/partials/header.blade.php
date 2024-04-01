@@ -1,6 +1,6 @@
 @php
 	$user = auth()->user();
-	$user_image = Storage::url($user->image_path) ?? 'images/author.jpg';
+	$user_image = $user->image_path ? Storage::url($user->image_path) : asset('images/author.jpg');
 	$page = $page ?? 'app';
 	$navItems = [
 	    ['label' => 'Home', 'link' => '/home'],

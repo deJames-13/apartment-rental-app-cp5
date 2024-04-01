@@ -59,8 +59,8 @@ final class PropertyTable extends PowerGridComponent
   {
     return PowerGrid::fields()
       ->add('id')
-      ->add('Landlord', 'landlord_id')
-      ->add('Tenant', 'tenant_id')
+      ->add('landlord_id')
+      ->add('tenant_id')
 
       ->add('type')
       ->add('property_name')
