@@ -60,7 +60,7 @@
 		</div>
 
 		<h1 class="text-xl font-bold">
-			{{ $property->property_name }}
+			{{ Str::limit($property->property_name, 50) }}
 		</h1>
 
 		<div class="flex items-center justify-between space-x-2">
@@ -79,16 +79,16 @@
 		</div>
 
 		<h4 class="text-sm text-gray-500 font-bold">
-			{{ $property->heading }}
+			{{ Str::limit($property->heading) }}
 		</h4>
 		<p class="text-sm text-gray-500">
-			{{ $property->description }}
+			<span>{{ Str::limit($property->description, 50) }}</span>
 		</p>
 		<div class="flex items-center justify-between">
 			<div class="flex items-center space-x-2">
 				<x-icon class="h-4 text-primary" name="ri.map-pin-line" />
 				<span class="text-xs text-gray-500">
-					{{ $property->location }}
+					<span>{{ Str::limit($property->location, 50) }}</span>
 				</span>
 			</div>
 			<div class="flex items-center space-x-2">

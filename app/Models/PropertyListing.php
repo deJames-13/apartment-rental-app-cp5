@@ -64,9 +64,7 @@ class PropertyListing extends Model
   public function scopeSearch($query, $property_name, $location, $property_type)
   {
     return $query->where('property_name', 'like', '%' . $property_name . '%')
-      ->whereHas('propertyType', function ($query) use ($property_type) {
-        $query->where('name', 'like', '%' . $property_type . '%');
-      })
+      ->where('type', 'like', '%' . $property_type . '%')
       ->whereHas('units', function ($query) use ($location) {
         $query->where('address', 'like', '%' . $location . '%')
           ->orWhere('city', 'like', '%' . $location . '%')
@@ -75,13 +73,10 @@ class PropertyListing extends Model
       });
   }
 
-  // scopeFilter for filtering based on search
   public function scopeFilter($query, $search)
   {
     return $query->where('property_name', 'like', '%' . $search . '%')
-      ->orWhereHas('propertyType', function ($query) use ($search) {
-        $query->where('name', 'like', '%' . $search . '%');
-      })
+      ->orWhere('type', 'like', '%' . $search . '%')
       ->orWhereHas('units', function ($query) use ($search) {
         $query->where('address', 'like', '%' . $search . '%')
           ->orWhere('city', 'like', '%' . $search . '%')
