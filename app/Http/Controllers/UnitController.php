@@ -9,7 +9,12 @@ class UnitController extends Controller
 {
   public function index()
   {
-    $units = Unit::paginate(10);
+    $search = request()->get('search');
+    $unit_type = request()->get('unit_type');
+    $location = request()->get('location');
+
+    $units = Unit::search($search, $location, $unit_type)->paginate(10);
+
     return view('frontend.units.index', compact('units'));
   }
 
@@ -83,6 +88,10 @@ class UnitController extends Controller
     }
 
     return redirect()->route('dashboard.units');
+  }
+
+  public function search()
+  {
   }
 
   public function category()

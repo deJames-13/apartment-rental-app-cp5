@@ -22,19 +22,23 @@ class SearchBar extends Component
 
   public function searchQuery()
   {
+    // if search are empty
+    if ($this->search === '' && $this->location === '') {
+      return redirect('/');
+    }
     if ($this->active === 'units') {
-      return redirect()->route('search.units', [
+      return redirect()->route('units.all', [
         'search' => $this->search,
         'unit_type' => $this->selected_utype,
-        'location' => $this->unitLocation,
+        'location' => $this->location,
 
       ]);
     }
     if ($this->active === 'properties') {
-      return redirect()->route('search.properties', [
+      return redirect()->route('properties.all', [
         'search' => $this->search,
         'property_type' => $this->selected_ptype,
-        'location' => $this->propLocation
+        'location' => $this->location
       ]);
     }
   }
