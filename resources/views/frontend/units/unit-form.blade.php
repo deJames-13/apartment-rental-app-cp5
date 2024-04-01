@@ -1,16 +1,10 @@
-@if (Auth::check())
-	@php
-		$id = Auth::user()->id;
-		$userData = App\Models\User::find($id);
-		// id => property_name
-		$properties = App\Models\PropertyListing::pluck('id', 'property_name')->toArray();
-		$types = ['Apartment', 'Condominium', 'House', 'Townhouse', 'Commercial', 'Industrial'];
-		$status = ['inactive', 'available', 'unavailable'];
-
-	@endphp
-@endif
-
 @php
+	$id = Auth::user()->id;
+	$userData = App\Models\User::find($id);
+	$properties = App\Models\PropertyListing::where('landlord_id', $id)->pluck('id', 'property_name')->toArray();
+	$types = ['Apartment', 'Condominium', 'House', 'Townhouse', 'Commercial', 'Industrial'];
+	$status = ['inactive', 'available', 'unavailable'];
+
 	$isEdit = isset($unit) && $unit->id;
 	$form = $isEdit ? 'update' : 'save';
 @endphp

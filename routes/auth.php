@@ -15,7 +15,7 @@ use App\Livewire\LeasesPage;
 // AUTH
 Route::get('/verify/{token}', [AuthController::class, 'verifyEmail'])->name('verify-email')->middleware('auth');
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['verified'])->group(function () {
 
   Route::get('/', [AppController::class, 'default'])->name('index');
   Route::get('/home', [AppController::class, 'default'])->name('home');
@@ -73,7 +73,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/transactions/edit/{id}', [TransactionController::class, 'update'])->name('transactions.update');
 
     // Reports
-
+    Route::get('/reports', [DashboardController::class, 'reports'])->name('reports.index');
   });
 
   Route::middleware('role:tenant')->group(function () {

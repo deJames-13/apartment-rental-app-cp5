@@ -39,6 +39,7 @@
 
 
 			<div class="w-full overflow-hidden">
+				<livewire:transaction-table />
 			</div>
 
 			<x-my-modal :title="'Confirm Delete'" :listen="'delete-lease'" :clickAway="true">
