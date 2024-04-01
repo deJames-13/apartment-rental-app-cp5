@@ -30,4 +30,7 @@ Route::middleware('guest')->group(function () {
   Route::get('/register', [AuthController::class, 'register'])->name('register');
   Route::get('/authenticate ', [AuthController::class, 'authenticate']);
   Route::post('/store', [AuthController::class, 'store']);
+
 });
+
+Route::get('/', [AppController::class, 'guest'])->name('guest');
