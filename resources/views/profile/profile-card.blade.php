@@ -20,7 +20,7 @@
 			<p class="font-medium text-gray-400">
 				{{ $user->email }}
 			</p>
-			<x-button link="/profile/view"
+			<x-button link="/profile"
 				class="justify-start h-6 p-0 m-0 text-gray-500 bg-transparent border-none shadow-none btn-ghost min-h-3 hover:text-primary hover:bg-transparent">
 				View Profile
 			</x-button>

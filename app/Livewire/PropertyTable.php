@@ -61,7 +61,6 @@ final class PropertyTable extends PowerGridComponent
       ->add('id')
       ->add('landlord_id')
       ->add('tenant_id')
-
       ->add('type')
       ->add('property_name')
       ->add('default_price')
