@@ -3,7 +3,7 @@
 	    [
 	        'label' => 'Edit Profile',
 	        'icon' => 'fas.user',
-	        'link' => '/profile/edit',
+	        'link' => '/profile/edit-profile',
 	    ],
 	    [
 	        'label' => 'Dashboard',
