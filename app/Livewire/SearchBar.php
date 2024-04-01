@@ -20,7 +20,7 @@ class SearchBar extends Component
   }
 
 
-  public function search()
+  public function searchQuery()
   {
     if ($this->active === 'units') {
       return redirect()->route('search.units', [
@@ -40,10 +40,14 @@ class SearchBar extends Component
   }
   public function setToUnit()
   {
+    $this->search = '';
+    $this->location = '';
     $this->active = 'units';
   }
   public function setToProperties()
   {
+    $this->search = '';
+    $this->location = '';
     $this->active = 'properties';
   }
 }
