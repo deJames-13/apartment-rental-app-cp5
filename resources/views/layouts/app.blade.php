@@ -13,6 +13,8 @@
 		@vite(['resources/css/app.css'])
 		@yield('head')
 
+		<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
 	</head>
 
 	<body class="min-h-screen bg-base-200/10 font-sans antialiased dark:bg-base-200" data-theme="dim" id="app">

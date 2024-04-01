@@ -12,6 +12,13 @@ class Unit extends Model
   use SoftDeletes;
 
   protected $guarded = [];
+  // TODO: Property Name
+  // TODO: Unit Code
+  // TODO: Floor Number
+  // TODO: No of Bedroom
+  // TODO Status
+
+
   // protected $fillable = [
   //     'property_id',
   //     'room_number',

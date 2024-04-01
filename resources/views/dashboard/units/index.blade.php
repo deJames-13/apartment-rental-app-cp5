@@ -50,7 +50,14 @@
 
 			<div class="w-full overflow-hidden">
 				<livewire:unit-table />
+
+				<livewire:unit-joined-table />
+
+
 			</div>
+
+
+
 			<x-my-modal :title="'Confirm Delete'" :listen="'delete-unit'" :clickAway="true">
 
 				<p class="font-bold text-lg">Unit ID: <span x-text="detail"></span></p>

@@ -31,7 +31,7 @@
 	}
 @endphp
 
-<div class="h-full container relative overflow-hidden rounded-xl bg-transparent shadow-xl">
+<div class="h-full container relative overflow-hidden rounded-xl bg-transparent flex flex-col justify-between shadow-xl">
 	<div class="relative items-center">
 		<div class="relative z-10 mx-3 flex items-center">
 			{{-- <x-icon class="absolute z-[100] -top-1 left-0 h-12" name="ri.bookmark-fill" /> --}}
@@ -98,9 +98,11 @@
 				</span>
 			</div>
 		</div>
-		<x-button
-			class="hover:bg-btn-secondary btn-outline btn-primary bg-button-gradient bg-200% transition-all duration-500 ease-out hover:bg-right hover:text-white">
-			See Details
-		</x-button>
+
 	</div>
+
+	<x-button
+		class="hover:bg-btn-secondary rounded-b-xl btn-outline btn-primary bg-button-gradient bg-200% transition-all duration-500 ease-out hover:bg-right hover:text-white">
+		See Details
+	</x-button>
 </div>
