@@ -15,7 +15,7 @@ use App\Livewire\LeasesPage;
 // AUTH
 Route::get('/verify/{token}', [AuthController::class, 'verifyEmail'])->name('verify-email')->middleware('auth');
 
-Route::middleware(['verified'])->group(function () {
+Route::middleware(['auth'])->group(function () {
 
     Route::get('/', [AppController::class, 'default'])->name('index');
     Route::get('/home', [AppController::class, 'default'])->name('home');

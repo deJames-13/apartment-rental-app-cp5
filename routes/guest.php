@@ -24,10 +24,11 @@ Route::get('/units/popular', [UnitController::class, 'popular'])->name('units.po
 
 // GUEST
 Route::middleware('guest')->group(function () {
-    Route::get('/', [AppController::class, 'guest'])->name('guest');
     Route::get('/home', [AppController::class, 'guest'])->name('guest');
     Route::get('/login', [AuthController::class, 'login'])->name('login');
     Route::get('/register', [AuthController::class, 'register'])->name('register');
     Route::get('/authenticate ', [AuthController::class, 'authenticate']);
     Route::post('/store', [AuthController::class, 'store']);
 });
+
+Route::get('/', [AppController::class, 'guest'])->name('guest');
