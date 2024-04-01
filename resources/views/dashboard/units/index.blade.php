@@ -26,7 +26,7 @@
 					<x-icon name="fas.images" />
 					<span>Gallery</span>
 				</x-button>
-				<x-button link="{{ route('units.create') }}"
+				<x-button link="{{ route('dashboard.leases') }}"
 					class="hover:text-[white!important] btn-primary max-w-xs btn-outline bg-slide-l">
 					<x-icon name="fas.folder" />
 					<span>Leases</span>
