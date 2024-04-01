@@ -33,23 +33,23 @@
 	}
 @endphp
 
-<div class="h-full container relative overflow-hidden rounded-xl bg-transparent shadow-xl">
+<div class="container relative h-full overflow-hidden bg-transparent shadow-xl rounded-xl">
 	<div class="relative items-center">
-		<div class="relative z-10 mx-3 flex items-center">
+		<div class="relative z-10 flex items-center mx-3">
 			{{-- <x-icon class="absolute z-[100] -top-1 left-0 h-12" name="ri.bookmark-fill" /> --}}
 			{{-- <x-icon class="absolute z-[100] left-4 top-2 h-4 text-primary" name="s-star" /> --}}
-			<div class="badge bg-green-400 border-none absolute right-0 top-1 mt-2 text-xs font-bold text-white">
+			<div class="absolute right-0 mt-2 text-xs font-bold text-white bg-green-400 border-none badge top-1">
 				{{ $property->status }}
 			</div>
 		</div>
 		<div>
-			<img alt="" class="z-0 object-center object-cover" src="{{ $image }}">
+			<img alt="" class="z-0 object-cover object-center" src="{{ $image }}">
 		</div>
 	</div>
-	<div class="h-full flex flex-col gap-2   p-6">
+	<div class="flex flex-col h-full gap-2 p-6">
 
 		<div class="flex items-end justify-between gap-2 py-2">
-			<div class="flex gap-2 items-center">
+			<div class="flex items-center gap-2">
 				<div link="/profile" class="avatar">
 					<div class="w-6 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
 						<img src="{{ $user_image }}" />
@@ -59,7 +59,7 @@
 					{{ $landlord_name }}
 				</span>
 			</div>
-			<x-button class="btn-sm rounded bg-primary transition-all ease-in active:scale-95 text-white">Apply Rent</x-button>
+			<x-button class="text-white transition-all ease-in rounded btn-sm bg-primary active:scale-95">Apply Rent</x-button>
 		</div>
 
 
@@ -67,12 +67,12 @@
 			{{ $property->property_name }}
 		</h1>
 
-		<span class="text-xs text-gray-500 font-bold">
+		<span class="text-xs font-bold text-gray-500">
 			Unit: {{ $unit->unit_code }}
 		</span>
 		<div class="flex items-center justify-between space-x-2">
 			<div class="flex flex-col">
-				<h3 class="text-sm font-bold uppercase text-gray-400">Start From</h3>
+				<h3 class="text-sm font-bold text-gray-400 uppercase">Start From</h3>
 				<h3 class="text-xl font-bold text-green-500">
 					{{ $property->default_price }}
 				</h3>
@@ -85,7 +85,7 @@
 			</div>
 		</div>
 
-		<h4 class="text-sm text-gray-500 font-bold">
+		<h4 class="text-sm font-bold text-gray-500">
 			{{ $property->heading }}
 		</h4>
 		<p class="text-sm text-gray-500">
