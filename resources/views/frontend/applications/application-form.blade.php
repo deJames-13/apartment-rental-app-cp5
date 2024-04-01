@@ -33,10 +33,6 @@
 				<h2 class="text-2xl font-semibold text-gray-700">Create Form</h2>
 			@endif
 			<div class="flex justify-end">
-				<x-button onclick="window.history.back()"
-					class="self-end w-24 hover:bg-btn-secondary btn-outline btn-primary bg-button-gradient bg-200% transition-all duration-500 ease-out hover:bg-right hover:text-white">
-					Back
-				</x-button>
 			</div>
 		</div>
 
@@ -108,7 +104,7 @@
 <x-slot:actions>
 	<x-button
 		class="hover:bg-btn-secondary btn-outline btn-primary bg-button-gradient bg-200% transition-all duration-500 ease-out hover:bg-right hover:text-white"
-		type="button" @click="step--" spinner="{{ $form }}">
+		type="button" onclick="showSettingUpForm()">
 		Go Back
 	</x-button>
 	<x-button

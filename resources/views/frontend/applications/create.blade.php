@@ -1,17 +1,17 @@
-@php
-	$step = 0;
-@endphp
 <x-dashboard-layout>
 
-	<div :class="{ 'hidden': step !== }">
+	<div x-data="{ step: 0 }">
 		{{-- Step 1 --}}
-		<div x-show="step === 0">
+		<section id="setting-up-form" x-show="step === 0">
 			<livewire:setting-up-form />
-		</div>
+			<button @click="step++">Next</button>
+		</section>
 
 		{{-- Step 2 --}}
-		<div :class="{ 'hidden': step !== }">
+		<section id="application-form" x-show="step === 1">
 			<livewire:application-form />
-		</div>
+			<button @click="step--">Previous</button>
+		</section>
 	</div>
+
 </x-dashboard-layout>

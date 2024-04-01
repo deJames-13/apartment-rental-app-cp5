@@ -193,7 +193,7 @@
 	<x-button link="/">Cancel</x-button>
 	<x-button
 		class="hover:bg-btn-secondary btn-outline btn-primary bg-button-gradient bg-200% transition-all duration-500 ease-out hover:bg-right hover:text-white"
-		type="button" @click="step++" spinner="{{ $form }}">
+		type="button" onclick="showApplicationForm()">
 		Fill Up a Form Now
 	</x-button>
 
