@@ -15,7 +15,8 @@ class EnsureEmailIsVerified
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->user() && !$request->user()->hasVerifiedEmail()) {
+        $verify = !$request->user()->hasVerifiedEmail();
+        if ($request->user() ) {
             return response()->view('auth.index', ['active' => 'verify-email']);
         }
 

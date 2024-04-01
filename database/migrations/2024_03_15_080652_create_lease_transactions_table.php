@@ -17,7 +17,6 @@ return new class extends Migration
             $table->unsignedBigInteger('landlord_id');
             $table->unsignedBigInteger('property_id');
             $table->unsignedBigInteger('unit_id');
-
             $table->string('title')->nullable();
 
 
