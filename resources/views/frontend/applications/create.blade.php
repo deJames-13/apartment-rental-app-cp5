@@ -1,17 +1,31 @@
 <x-dashboard-layout>
 
-	<div x-data="{ step: 0 }">
-		{{-- Step 1 --}}
-		<section id="setting-up-form" x-show="step === 0">
+	<div>
+		<div id="setting-up-form">
 			<livewire:setting-up-form />
-			<button @click="step++">Next</button>
-		</section>
+		</div>
 
-		{{-- Step 2 --}}
-		<section id="application-form" x-show="step === 1">
+		<div id="application-form">
 			<livewire:application-form />
-			<button @click="step--">Previous</button>
-		</section>
+		</div>
 	</div>
 
+	<script>
+		// switch page between setting-up-form and application-form
+		const settingUpForm = document.getElementById('setting-up-form');
+		const applicationForm = document.getElementById('application-form');
+
+		settingUpForm.style.display = 'none';
+		applicationForm.style.display = 'block';
+
+		function showSettingUpForm() {
+			settingUpForm.style.display = 'block';
+			applicationForm.style.display = 'none';
+		}
+
+		function showApplicationForm() {
+			settingUpForm.style.display = 'none';
+			applicationForm.style.display = 'block';
+		}
+	</script>
 </x-dashboard-layout>
