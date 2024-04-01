@@ -1,13 +1,12 @@
-@if (Auth::check())
-	@php
-		$id = Auth::user()->id;
-		$userData = App\Models\User::find($id);
+@php
+	if (Auth::check()) {
+	    $id = Auth::user()->id;
+	    $userData = App\Models\User::find($id);
 
-		$types = ['Apartment', 'Condominium', 'House', 'Townhouse', 'Commercial', 'Industrial'];
-		$status = ['active', 'inactive', 'available', 'unavailable', 'sold', 'renovating'];
-
-	@endphp
-@endif
+	    $types = ['Apartment', 'Condominium', 'House', 'Townhouse', 'Commercial', 'Industrial'];
+	    $status = ['active', 'inactive', 'available', 'unavailable', 'sold', 'renovating'];
+	}
+@endphp
 
 @php
 	$isEdit = isset($property) && $property->id;

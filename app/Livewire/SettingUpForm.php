@@ -6,7 +6,7 @@ use App\Models\Unit;
 use Livewire\Component;
 use App\Models\LeaseApplication;
 
-class ApplicationForm extends Component
+class SettingUpForm extends Component
 {
   public $application, $property, $property_id, $property_name, $units, $unit, $unit_id, $unit_code;
   public $tenant_id, $landlord_id, $start_date, $end_date, $rent_amount, $status, $title, $notes, $tenant_id_card, $tenant_signature;
@@ -25,11 +25,6 @@ class ApplicationForm extends Component
   public function update()
   {
   }
-  public function render()
-  {
-    return view('frontend.applications.application-form');
-  }
-
   public function setProperty($propertyId)
   {
     $this->property_id = $propertyId;
@@ -44,5 +39,9 @@ class ApplicationForm extends Component
     $this->unit_code = $u->unit_code;
     $this->property = $u->propertyListing;
     $this->property_name = $this->property_name;
+  }
+  public function render()
+  {
+    return view('frontend.applications.setting-up-form');
   }
 }

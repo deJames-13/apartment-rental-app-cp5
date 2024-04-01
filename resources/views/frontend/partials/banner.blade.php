@@ -5,5 +5,6 @@
 		<span class="typing" id="typing"></span>
 	</h1>
 
-	@include('frontend.partials.search-bar')
+	<livewire:search-bar />
+
 </div>
