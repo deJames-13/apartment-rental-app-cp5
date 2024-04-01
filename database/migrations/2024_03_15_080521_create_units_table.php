@@ -25,7 +25,7 @@ return new class extends Migration
       $table->string('unit_thumbnail')->nullable();
       $table->tinyInteger('date_posted')->nullable();
       $table->tinyInteger('date_available_from')->nullable();
-      $table->string('description')->nullable();
+      $table->longText('description')->nullable();
       $table->string('heading')->nullable();
 
 

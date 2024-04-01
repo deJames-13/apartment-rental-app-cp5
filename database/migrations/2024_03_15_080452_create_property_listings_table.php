@@ -33,7 +33,7 @@ return new class extends Migration
       $table->decimal('default_price');
       $table->string('property_thumbnail')->nullable();
       $table->string('heading')->nullable();
-      $table->string('description')->nullable();
+      $table->longText('description')->nullable();
       $table->decimal('lowest_price')->nullable();
       $table->decimal('max_price')->nullable();
       $table->softDeletes();

@@ -38,7 +38,7 @@ _Each machine problem requires the following:_
 - [ ] Program execution (errors) (10pts)
 - [ ] UI/UX Design (10pts)
 
-## Quizzes
+## **Quizzes**
 
 - [ ] Quiz 1 (15pts): Form Validation. Check for validation errors on create and edit forms on MP1 - MP4
 - [ ] Quiz 2 (15pts): Search function. Search for products or services on the homepage. The result of the search is a list of products/services with links to its details. Datatables search is not applicable.

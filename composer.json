@@ -10,6 +10,7 @@
     "require": {
         "php": "^8.2",
         "andreiio/blade-remix-icon": "^3.2",
+        "barryvdh/laravel-dompdf": "^2.1",
         "blade-ui-kit/blade-icons": "^1.6",
         "blade-ui-kit/blade-ui-kit": "^0.5.1",
         "codeat3/blade-carbon-icons": "^2.22",

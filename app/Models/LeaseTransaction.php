@@ -10,6 +10,20 @@ class LeaseTransaction extends Model
 {
   use HasFactory;
   use SoftDeletes;
+  // protected $fillable = [
+  //   'tenant_id',
+  //   'landlord_id',
+  //   'property_id',
+  //   'unit_id',
+  //   'title',
+  //   'start_date',
+  //   'end_date',
+  //   'rent_amount',
+  //   'status',
+  //   'notes',
+  //   'tenant_id_card',
+  //   'signature'
+  // ];
 
   protected $guarded = [];
   public function tenant()
