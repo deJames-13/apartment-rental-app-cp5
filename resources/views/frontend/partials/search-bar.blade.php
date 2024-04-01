@@ -25,7 +25,7 @@
 					<label for="property_type">{{ $selected_ptype }}</label>
 					<input type="hidden" id="property_type">
 					<x-dropdown class="btn-outline btn-primary w-full justify-start font-normal text-black" label="ALL TYPE">
-						@foreach ($types as $type)
+						@foreach ($property_types as $type)
 							<x-menu-item class="w-full" title="{{ $type }}" />
 						@endforeach
 					</x-dropdown>
@@ -42,9 +42,11 @@
 
 
 				<div class="flex flex-col space-y-2 text-sm font-bold">
-					<label for="">Type</label>
+					<label for="">{{ $selected_ptype }}</label>
 					<x-dropdown class="btn-outline btn-primary w-full justify-start font-normal text-black" label="ALL TYPE">
-						<x-menu-item class="w-full" title="item" />
+						@foreach ($unit_types as $type)
+							<x-menu-item class="w-full" title="{{ $type }}" />
+						@endforeach
 					</x-dropdown>
 				</div>
 			</div>
