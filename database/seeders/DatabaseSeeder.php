@@ -8,19 +8,25 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
-    public function run(): void
-    {
-        // User::factory(10)->create();
+  /**
+   * Seed the application's database.
+   */
+  public function run(): void
+  {
+    // User::factory(10)->create();
 
-        // User::factory()->create([
-        //     'username' => 'test',
-        //     'email' => 'test@example.com',
-        // ]);
+    // User::factory()->create([
+    //     'username' => 'test',
+    //     'email' => 'test@example.com',
+    // ]);
 
-
-
-    }
+    // CALL UsersTableSeeder, PropertyListingSeeder, UnitSeeder, LeaseApplicationSeeder, LeaseTransactionSeeder
+    $this->call([
+      UsersTableSeeder::class,
+      PropertyListingSeeder::class,
+      UnitSeeder::class,
+      LeaseApplicationSeeder::class,
+      LeaseTransactionSeeder::class,
+    ]);
+  }
 }

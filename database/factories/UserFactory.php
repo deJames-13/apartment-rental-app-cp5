@@ -5,6 +5,8 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use App\Models\User;
+use Faker\Generator as Faker;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -23,14 +25,29 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+      $faker = $this->faker;
         return [
-            'username' => fake()->userName(),
-            'first_name' => fake()->firstName(),
-            'last_name' => fake()->lastName(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
+          'first_name' => $faker->firstName,
+          'last_name' => $faker->lastName,
+          'username' => $faker->unique()->userName,
+          'email' => $faker->unique()->safeEmail,
+          'password' => Hash::make('password'),
+          'phone' => $faker->phoneNumber,
+          'address' => $faker->streetAddress,
+          'city' => $faker->city,
+          'region' => $faker->state,
+          'country' => $faker->country,
+          'postal_code' => $faker->postcode,
+          'email_verified_at' => now(),
+          'image_path' => null,
+          'role' => $faker->randomElement(['admin', 'agent', 'landlord', 'tenant', 'user']),
+          'status' => 'active',
+          'birthdate' => $faker->date,
+          'age' => $faker->numberBetween(18, 80),
+          'occupation' => $faker->jobTitle,
+          'remember_token' => null,
+          'created_at' => now(),
+          'updated_at' => now(),
         ];
     }
 
