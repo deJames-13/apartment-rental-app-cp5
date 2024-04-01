@@ -20,13 +20,8 @@ class DatabaseSeeder extends Seeder
     //     'email' => 'test@example.com',
     // ]);
 
-    // CALL UsersTableSeeder, PropertyListingSeeder, UnitSeeder, LeaseApplicationSeeder, LeaseTransactionSeeder
-    $this->call([
-      UsersTableSeeder::class,
-      PropertyListingSeeder::class,
-      UnitSeeder::class,
-      LeaseApplicationSeeder::class,
-      LeaseTransactionSeeder::class,
-    ]);
+
+
+
   }
 }

@@ -56,7 +56,7 @@ class SetProfile extends Component
     if (isset($validatedData['birthdate'])) {
       $validatedData['age'] = Carbon::parse($validatedData['birthdate'])->age;
     }
-    if (isset($validatedData['image_path'])) {
+    if (isset($validatedData['image_path']) && is_object($validatedData['image_path'])) {
       $filename = time() . '_' . Str::slug($validatedData['image_path']->getClientOriginalName());
       $validatedData['image_path']->storeAs('public/profile', $filename);
       $validatedData['image_path'] = 'profile/' . $filename;
@@ -73,7 +73,10 @@ class SetProfile extends Component
 
   public function skip()
   {
-    dd(session('user_data'));
+    $request = new \Illuminate\Http\Request();
+    $request->merge(session('user_data'));
+    app(\App\Http\Controllers\AuthController::class)->store($request);
+    return redirect()->to('/');
   }
 
 
