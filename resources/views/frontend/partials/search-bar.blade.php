@@ -13,22 +13,21 @@
 	</div>
 
 	<div class="flex w-full flex-col justify-between rounded-b-lg rounded-r-lg bg-base-100 lg:flex-row lg:rounded-lg">
-		{{-- property --}}
+
+		{{-- PROPERTY --}}
 		<div class="animate__animated animate__zoomIn container p-8" x-show="activeTab === 'Tab 1'">
 			<div class="grid w-full grid-cols-1 items-end gap-3 lg:grid-cols-3 lg:gap-6">
+
 				<x-input icon="o-magnifying-glass" label="Search Property" placeholder="Search by property name" />
-				<div class="flex flex-col space-y-2 text-sm font-bold">
-					<label for="">Location</label>
-					<x-dropdown class="btn-outline btn-primary w-full justify-start font-normal text-black" icon="o-map"
-						label="Search by Location">
-						<x-menu-item class="w-full" title="item" />
-					</x-dropdown>
-				</div>
+				<x-input icon="o-magnifying-glass" label="Search Location" placeholder="Search by location" />
 
 				<div class="flex flex-col space-y-2 text-sm font-bold">
-					<label for="">Type</label>
+					<label for="property_type">{{ $selected_ptype }}</label>
+					<input type="hidden" id="property_type">
 					<x-dropdown class="btn-outline btn-primary w-full justify-start font-normal text-black" label="ALL TYPE">
-						<x-menu-item class="w-full" title="item" />
+						@foreach ($types as $type)
+							<x-menu-item class="w-full" title="{{ $type }}" />
+						@endforeach
 					</x-dropdown>
 				</div>
 			</div>
@@ -37,14 +36,10 @@
 		{{-- units --}}
 		<div class="animate__animated animate__zoomIn container w-full p-8" x-show="activeTab === 'Tab 2'">
 			<div class="grid w-full grid-cols-1 items-end gap-3 lg:grid-cols-3 lg:gap-6">
+
 				<x-input icon="o-magnifying-glass" label="Search Unit" placeholder="Search by unit name" />
-				<div class="flex flex-col space-y-2 text-sm font-bold">
-					<label for="">Location</label>
-					<x-dropdown class="btn-outline btn-primary w-full justify-start font-normal text-black" icon="o-map"
-						label="Search by Location">
-						<x-menu-item class="w-full" title="item" />
-					</x-dropdown>
-				</div>
+				<x-input icon="o-magnifying-glass" label="Search Location" placeholder="Search by location" />
+
 
 				<div class="flex flex-col space-y-2 text-sm font-bold">
 					<label for="">Type</label>
