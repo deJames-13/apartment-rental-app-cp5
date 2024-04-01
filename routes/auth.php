@@ -22,7 +22,7 @@ Route::middleware(['auth'])->group(function () {
   Route::get('/logout', [AuthController::class, 'login']);
   Route::post('/logout ', [AuthController::class, 'logout'])->name('logout');
   Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
-  Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+  Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit')  ;
 
 
   // LANDLORD

@@ -10,7 +10,6 @@
 	        'submenu' => [
 	            ['label' => 'All Properties', 'link' => '/properties'],
 	            ['label' => 'Post Property', 'link' => '/properties/create'],
-	            ['label' => 'Property Posts', 'link' => '/properties/posts'],
 	            ['label' => 'Categories', 'link' => '/properties/category'],
 	            ['label' => 'Popular Properties', 'link' => '/properties/popular'],
 	        ],
@@ -21,7 +20,6 @@
 	        'submenu' => [
 	            ['label' => 'All Units', 'link' => '/units'],
 	            ['label' => 'Post Unit', 'link' => '/units/create'],
-	            ['label' => 'Unit Posts', 'link' => '/units/posts'],
 	            ['label' => 'Categories', 'link' => '/units/category'],
 	            ['label' => 'Popular Units', 'link' => '/units/popular'],
 	        ],
@@ -43,14 +41,14 @@
 
 @endphp
 
-<x-nav class="border-b-2 border-secondary relative z-50" full-width>
+<x-nav class="relative z-50 border-b-2 border-secondary" full-width>
 	{{-- start --}}
 	<x-slot:brand>
 		<div class="block lg:hidden">
 			@include('frontend.partials.mobile-header')
 		</div>
 
-		<x-button class="border-none bg-transparent hover:bg-transparent" link="/">
+		<x-button class="bg-transparent border-none hover:bg-transparent" link="/">
 			<span class="text-lg font-extrabold uppercase">Rent
 				App
 			</span>
@@ -59,13 +57,13 @@
 
 	{{-- end --}}
 	<x-slot:actions>
-		<div class="hidden items-center space-x-4 lg:flex">
+		<div class="items-center hidden space-x-4 lg:flex">
 			{{-- Menu and Sub Menus --}}
 			@foreach ($navItems as $item)
 				@if (isset($item['submenu']))
-					<div class="dropdown-end dropdown-hover dropdown transition duration-200 ease-in-out">
+					<div class="transition duration-200 ease-in-out dropdown-end dropdown-hover dropdown">
 						<x-button
-							class="bg-transparent border-none m-0 p-0 shadow-none hover:bg-transparent link flex items-center gap-2 font-bold no-underline hover:font-extrabold hover:text-primary"
+							class="flex items-center gap-2 p-0 m-0 font-bold no-underline bg-transparent border-none shadow-none hover:bg-transparent link hover:font-extrabold hover:text-primary"
 							link="{{ $item['link'] }}" role="button" tabindex="0">
 							<span>
 								{{ $item['label'] }}
@@ -79,7 +77,7 @@
 							@foreach ($item['submenu'] as $subItem)
 								<li>
 									<x-button
-										class="animate__animated animate__fadeIn transition-all duration-300 ease-in-out hover:font-bold hover:text-primary font-normal bg-transparent border-none"
+										class="font-normal transition-all duration-300 ease-in-out bg-transparent border-none animate__animated animate__fadeIn hover:font-bold hover:text-primary"
 										link="{{ $subItem['link'] }}">
 										{{ $subItem['label'] }}
 									</x-button>
@@ -89,7 +87,7 @@
 					</div>
 				@else
 					<x-button
-						class="link flex items-center m-0 p-0 shadow-none font-bold no-underline hover:bg-transparent hover:font-extrabold hover:text-primary  bg-transparent border-none"
+						class="flex items-center p-0 m-0 font-bold no-underline bg-transparent border-none shadow-none link hover:bg-transparent hover:font-extrabold hover:text-primary"
 						role="button" tabindex="0" link="{{ $item['link'] }}">
 						<span>
 							{{ $item['label'] }}
@@ -104,8 +102,8 @@
 		</div>
 
 		{{-- User Image --}}
-		<x-button link="/profile" class="avatar bg-transparent border-none hover:bg-transparent">
-			<div class="w-9 rounded ring ring-primary ring-offset-base-100 ring-offset-2">
+		<x-button link="/profile" class="bg-transparent border-none avatar hover:bg-transparent">
+			<div class="rounded w-9 ring ring-primary ring-offset-base-100 ring-offset-2">
 				<img src="{{ $user_image }}" />
 			</div>
 		</x-button>
