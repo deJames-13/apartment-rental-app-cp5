@@ -1,17 +1,30 @@
-@if (Auth::check())
-	@php
-		$id = Auth::user()->id;
-		$userData = App\Models\User::find($id);
+@php
+	if (Auth::check()) {
+	    $id = Auth::user()->id;
+	    $userData = App\Models\User::find($id);
+	    $properties = App\Models\PropertyListing::pluck('id', 'property_name')->toArray();
+	    $property_name = $property ? $property->property_name : false;
+	    $types = [
+	        'Fixed-Term Lease',
+	        'Month-to-Month Lease',
+	        'Sublease',
+	        'Commercial Lease',
+	        'Ground Lease',
+	        'Net Lease',
+	        'Graduated Lease',
+	        'Percentage Lease',
+	        'Lease with Option to Purchase',
+	    ];
+	}
+@endphp
 
-	@endphp
-@endif
 
 @php
 	$isEdit = false;
 	$form = $isEdit ? 'update' : 'save';
 @endphp
 <div>
-	<x-card class="min-h-screen flex flex-col shadow-xl container mx-auto gap-4 lg:gap-12 p-4 lg:p-12 mb-12 ">
+	<x-card class="container flex flex-col min-h-screen gap-4 p-4 mx-auto mb-12 shadow-xl lg:gap-12 lg:p-12 ">
 
 		<div class="flex items-center justify-between mb-12">
 			@if ($isEdit)
@@ -30,11 +43,11 @@
 		{{-- session success --}}
 		@if (session()->has('message'))
 			<div x-data="{ show: true }" x-show="show"
-				class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+				class="relative px-4 py-3 text-green-700 bg-green-100 border border-green-400 rounded" role="alert">
 				<strong class="font-bold">Success!</strong>
 				<span class="block sm:inline">{{ session('message') }}</span>
 				<span class="absolute top-0 bottom-0 right-0 px-4 py-3">
-					<svg @click="show = false" class="fill-current h-6 w-6 text-green-500" role="button"
+					<svg @click="show = false" class="w-6 h-6 text-green-500 fill-current" role="button"
 						xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
 						<title>Close</title>
 						<path
@@ -47,7 +60,7 @@
 		{{-- session errors --}}
 		@if ($errors->any())
 			<div x-data="{ show: true }" x-show="show"
-				class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+				class="relative px-4 py-3 text-red-700 bg-red-100 border border-red-400 rounded" role="alert">
 				<strong class="font-bold">Error!</strong>
 				<ul>
 					@foreach ($errors->all() as $error)
@@ -57,7 +70,7 @@
 					@endforeach
 				</ul>
 				<span class="absolute top-0 bottom-0 right-0 px-4 py-3">
-					<svg @click="show = false" class="fill-current h-6 w-6 text-red-500" role="button"
+					<svg @click="show = false" class="w-6 h-6 text-red-500 fill-current" role="button"
 						xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
 						<title>Close</title>
 						<path
@@ -70,28 +83,44 @@
 
 		<x-form wire:submit.prevent="{{ $form }}" method="post">
 
-			<div class="grid lg:grid-cols-3 gap-4 items-start">
+			<div class="grid items-start gap-4 lg:grid-cols-3">
 
-				<h1 class="font-bold text-lg uppercase lg:col-span-3">
-					Application Form
-				</h1>
+				<div class="lg:col-span-3">
+					<h1 class="text-lg font-bold uppercase">
+						Setting Up Application Form
+					</h1>
+					<p class="text-xs italic text-gray-400">
+						Fill up the following form to create a new application for renting.
+					</p>
+				</div>
+
 
 
 			</div>
 
 
 
-			<x-slot:actions>
-				<x-button link="/">Cancel</x-button>
-				<x-button
-					class="hover:bg-btn-secondary btn-outline btn-primary bg-button-gradient bg-200% transition-all duration-500 ease-out hover:bg-right hover:text-white"
-					type="submit" spinner="{{ $form }}">
-					{{ $isEdit ? 'Update' : 'Save' }}
-				</x-button>
-			</x-slot:actions>
-		</x-form>
 
 
-	</x-card>
+</div>
+`
+
+<x-slot:actions>
+	<x-button
+		class="hover:bg-btn-secondary btn-outline btn-primary bg-button-gradient bg-200% transition-all duration-500 ease-out hover:bg-right hover:text-white"
+		type="button" @click="step--" spinner="{{ $form }}">
+		Go Back
+	</x-button>
+	<x-button
+		class="hover:bg-btn-secondary btn-outline btn-primary bg-button-gradient bg-200% transition-all duration-500 ease-out hover:bg-right hover:text-white"
+		type="submit" spinner="{{ $form }}">
+		{{ $isEdit ? 'Update' : 'Save' }}
+	</x-button>
+
+</x-slot:actions>
+</x-form>
+
+
+</x-card>
 
 </div>
