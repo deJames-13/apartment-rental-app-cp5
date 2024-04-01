@@ -1,24 +1,19 @@
-@if (Auth::check())
-	@php
-		$id = Auth::user()->id;
-		$userData = App\Models\User::find($id);
-		$properties = App\Models\PropertyListing::pluck('id', 'property_name')->toArray();
-		$property_name = $property ? $property->property_name : false;
-		$types = [
-		    'Fixed-Term Lease',
-		    'Month-to-Month Lease',
-		    'Sublease',
-		    'Commercial Lease',
-		    'Ground Lease',
-		    'Net Lease',
-		    'Graduated Lease',
-		    'Percentage Lease',
-		    'Lease with Option to Purchase',
-		];
-	@endphp
-@endif
-
 @php
+	$id = Auth::user()->id;
+	$userData = App\Models\User::find($id);
+	$properties = App\Models\PropertyListing::where('landlord_id', $id)->pluck('id', 'property_name')->toArray();
+	$property_name = $property ? $property->property_name : false;
+	$types = [
+	    'Fixed-Term Lease',
+	    'Month-to-Month Lease',
+	    'Sublease',
+	    'Commercial Lease',
+	    'Ground Lease',
+	    'Net Lease',
+	    'Graduated Lease',
+	    'Percentage Lease',
+	    'Lease with Option to Purchase',
+	];
 	$isEdit = isset($lease) && $lease->id;
 	$form = $isEdit ? 'update' : 'save';
 @endphp

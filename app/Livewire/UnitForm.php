@@ -13,6 +13,7 @@ class UnitForm extends Component
   use WithFileUploads;
   public $unit;
   public $property_id, $unit_code, $room_number, $floor_number, $no_of_bedroom, $no_of_bathroom, $unit_thumbnail, $date_posted, $date_available_from, $description, $heading, $status;
+
   protected $rules = [
     'property_id' => 'required',
     'unit_code' => 'required|string|max:255',
