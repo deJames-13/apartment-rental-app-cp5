@@ -31,6 +31,9 @@ Route::get('/ui/categories-properties', function () {
 Route::get('/ui/view', function () {
   return view('frontend.ui.view');
 });
+Route::get('/ui/view-units-table', function () {
+  return view('frontend.ui.view-units-table');
+});
 
 
 Route::get('/test/sample', function () {
