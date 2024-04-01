@@ -78,7 +78,7 @@
 
 	<x-form wire:submit.prevent="{{ $form }}" method="post">
 
-		<div class="grid items-start gap-4 lg:grid-cols-3 items-end">
+		<div class="grid gap-4 lg:grid-cols-3 items-end">
 
 			<div class="lg:col-span-3">
 				<h1 class="text-lg font-bold uppercase">

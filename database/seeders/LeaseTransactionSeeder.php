@@ -9,11 +9,11 @@ use Database\Factories\LeaseTransactionFactory;
 
 class LeaseTransactionSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
-    public function run(): void
-    {
-        LeaseTransaction::factory()->count(15)->create();
-    }
+  /**
+   * Run the database seeds.
+   */
+  public function run(): void
+  {
+    LeaseTransaction::factory()->count(100)->create();
+  }
 }

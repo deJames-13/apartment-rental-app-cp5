@@ -9,8 +9,8 @@ use App\Models\PropertyListing;
 
 class PropertyListingSeeder extends Seeder
 {
-    public function run()
-    {
-        PropertyListing::factory(15)->create();
-    }
+  public function run()
+  {
+    PropertyListing::factory(100)->create();
+  }
 }

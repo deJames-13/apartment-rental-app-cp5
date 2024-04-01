@@ -12,6 +12,8 @@ class SearchBar extends Component
   public $selected_utype = '';
 
 
+
+
   public function render()
   {
     return view('frontend.partials.search-bar');
