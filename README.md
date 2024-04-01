@@ -59,6 +59,25 @@ _Each machine problem requires the following:_
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## Installation
+
+```bash
+composer install
+composer update
+cp .env.example .env
+php artisan key:generate
+npm install
+php artisan mary:install
+// no (wag iinstall ung livewire volt)
+php artisan icons:cache
+php artisan views:cache
+php artisan config:cache
+php artisan route:cache
+php artisan cache:clear
+php artisan icons:clear
+php artisan serve | npm run dev
+```
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
