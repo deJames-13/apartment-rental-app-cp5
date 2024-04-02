@@ -9,11 +9,11 @@
 		<meta content="{{ csrf_token() }}" name="csrf-token">
 		<title>{{ isset($title) ? $title . ' - ' . config('app.name') : config('app.name') }}</title>
 
+		<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 		<livewire:styles />
 		@vite(['resources/css/app.css'])
 		@yield('head')
 
-		<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
 	</head>
 

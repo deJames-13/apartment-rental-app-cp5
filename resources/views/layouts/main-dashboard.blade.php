@@ -42,6 +42,11 @@
 		{{-- main page --}}
 		<div class="w-full flex flex-col gap-8 overflow-hidden">
 			{{ $slot }}
+
+
+
+			<livewire:property-pie-chart wire:model="myChart" />
+
 		</div>
 
 

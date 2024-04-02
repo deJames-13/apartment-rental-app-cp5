@@ -37,7 +37,6 @@ final class ApplicationTable extends PowerGridComponent
 
   public function datasource(): Builder
   {
-
     return LeaseApplication::query();
   }
 
