@@ -5,7 +5,7 @@
 
 	<div class="w-48 grid place-items-center rounded ring ring-primary ring-offset-base-100 ring-offset-2 aspect-square">
 
-		@if ($image_path)
+		@if (isset($image_path))
 			@if (is_object($image_path))
 				<img id="profile_image" src="{{ $image_path->temporaryUrl() }}">
 			@else

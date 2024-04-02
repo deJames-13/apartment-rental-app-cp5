@@ -1,6 +1,6 @@
-<x-card class="max-w-sm">
+<x-card class="max-w-sm" :title="$title">
 	<div class="grid gap-5">
-		<x-button label="Randomize" wire:click="randomize" class="btn-primary" spinner />
+		{{-- <x-button label="Randomize" wire:click="randomize" class="btn-primary" spinner /> --}}
 		<x-button label="Switch" wire:click="switch" spinner />
 	</div>
 

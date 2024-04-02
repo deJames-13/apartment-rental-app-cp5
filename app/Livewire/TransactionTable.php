@@ -37,10 +37,15 @@ final class TransactionTable extends PowerGridComponent
 
   public function datasource(): Builder
   {
-    $landlord_id = auth()->id();
+    $user_id = auth()->id();
+    $user_role = auth()->user()->role; // Assuming you have a 'role' attribute on your User model
 
-    return LeaseTransaction::whereHas('unit.propertyListing', function ($query) use ($landlord_id) {
-      $query->where('landlord_id', $landlord_id);
+    return LeaseTransaction::whereHas('unit.propertyListing', function ($query) use ($user_id, $user_role) {
+      if ($user_role == 'landlord') {
+        $query->where('landlord_id', $user_id);
+      } elseif ($user_role == 'tenant') {
+        $query->where('tenant_id', $user_id); // Assuming you have a 'tenant_id' column in your 'propertyListing' table
+      }
     });
   }
   public function relationSearch(): array

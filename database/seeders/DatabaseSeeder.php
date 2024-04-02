@@ -20,15 +20,38 @@ class DatabaseSeeder extends Seeder
   {
     // User::factory(100)->create();
 
-    // User::factory()->create([
-    //     'username' => 'test',
-    //     'email' => 'test@example.com',
-    // ]);
+    $tenant = User::factory()->create([
+      'username' => 'testuser',
+      'email' => 'test@example.com',
+      'role' => 'tenant',
+    ]);
+
+    $landlord = User::factory()->create([
+      'username' => 'testlandlord',
+      'email' => 'landlord@example.com',
+      'role' => 'landlord',
+    ]);
+
 
     User::factory(100)->create();
     PropertyListing::factory(100)->create();
     Unit::factory(100)->create();
     LeaseInfo::factory(100)->create();
+
+    LeaseApplication::factory(20)->create(
+      [
+        'tenant_id' => $tenant->id,
+        'landlord_id' => $landlord->id,
+      ]
+    );
+
+    LeaseTransaction::factory(20)->create(
+      [
+        'tenant_id' => $tenant->id,
+        'landlord_id' => $landlord->id,
+      ]
+    );
+
     LeaseApplication::factory(100)->create();
     LeaseTransaction::factory(100)->create();
   }

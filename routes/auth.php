@@ -22,11 +22,12 @@ Route::middleware(['auth'])->group(function () {
   Route::get('/logout', [AuthController::class, 'login']);
   Route::post('/logout ', [AuthController::class, 'logout'])->name('logout');
   Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
-  Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit')  ;
+  Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 
 
 
   // GLOBAL
+  Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
   Route::get('/dashboard/applications', [DashboardController::class, 'applications'])->name('dashboard.applications');
   Route::get('/dashboard/transactions', [DashboardController::class, 'transactions'])->name('dashboard.transactions');
   Route::get('/dashboard/bookmarks', [DashboardController::class, 'bookmarks'])->name('dashboard.bookmarks');
@@ -48,7 +49,6 @@ Route::middleware(['auth'])->group(function () {
   Route::middleware('role:landlord')->group(function () {
 
     // Dashboard
-    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::get('/dashboard/properties', [DashboardController::class, 'properties'])->name('dashboard.properties');
     Route::get('/dashboard/units', [DashboardController::class, 'units'])->name('dashboard.units');
     Route::get('/dashboard/leases', [DashboardController::class, 'leases'])->name('dashboard.leases');

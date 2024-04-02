@@ -1,5 +1,6 @@
 @php
 	$controller = \App\Http\Controllers\LeaseController::class;
+	$role = Auth::user()->role;
 @endphp
 
 <x-dashboard-layout>
@@ -21,21 +22,23 @@
 			</div>
 
 			{{-- actions --}}
-			<div class="flex justify-end gap-4 ">
+			@if ($role !== 'tenant')
+				<div class="flex justify-end gap-4 ">
 
-				<x-button link="{{ route('applications.create') }}"
-					class="max-w-xs text-white bg-green-400 border-green-400 btn-outline">
-					<x-icon name="fas.file-pen" />
-					<span>New Transaction</span>
-				</x-button>
-				<div>
-					<x-button link="{{ route('dashboard.applications') }}" class="text-white bg-red-400 ">
-						<x-icon name="fas.trash" />
-						Archived
+					<x-button link="{{ route('applications.new') }}"
+						class="max-w-xs text-white bg-green-400 border-green-400 btn-outline">
+						<x-icon name="fas.file-pen" />
+						<span>New Transaction</span>
 					</x-button>
-				</div>
+					<div>
+						<x-button link="{{ route('dashboard.applications') }}" class="text-white bg-red-400 ">
+							<x-icon name="fas.trash" />
+							Archived
+						</x-button>
+					</div>
 
-			</div>
+				</div>
+			@endif
 
 
 			<div class="w-full overflow-hidden">
