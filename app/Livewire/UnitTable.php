@@ -45,6 +45,7 @@ final class UnitTable extends PowerGridComponent
 
   public function datasource(): Builder
   {
+    // return Unit::query();
     $user = auth()->user();
     $landlord_id = auth()->id();
     return Unit::whereHas('propertyListing', function ($query) use ($landlord_id) {

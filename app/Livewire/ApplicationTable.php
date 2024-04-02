@@ -37,13 +37,8 @@ final class ApplicationTable extends PowerGridComponent
 
   public function datasource(): Builder
   {
-    $user = auth()->user();
-    if ($user->role === 'landlord') {
-      return LeaseApplication::query()->where('landlord_id', $user->id);
-    }
-    if ($user->role === 'tenant') {
-      return LeaseApplication::query()->where('tenant_id', $user->id);
-    }
+
+    return LeaseApplication::query();
   }
 
   public function relationSearch(): array

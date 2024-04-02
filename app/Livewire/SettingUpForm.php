@@ -15,7 +15,6 @@ class SettingUpForm extends Component
   use WithFileUploads;
   use Toast;
 
-  #[Rule('required|gt:30')]
   public $application, $property, $property_id, $property_name, $units, $unit, $unit_id, $unit_code;
   public $tenant_id, $landlord_id, $start_date, $end_date, $status, $title, $notes, $tenant_id_card, $tenant_signature;
   public float $rent_amount;
@@ -23,7 +22,6 @@ class SettingUpForm extends Component
 
   public function mount(LeaseApplication $application = null, PropertyListing $property = null)
   {
-    $this->reset();
     $this->application = $application->exists ? $application : null;
     $this->units = Unit::all()->pluck('unit_code', 'id')->toArray();
     if ($application->exists) {
@@ -34,8 +32,8 @@ class SettingUpForm extends Component
       $this->notes = $application->notes;
       $this->tenant_id_card = $application->tenant_id_card;
       $this->tenant_signature = $application->tenant_signature;
-      $this->setProperty($application->property_id);
-      $this->setUnit($application->unit_id);
+      $this->property_id =  $application->property_id;
+      $this->unit_id =  $application->unit_id;
     }
     if ($property->exists) {
       $this->property_id = $property->id;
@@ -48,16 +46,8 @@ class SettingUpForm extends Component
 
   public function submit()
   {
-    $this->landlord_id = $this->property->landlord_id;
-    $this->tenant_id = auth()->id();
-    $this->status = 'pending';
 
-    $validatedData = $this->validate([
-      'title' => 'required|string|max:255',
-      'notes' => 'required|string|max:255',
-      'tenant_id_card' => 'required|image|max:2048',
-      'tenant_signature' => 'required|image|max:2048',
-    ]);
+
 
     if ($this->tenant_id_card) {
       $this->tenant_id_card = $this->tenant_id_card->store('tenant_id_cards', 'public');
@@ -65,6 +55,13 @@ class SettingUpForm extends Component
     if ($this->tenant_signature) {
       $this->tenant_signature = $this->tenant_signature->store('tenant_signatures', 'public');
     }
+
+
+    $this->landlord_id = $this->property->landlord_id;
+    $this->tenant_id = auth()->id();
+    $this->status = 'pending';
+
+
 
     LeaseApplication::create([
       'tenant_id' => $this->tenant_id,
@@ -110,9 +107,9 @@ class SettingUpForm extends Component
   }
   public function setUnit($unitId)
   {
+    $this->unit_id = $unitId;
     $u = Unit::findOrFail($unitId);
     $this->unit = $u;
-    $this->unit_id = $u->id;
     $this->unit_code = $u->unit_code;
     $this->property = $u->propertyListing;
     $this->property_name = $this->property_name;

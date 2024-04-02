@@ -18,7 +18,7 @@
 				{{ $user->first_name . ' ' . $user->last_name }}
 			</h2>
 			<p class="font-medium text-gray-400">
-				{{ $user->email }}
+				{{ Str::limit($user->email, 15, '...') }}
 			</p>
 			<x-button link="/profile"
 				class="justify-start h-6 p-0 m-0 text-gray-500 bg-transparent border-none shadow-none btn-ghost min-h-3 hover:text-primary hover:bg-transparent">

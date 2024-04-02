@@ -81,7 +81,8 @@
 		@endif
 
 
-		<x-form wire:submit.prevent="{{ 'submit' }}" method="post">
+		<x-form wire:submit="{{ 'submit' }}" method="post">
+			@csrf
 
 			<div class="grid items-start gap-4 lg:grid-cols-3">
 
@@ -205,7 +206,7 @@
 	<x-button link="/">Cancel</x-button>
 
 	<x-button
-		class="hover:bg-btn-secondary btn-outline btn-primary bg-button-gradient bg-200% transition-all duration-500 ease-out hover:bg-right hover:text-white"
+		class="hover:bg-btn-secondary btn-outline btn-primary bg-button-gradient bg-200% transition-all duration-500 ease-out hover:bg-right hApplicover:text-white"
 		type="submit">
 		Save
 	</x-button>
