@@ -17,24 +17,27 @@
 						</div>
 
 						<h1 class="text-2xl font-extrabold lg:text-3xl lg:text-white">
-							Congratulations,
+							Good day,
 						</h1>
 
 						{{-- here is the "Guest" or yung Username --}}
 						<h1 class="mb-5 text-4xl font-extrabold lg:text-8xl lg:text-blue-700 ">
-							Guest!
+							{{ $user->username }}
 						</h1>
 
 						<p class="max-w-md px-2 my-4 text-xl font-bold text-white">
-							Your application has been successfully submitted. Please check your email for further instructions.
+							Your application has been approved. An agent will contact you for further transaction.
 						</p>
 
 						{{-- href="{{ $verificationUrl }}" --}}
-						<div class="flex gap-6 mt-3">
-							<a class="px-20 mb-32 transition bg-transparent btn btn-outline bg-slide-r">
-								View Email
+
+						<p class="max-w-xl text-xs text-gray-800">
+							If you have any questions, please contact us at
+							<a href="mailto:rentalapp.mail@gmail.com" class="link link-hover link-primary">
+								RentalApp
 							</a>
-						</div>
+
+						</p>
 
 						<div class="divider"></div>
 

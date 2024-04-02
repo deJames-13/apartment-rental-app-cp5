@@ -7,7 +7,9 @@ use Mary\Traits\Toast;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Models\PropertyListing;
+use App\Mail\PendingApplication;
 use App\Models\LeaseApplication;
+use Illuminate\Support\Facades\Mail;
 use TijsVerkoyen\CssToInlineStyles\Css\Rule\Rule;
 
 class SettingUpForm extends Component
@@ -76,9 +78,11 @@ class SettingUpForm extends Component
       'tenant_signature' => $this->tenant_signature,
     ]);
 
+
     session()->flash('message', 'Application submitted successfully!');
     $this->reset();
-
+    $user = auth()->user();
+    Mail::to($user->email)->send(new PendingApplication($user));
     $this->toast(
       type: 'success',
       title: 'Created successfully',

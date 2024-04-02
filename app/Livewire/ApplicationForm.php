@@ -17,7 +17,22 @@ class ApplicationForm extends Component
     $this->application = $application->exists ? $application : null;
     $this->units = Unit::all()->pluck('unit_code', 'id')->toArray();
     if ($application->exists) {
-      # code...
+      $this->property = $application->unit->propertyListing;
+      $this->property_id = $this->property->id;
+      $this->property_name = $this->property->name;
+      $this->unit = $application->unit;
+      $this->unit_id = $application->unit_id;
+      $this->unit_code = $application->unit->unit_code;
+      $this->tenant_id = $application->tenant_id;
+      $this->landlord_id = $application->landlord_id;
+      $this->start_date = $application->start_date;
+      $this->end_date = $application->end_date;
+      $this->rent_amount = $application->rent_amount;
+      $this->status = $application->status;
+      $this->title = $application->title;
+      $this->notes = $application->notes;
+      $this->tenant_id_card = $application->tenant_id_card;
+      $this->tenant_signature = $application->tenant_signature;
     }
     if ($property->exists) {
       $this->property = $property;

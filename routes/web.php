@@ -40,22 +40,7 @@ Route::get('/profile/edit-profile', function () {
   return view('profile.edit-profile');
 });
 
-//mail
-Route::get('/mail/application-success', function () {
-  return view('mail.application-success');
-});
-Route::get('/mail/email-verify', function () {
-  return view('mail.email-verify');
-});
-Route::get('/mail/pending-application', function () {
-  return view('mail.pending-application');
-});
 
-
-
-Route::get('/test/sample', function () {
-  return view('frontend.test.sample');
-});
 
 // GUEST
 require __DIR__ . '/guest.php';

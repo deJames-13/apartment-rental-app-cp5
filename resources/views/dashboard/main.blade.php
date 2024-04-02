@@ -4,7 +4,6 @@
 		@include('profile.status-card')
 
 
-		<livewire:my-chart />
 
 
 	</div>
