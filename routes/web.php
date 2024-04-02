@@ -34,6 +34,9 @@ Route::get('/ui/view', function () {
 Route::get('/ui/view-units-table', function () {
   return view('frontend.ui.view-units-table');
 });
+Route::get('/ui/test', function () {
+  return view('frontend.ui.test');
+});
 
 // profile
 Route::get('/profile/edit-profile', function () {
