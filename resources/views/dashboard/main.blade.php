@@ -3,9 +3,13 @@
 	<div class="min-h-screen">
 		@include('profile.status-card')
 
-		<livewire:my-chart title="Properties" :data="$propertyListingData" />
-		<livewire:my-chart title="Units" :data="$unitsData" />
-		<livewire:my-chart title="Transactions" :data="$transactionsData" />
+		<div class="flex gap-4">
+
+			<livewire:my-chart title="Properties" :data="$propertyListingData" />
+			<livewire:my-chart title="Units" :data="$unitsData" />
+			<livewire:my-chart title="Transactions" :data="$transactionsData" />
+		</div>
+
 
 	</div>
 </x-card>

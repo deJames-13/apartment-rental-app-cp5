@@ -1,31 +1,31 @@
 <x-card title="Application Status">
-	<div class="grid grid-cols-3 h-full gap-4">
-		<div class="w-full flex gap-4 items-center h-full">
-			<div class="card rounded-none bg-green-400 p-4 text-white">
-				<h1 class="font-extrabold text-4xl">
+	<div class="grid w-full h-full grid-cols-3 gap-4">
+		<div class="flex items-center w-full h-full ">
+			<div class="w-full p-4 text-white bg-green-400 rounded-none f-hull card">
+				<h1 class="text-4xl font-extrabold">
 					0
 				</h1>
-				<h1 class="font-medium text-xl">
+				<h1 class="text-xl font-medium">
 					Approved applications
 				</h1>
 			</div>
 		</div>
-		<div class="w-full flex gap-4 items-center h-full">
-			<div class="card rounded-none bg-yellow-400 p-4 text-white">
-				<h1 class="font-extrabold text-4xl">
+		<div class="flex items-center w-full h-full ">
+			<div class="w-full p-4 text-white bg-yellow-400 rounded-none f-hull card">
+				<h1 class="text-4xl font-extrabold">
 					0
 				</h1>
-				<h1 class="font-medium text-xl">
-					Pending approved applications
+				<h1 class="text-xl font-medium">
+					Pending applications
 				</h1>
 			</div>
 		</div>
-		<div class="w-full flex gap-4 items-center h-full">
-			<div class="card rounded-none bg-red-400 p-4 text-white">
-				<h1 class="font-extrabold text-4xl">
+		<div class="flex items-center w-full h-full ">
+			<div class="w-full p-4 text-white bg-red-400 rounded-none f-hull card">
+				<h1 class="text-4xl font-extrabold">
 					0
 				</h1>
-				<h1 class="font-medium text-xl">
+				<h1 class="text-xl font-medium">
 					Rejected applications
 				</h1>
 			</div>
