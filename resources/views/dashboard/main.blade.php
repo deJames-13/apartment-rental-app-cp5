@@ -3,5 +3,9 @@
 	<div class="min-h-screen">
 		@include('profile.status-card')
 
+
+		<livewire:my-chart />
+
+
 	</div>
 </x-card>
