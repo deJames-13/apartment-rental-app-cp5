@@ -4,5 +4,5 @@
 		<x-button label="Switch" wire:click="switch" spinner />
 	</div>
 
-	<x-chart wire:model="data" />
+	<x-chart wire:model="chartData" />
 </x-card>

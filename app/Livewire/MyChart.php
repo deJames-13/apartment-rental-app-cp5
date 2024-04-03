@@ -9,7 +9,7 @@ class MyChart extends Component
 {
   public $title = 'My Chart';
   public $charts = ['pie'];
-  public array $data = [
+  public array $chartData = [
     'type' => 'pie',
     'data' => [
       'labels' => ['Mary', 'Joe', 'Ana'],
@@ -39,18 +39,18 @@ class MyChart extends Component
   ) {
     $this->title = $title;
     $this->charts = $charts;
-    $this->data = $data;
+    $this->chartData = $data;
   }
   public function randomize()
   {
-    Arr::set($this->data, 'data.datasets.0.data', [fake()->randomNumber(2), fake()->randomNumber(2), fake()->randomNumber(2)]);
+    Arr::set($this->chartData, 'data.datasets.0.data', [fake()->randomNumber(2), fake()->randomNumber(2), fake()->randomNumber(2)]);
   }
 
   public function switch()
   {
-    $currentIndex = array_search($this->data['type'], $this->charts);
+    $currentIndex = array_search($this->chartData['type'], $this->charts);
     $nextIndex = ($currentIndex + 1) % count($this->charts);
-    Arr::set($this->data, 'type', $this->charts[$nextIndex]);
+    Arr::set($this->chartData, 'type', $this->charts[$nextIndex]);
   }
   public function render()
   {
