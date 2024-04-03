@@ -1,4 +1,5 @@
 import Alpine from 'alpinejs'
+import Chart from 'chart.js/auto'
 import flatpickr from 'flatpickr'
 import 'flowbite'
 import './bootstrap'

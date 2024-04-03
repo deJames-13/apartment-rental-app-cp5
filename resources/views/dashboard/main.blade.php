@@ -1,3 +1,5 @@
+@php
+@endphp
 <x-card title="Main Page">
 	<div class="p-0 m-0 divider"></div>
 	<div class="min-h-screen">

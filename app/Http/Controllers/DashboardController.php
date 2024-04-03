@@ -23,6 +23,8 @@ class DashboardController extends Controller
   public function properties()
   {
 
+    $chartsController = new ChartsController;
+    $propertyListingData = $chartsController->propertyListing();
     $properties = \App\Models\PropertyListing::all()->sortByDesc('created_at');
     $columns = ['id', 'property_name', 'type', 'default_price'];
     $tableData = null;
