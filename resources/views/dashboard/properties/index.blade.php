@@ -5,9 +5,9 @@
 	<x-card>
 		<div class="flex flex-col space-y-4">
 			<div class="flex items-center justify-between mb-12">
-				<div class="flex space-x-2 items-center text-2xl font-semibold text-gray-700">
+				<div class="flex items-center space-x-2 text-2xl font-semibold text-gray-700">
 					<x-icon name="fas.building" />
-					<h2 class=" ">Properties</h2>
+					<h2 class="">Properties</h2>
 				</div>
 
 				<div class="flex justify-end">
@@ -20,16 +20,16 @@
 
 			{{-- actions --}}
 			<div class="flex justify-end gap-4 ">
-				<x-button link="{{ route('dashboard.properties') }}" class="btn-primary max-w-xs btn-outline bg-slide-l">
+				{{-- <x-button link="{{ route('dashboard.properties') }}" class="max-w-xs btn-primary btn-outline bg-slide-l">
 					<x-icon name="fas.images" />
 					<span>Gallery</span>
-				</x-button>
-				<x-button link="{{ route('units.create') }}" class="text-white max-w-xs btn-outline bg-green-400 border-green-400">
+				</x-button> --}}
+				<x-button link="{{ route('units.create') }}" class="max-w-xs text-white bg-green-400 border-green-400 btn-outline">
 					<x-icon name="fas.home" />
 					<span>Add Unit</span>
 				</x-button>
 				<x-button link="{{ route('properties.create') }}"
-					class="text-white max-w-xs btn-outline bg-green-400 border-green-400">
+					class="max-w-xs text-white bg-green-400 border-green-400 btn-outline">
 					<x-icon name="fas.plus" />
 					<span>Add Property</span>
 				</x-button>
@@ -47,10 +47,10 @@
 			</div>
 			<x-my-modal :title="'Confirm Delete'" :listen="'delete-property'" :clickAway="true">
 
-				<p class="font-bold text-lg">Property ID: <span x-text="detail"></span></p>
+				<p class="text-lg font-bold">Property ID: <span x-text="detail"></span></p>
 				<p>Are you sure you want to delete this property?</p>
 				<x-slot:actions>
-					<div class="flex gap-4 items-center justify-end">
+					<div class="flex items-center justify-end gap-4">
 						<button type="button" class="btn btn-primary" @click="openModal = false">
 							Close
 						</button>
