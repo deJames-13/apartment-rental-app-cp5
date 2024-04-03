@@ -19,6 +19,7 @@ use PowerComponents\LivewirePowerGrid\Traits\WithExport;
 final class UnitTable extends PowerGridComponent
 {
   use WithExport;
+  public $showTrash = false;
   protected function getListeners(): array
   {
     return array_merge(
@@ -47,6 +48,7 @@ final class UnitTable extends PowerGridComponent
   public function datasource(): Builder
   {
     // return Unit::query();
+    $page = request()->get('page', 1);
     $user = auth()->user();
     $landlord_id = auth()->id();
 
@@ -141,8 +143,8 @@ final class UnitTable extends PowerGridComponent
   #[\Livewire\Attributes\On('restore')]
   public function restore($rowId)
   {
-    $application = PropertyListing::onlyTrashed()->find($rowId);
-    $application->restore();
+    $unit = Unit::onlyTrashed()->find($rowId);
+    $unit->restore();
     return redirect()->to('/dashboard/units/');
   }
 
