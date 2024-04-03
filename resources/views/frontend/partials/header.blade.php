@@ -10,8 +10,8 @@
 	        'submenu' => [
 	            ['label' => 'All Properties', 'link' => '/properties'],
 	            ['label' => 'Post Property', 'link' => '/properties/create'],
-	            ['label' => 'Categories', 'link' => '/properties/category'],
-	            ['label' => 'Popular Properties', 'link' => '/properties/popular'],
+	            // ['label' => 'Categories', 'link' => '/properties/category'],
+	            // ['label' => 'Popular Properties', 'link' => '/properties/popular'],
 	        ],
 	    ],
 	    [
@@ -20,12 +20,12 @@
 	        'submenu' => [
 	            ['label' => 'All Units', 'link' => '/units'],
 	            ['label' => 'Post Unit', 'link' => '/units/create'],
-	            ['label' => 'Categories', 'link' => '/units/category'],
-	            ['label' => 'Popular Units', 'link' => '/units/popular'],
+	            // ['label' => 'Categories', 'link' => '/units/category'],
+	            // ['label' => 'Popular Units', 'link' => '/units/popular'],
 	        ],
 	    ],
-	    ['label' => 'Contact', 'link' => '/contact'],
-	    ['label' => 'About', 'link' => '/about'],
+	    // ['label' => 'Contact', 'link' => '/contact'],
+	    // ['label' => 'About', 'link' => '/about'],
 	    [
 	        'label' => 'Profile',
 	        'link' => '/profile',
