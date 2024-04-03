@@ -29,7 +29,7 @@
 					<span>New Application</span>
 				</x-button>
 				<div>
-					<x-button link="{{ route('dashboard.applications') }}" class="text-white bg-red-400 ">
+					<x-button link="/dashboard/applications?page=trash" class="text-white bg-red-400 ">
 						<x-icon name="fas.trash" />
 						Archived
 					</x-button>

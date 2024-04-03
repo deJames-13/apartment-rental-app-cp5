@@ -19,7 +19,17 @@ use PowerComponents\LivewirePowerGrid\Traits\WithExport;
 final class ApplicationTable extends PowerGridComponent
 {
   use WithExport;
-
+  public $showTrash = false;
+  protected function getListeners(): array
+  {
+    return array_merge(
+      parent::getListeners(),
+      [
+        'refresh-record' => '$refresh',
+        'pg:show-trash' => 'handleShowTrash',
+      ]
+    );
+  }
   public function setUp(): array
   {
     $this->showCheckBox();
@@ -37,7 +47,20 @@ final class ApplicationTable extends PowerGridComponent
 
   public function datasource(): Builder
   {
-    return LeaseApplication::query();
+    $page = request('page', 1);
+
+
+    $query = LeaseApplication::query();
+
+    if ($page === 'trash') {
+      $query->onlyTrashed();
+    } else if (auth()->user()->role === 'landlord') {
+      $query->where('landlord_id', auth()->id());
+    } elseif (auth()->user()->role === 'tenant') {
+      $query->where('tenant_id', auth()->id());
+    }
+
+    return $query;
   }
 
   public function relationSearch(): array
@@ -110,21 +133,96 @@ final class ApplicationTable extends PowerGridComponent
     return [];
   }
 
+  // for tenant edit and delete
   #[\Livewire\Attributes\On('edit')]
-  public function edit($rowId): void
+  public function edit($rowId)
   {
-    $this->js('alert(' . $rowId . ')');
+    return redirect()->to('/applications/edit/' . $rowId);
+  }
+
+  #[\Livewire\Attributes\On('delete')]
+  public function delete($rowId): void
+  {
+    $application = LeaseApplication::find($rowId);
+    $application->delete();
+  }
+
+  #[\Livewire\Attributes\On('approve')]
+  public function approve($rowId): void
+  {
+    $application = LeaseApplication::find($rowId);
+    $application->status = 'approved';
+    $application->save();
+  }
+
+  #[\Livewire\Attributes\On('reject')]
+  public function reject($rowId): void
+  {
+    // Retrieve the record and reject it
+    $application = LeaseApplication::find($rowId);
+    $application->status = 'rejected';
+    $application->save();
+  }
+
+  #[\Livewire\Attributes\On('restore')]
+  public function restore($rowId)
+  {
+    // Retrieve the record and restore it
+    $application = LeaseApplication::onlyTrashed()->find($rowId);
+    $application->restore();
+    return redirect()->to('/dashboard/applications/');
+  }
+
+  #[\Livewire\Attributes\On('showTrash')]
+  public function handleShowTrash()
+  {
+    $this->showTrash = !$this->showTrash;
   }
 
   public function actions(LeaseApplication $row): array
   {
-    return [
+    $buttons = [
       Button::add('edit')
         ->slot('Edit: ' . $row->id)
         ->id()
-        ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
+        ->class('btn btn-outline btn-sm rounded border-primary bg-info dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
         ->dispatch('edit', ['rowId' => $row->id])
     ];
+
+
+
+
+    if (auth()->user()->role === 'landlord') {
+      $buttons[] = Button::add('approve')
+        ->slot('Approve: ' . $row->id)
+        ->id()
+        ->class('btn btn-outline btn-sm rounded border-primary bg-success dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
+        ->dispatch('approve', ['rowId' => $row->id]);
+
+      $buttons[] = Button::add('reject')
+        ->slot('Reject: ' . $row->id)
+        ->id()
+        ->class('btn btn-outline btn-sm rounded border-primary bg-error dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
+        ->dispatch('reject', ['rowId' => $row->id]);
+    }
+
+
+
+    if ($row->trashed()) {
+      $buttons[] = Button::add('restore')
+        ->slot('Restore: ' . $row->id)
+        ->id()
+        ->class('btn btn-outline btn-sm rounded border-primary bg-green-400 dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
+        ->dispatch('restore', ['rowId' => $row->id]);
+    } else {
+      $buttons[] = Button::add('delete')
+        ->slot('Delete: ' . $row->id)
+        ->id()
+        ->class('btn btn-outline btn-sm rounded border-primary bg-red-400 dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
+        ->dispatch('delete', ['rowId' => $row->id]);
+    }
+
+    return $buttons;
   }
 
   /*
