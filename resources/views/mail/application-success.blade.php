@@ -25,7 +25,7 @@
 							{{ $user->username }}
 						</h1>
 
-						<p class="max-w-md px-2 my-4 text-xl font-bold text-white">
+						<p class="max-w-md px-2 my-4 text-xl font-bold ">
 							Your application has been approved. An agent will contact you for further transaction.
 						</p>
 
