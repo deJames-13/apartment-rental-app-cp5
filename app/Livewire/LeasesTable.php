@@ -50,12 +50,11 @@ final class LeasesTable extends PowerGridComponent
 
     $query = LeaseInfo::with('unit.propertyListing');
 
-    if ($page === 'trash') {
-      $query->onlyTrashed()->whereHas('unit.property', function ($query) {
+    if ($page === 'trashed') {
+      $query->onlyTrashed()->whereHas('unit.propertyListing', function ($query) {
         $query->where('landlord_id', auth()->id());
       });
-    }
-    if (auth()->user()->role === 'landlord') {
+    } else if (auth()->user()->role === 'landlord') {
       $query->whereHas('unit.propertyListing', function ($query) {
         $query->where('landlord_id', auth()->id());
       });
@@ -173,7 +172,7 @@ final class LeasesTable extends PowerGridComponent
     // Retrieve the record and restore it
     $application = LeaseInfo::onlyTrashed()->find($rowId);
     $application->restore();
-    return redirect()->to('/dashboard/applications/');
+    return redirect()->to('/dashboard/leases/');
   }
 
   #[\Livewire\Attributes\On('showTrash')]
@@ -184,24 +183,29 @@ final class LeasesTable extends PowerGridComponent
 
   public function actions(LeaseInfo $row): array
   {
-    return [
-      Button::add('edit')
+    $buttons = [];
+    if (auth()->user()->role === 'landlord') {
+      $buttons[] =
+        Button::add('edit')
         ->slot('Edit: ' . $row->id)
         ->id()
         ->class('btn btn-outline btn-sm rounded border-primary bg-info dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
-        ->dispatch('edit', ['rowId' => $row->id]),
-
-      Button::add('view')
-        ->slot('View: ' . $row->id)
+        ->dispatch('edit', ['rowId' => $row->id]);
+    }
+    if ($row->trashed()) {
+      $buttons[] = Button::add('restore')
+        ->slot('Restore: ' . $row->id)
         ->id()
-        ->class('btn btn-outline btn-sm rounded border-base-content bg-base-content dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
-        ->dispatch('view', ['rowId' => $row->id]),
-      Button::add('delete')
+        ->class('btn btn-outline btn-sm rounded border-primary bg-green-400 dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
+        ->dispatch('restore', ['rowId' => $row->id]);
+    } else {
+      $buttons[] = Button::add('delete')
         ->slot('Delete: ' . $row->id)
         ->id()
-        ->class('btn btn-outline btn-sm rounded border-red-400 bg-red-400 dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
-        ->dispatch('delete', ['rowId' => $row->id]),
-    ];
+        ->class('btn btn-outline btn-sm rounded border-primary bg-red-400 dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
+        ->dispatch('delete', ['rowId' => $row->id]);
+    }
+    return $buttons;
   }
 
   /*

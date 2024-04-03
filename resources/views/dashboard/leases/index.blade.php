@@ -28,7 +28,7 @@
 					<span>Add Lease</span>
 				</x-button>
 				<div>
-					<x-button link="{{ route('leases.create') }}" class="text-white bg-red-400 ">
+					<x-button link="{{ route('dashboard.leases') . '?page=trashed' }}" class="text-white bg-red-400 ">
 						<x-icon name="fas.trash" />
 					</x-button>
 				</div>
