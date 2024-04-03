@@ -5,11 +5,19 @@
 	<div class="min-h-screen">
 		@include('profile.status-card')
 
-		<div class="flex gap-4">
 
-			<livewire:my-chart title="Properties" :data="$propertyListingData" />
-			<livewire:my-chart title="Units" :data="$unitsData" />
-			<livewire:my-chart title="Transactions" :data="$transactionsData" />
+		<div class="w-full flex flex-col gap-6 items-center justify-center">
+			<div class="w-full max-w-lg">
+
+				<livewire:my-chart title="Properties" :data="$propertyListingData" />
+			</div>
+			<div class="w-full max-w-lg">
+
+				<livewire:my-chart title="Units" :data="$unitsData" />
+			</div>
+			<div class="w-full max-w-lg">
+				<livewire:my-chart title="Transactions" :data="$transactionsData" :charts="['chart', 'bar']" />
+			</div>
 		</div>
 
 
