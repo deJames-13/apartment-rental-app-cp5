@@ -21,7 +21,7 @@
 
 			{{-- actions --}}
 			<div class="flex justify-end gap-4 ">
-				<x-button link="{{ route('dashboard.properties') }}"
+				<x-button link="{{ route('dashboard.units') }}"
 					class="hover:text-[white!important] btn-primary max-w-xs btn-outline bg-slide-l">
 					<x-icon name="fas.images" />
 					<span>Gallery</span>
@@ -40,7 +40,7 @@
 					<span>Add Unit</span>
 				</x-button>
 				<div>
-					<x-button link="{{ route('units.create') }}" class="text-white bg-red-400 ">
+					<x-button link="{{ route('dashboard.units') . '?page=trashed' }}" class="text-white bg-red-400 ">
 						<x-icon name="fas.trash" />
 					</x-button>
 				</div>
@@ -51,7 +51,7 @@
 			<div class="w-full overflow-hidden">
 				<livewire:unit-table />
 
-				<livewire:unit-joined-table />
+				{{-- <livewire:unit-joined-table /> --}}
 
 
 			</div>

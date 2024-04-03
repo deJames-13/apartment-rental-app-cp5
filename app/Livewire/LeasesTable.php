@@ -48,12 +48,17 @@ final class LeasesTable extends PowerGridComponent
   {
     $page = request('page', 1);
 
-    $query = LeaseInfo::query();
+    $query = LeaseInfo::with('unit.propertyListing');
 
     if ($page === 'trash') {
-      $query->onlyTrashed();
-    } else if (auth()->user()->role === 'landlord') {
-      $query->where('landlord_id', auth()->id());
+      $query->onlyTrashed()->whereHas('unit.property', function ($query) {
+        $query->where('landlord_id', auth()->id());
+      });
+    }
+    if (auth()->user()->role === 'landlord') {
+      $query->whereHas('unit.propertyListing', function ($query) {
+        $query->where('landlord_id', auth()->id());
+      });
     }
 
     return $query;
