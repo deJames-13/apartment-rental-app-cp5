@@ -158,9 +158,11 @@ final class ApplicationTable extends PowerGridComponent
   #[\Livewire\Attributes\On('approve')]
   public function approve($rowId): void
   {
-    $application = LeaseApplication::find($rowId);
+    $application = LeaseApplication::with('propertyListing')->find($rowId);
     $application->status = 'accepted';
+    $application->propertyListing->status = 'unavailable';
     Mail::to(auth()->user()->email)->send(new ApplicationSuccess(auth()->user()));
+    $application->propertyListing->save();
     $application->save();
   }
 
