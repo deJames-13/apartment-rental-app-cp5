@@ -34,7 +34,7 @@
 					<span>Add Property</span>
 				</x-button>
 				<div>
-					<x-button link="{{ route('properties.create') }}" class="text-white bg-red-400 ">
+					<x-button link="{{ route('dashboard.properties') . '?page=trashed' }}" class="text-white bg-red-400 ">
 						<x-icon name="fas.trash" />
 					</x-button>
 				</div>

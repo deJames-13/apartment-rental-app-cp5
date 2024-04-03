@@ -19,12 +19,14 @@ use PowerComponents\LivewirePowerGrid\Traits\WithExport;
 final class PropertyTable extends PowerGridComponent
 {
   use WithExport;
+  public $showTrash = false;
   protected function getListeners(): array
   {
     return array_merge(
       parent::getListeners(),
       [
-        'refresh-record' => '$refresh'
+        'refresh-record' => '$refresh',
+        'pg:show-trash' => 'handleShowTrash',
       ]
     );
   }
@@ -45,9 +47,14 @@ final class PropertyTable extends PowerGridComponent
 
   public function datasource(): Builder
   {
+    $page = request('page', 1);
     $user = auth()->user();
     $landlord_id = auth()->id();
-    return PropertyListing::where('landlord_id', $landlord_id);
+    if ($page === 'trashed') {
+      return PropertyListing::onlyTrashed()->where('landlord_id', $landlord_id);
+    } else {
+      return PropertyListing::where('landlord_id', $landlord_id);
+    }
   }
 
   public function relationSearch(): array
@@ -125,31 +132,54 @@ final class PropertyTable extends PowerGridComponent
   #[\Livewire\Attributes\On('delete')]
   public function delete($rowId)
   {
-    // emit a livewire delete event for property
     $this->dispatch('delete-property', $rowId);
   }
 
+
+  #[\Livewire\Attributes\On('restore')]
+  public function restore($rowId)
+  {
+    $application = PropertyListing::onlyTrashed()->find($rowId);
+    $application->restore();
+    return redirect()->to('/dashboard/properties/');
+  }
+
+  #[\Livewire\Attributes\On('showTrash')]
+  public function handleShowTrash()
+  {
+    $this->showTrash = !$this->showTrash;
+  }
+
+
+
   public function actions(PropertyListing $row): array
   {
-    return [
-      Button::add('edit')
+    $buttons = [];
+    if (auth()->user()->role === 'landlord') {
+      $buttons[] =
+        Button::add('edit')
         ->slot('Edit: ' . $row->id)
         ->id()
         ->class('btn btn-outline btn-sm rounded border-primary bg-info dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
-        ->dispatch('edit', ['rowId' => $row->id]),
-
-      Button::add('view')
-        ->slot('View: ' . $row->id)
+        ->dispatch('edit', ['rowId' => $row->id]);
+    }
+    if ($row->trashed()) {
+      $buttons[] = Button::add('restore')
+        ->slot('Restore: ' . $row->id)
         ->id()
-        ->class('btn btn-outline btn-sm rounded border-base-content bg-base-content dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
-        ->dispatch('view', ['rowId' => $row->id]),
-      Button::add('delete')
+        ->class('btn btn-outline btn-sm rounded border-primary bg-green-400 dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
+        ->dispatch('restore', ['rowId' => $row->id]);
+    } else {
+      $buttons[] = Button::add('delete')
         ->slot('Delete: ' . $row->id)
         ->id()
-        ->class('btn btn-outline btn-sm rounded border-red-400 bg-red-400 dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
-        ->dispatch('delete', ['rowId' => $row->id]),
-    ];
+        ->class('btn btn-outline btn-sm rounded border-primary bg-red-400 dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
+        ->dispatch('delete', ['rowId' => $row->id]);
+    }
+
+    return $buttons;
   }
+
 
   /*
     public function actionRules($row): array

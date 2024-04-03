@@ -79,29 +79,29 @@ $sideMenu = [
             ],
         ],
     ],
-    [
-        'label' => 'Transactions',
-        'icon' => 'fas.file-pen',
-        'link' => '/dashboard',
-        'roles' => ['admin', 'landlord', 'tenant'],
-        'submenu' => [
-            [
-                'label' => 'View Transactions',
-                'icon' => 'fas.eye',
-                'link' => '/transactions',
-            ],
-            [
-                'label' => 'Add Transaction',
-                'icon' => 'fas.plus',
-                'link' => '/transactions/create',
-            ],
-            [
-                'label' => 'Search Transaction',
-                'icon' => 'fas.magnifying-glass',
-                'link' => '/dashboard/transactions/search',
-            ],
-        ],
-    ],
+    // [
+    //     'label' => 'Transactions',
+    //     'icon' => 'fas.file-pen',
+    //     'link' => '/dashboard',
+    //     'roles' => ['admin', 'landlord', 'tenant'],
+    //     'submenu' => [
+    //         [
+    //             'label' => 'View Transactions',
+    //             'icon' => 'fas.eye',
+    //             'link' => '/transactions',
+    //         ],
+    //         [
+    //             'label' => 'Add Transaction',
+    //             'icon' => 'fas.plus',
+    //             'link' => '/transactions/create',
+    //         ],
+    //         [
+    //             'label' => 'Search Transaction',
+    //             'icon' => 'fas.magnifying-glass',
+    //             'link' => '/dashboard/transactions/search',
+    //         ],
+    //     ],
+    // ],
     // [
     //     'label' => 'Reports',
     //     'icon' => 'fas.print',

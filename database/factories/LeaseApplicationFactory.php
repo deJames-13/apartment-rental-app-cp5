@@ -61,7 +61,7 @@ class LeaseApplicationFactory extends Factory
       // 'start_date' => $faker->date(),
       // 'end_date' => $faker->date(),
       'rent_amount' => $faker->randomFloat(2, 500, 5000),
-      'status' => $faker->randomElement(['pending', 'approved', 'rejected']),
+      'status' => $faker->randomElement(['pending', 'accepted', 'rejected']),
       'notes' => $faker->text(),
       'tenant_id_card' => $faker->imageUrl(),
       'tenant_signature' => $faker->imageUrl(),
