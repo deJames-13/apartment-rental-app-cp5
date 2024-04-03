@@ -53,15 +53,14 @@ final class ApplicationTable extends PowerGridComponent
   {
     $page = request('page', 1);
 
-
-    $query = LeaseApplication::query();
+    $query = LeaseApplication::query()->with(['tenant', 'landlord']);
 
     if ($page === 'trash') {
       $query->onlyTrashed();
     } else if (auth()->user()->role === 'landlord') {
-      $query->where('landlord_id', auth()->id());
+      $query->where('landlord_id', auth()->user()->id);
     } elseif (auth()->user()->role === 'tenant') {
-      $query->where('tenant_id', auth()->id());
+      $query->where('tenant_id', auth()->user()->id);
     }
 
     return $query;
@@ -74,10 +73,8 @@ final class ApplicationTable extends PowerGridComponent
 
   public function fields(): PowerGridFields
   {
-    return PowerGrid::fields()
+    $powerGridFields = PowerGrid::fields()
       ->add('id')
-      ->add('tenant_id')
-      ->add('landlord_id')
       ->add('property_id')
       ->add('unit_id')
       ->add('rent_amount')
@@ -87,49 +84,56 @@ final class ApplicationTable extends PowerGridComponent
       ->add('tenant_id_card')
       ->add('tenant_signature')
       ->add('created_at');
+
+    if (auth()->user()->role === 'landlord') {
+      $powerGridFields->add('tenant.name');
+    } elseif (auth()->user()->role === 'tenant') {
+      $powerGridFields->add('landlord.name');
+    }
+
+    return $powerGridFields;
   }
 
   public function columns(): array
   {
-    return [
+    $columns = [
       Column::make('Id', 'id'),
-      Column::make('Tenant id', 'tenant_id'),
-      Column::make('Landlord id', 'landlord_id'),
       Column::make('Property id', 'property_id'),
       Column::make('Unit id', 'unit_id'),
       Column::make('Rent amount', 'rent_amount')
         ->sortable()
         ->searchable(),
-
       Column::make('Status', 'status')
         ->sortable()
         ->searchable(),
-
       Column::make('Title', 'title')
         ->sortable()
         ->searchable(),
-
       Column::make('Notes', 'notes')
         ->sortable()
         ->searchable(),
-
-      Column::make('Tenant id card', 'tenant_id_card')
-        ->sortable()
-        ->searchable(),
-
-      Column::make('Tenant signature', 'tenant_signature')
-        ->sortable()
-        ->searchable(),
-
+      // Column::make('Tenant id card', 'tenant_id_card')
+      //   ->sortable()
+      //   ->searchable(),
+      // Column::make('Tenant signature', 'tenant_signature')
+      //   ->sortable()
+      //   ->searchable(),
       Column::make('Created at', 'created_at_formatted', 'created_at')
         ->sortable(),
-
       Column::make('Created at', 'created_at')
         ->sortable()
         ->searchable(),
-
       Column::action('Action')
     ];
+
+    if (auth()->user()->role === 'landlord') {
+      array_splice($columns, 1, 0, [Column::make('Tenant Name', 'tenant.username')]);
+    } elseif (auth()->user()->role === 'tenant') {
+      array_splice($columns, 1, 0, [Column::make('Landlord Name', 'landlord.username')]);
+    }
+
+
+    return $columns;
   }
 
   public function filters(): array
