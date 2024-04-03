@@ -102,34 +102,34 @@ $sideMenu = [
             ],
         ],
     ],
-    [
-        'label' => 'Reports',
-        'icon' => 'fas.print',
-        'link' => '/dashboard',
-        'roles' => ['admin', 'landlord'],
-        'submenu' => [
-            [
-                'label' => 'View Application',
-                'icon' => 'fas.eye',
-                'link' => '/reports',
-            ],
-            [
-                'label' => 'Add Application',
-                'icon' => 'fas.plus',
-                'link' => '/reports/create',
-            ],
-            [
-                'label' => 'Search Application',
-                'icon' => 'fas.magnifying-glass',
-                'link' => '/dashboard/application/search',
-            ],
-        ],
-    ],
-    [
-        'label' => 'Bookmark',
-        'icon' => 'fas.bookmark',
-        'link' => '/bookmarks',
-    ],
+    // [
+    //     'label' => 'Reports',
+    //     'icon' => 'fas.print',
+    //     'link' => '/dashboard',
+    //     'roles' => ['admin', 'landlord'],
+    //     'submenu' => [
+    //         [
+    //             'label' => 'View Application',
+    //             'icon' => 'fas.eye',
+    //             'link' => '/reports',
+    //         ],
+    //         [
+    //             'label' => 'Add Application',
+    //             'icon' => 'fas.plus',
+    //             'link' => '/reports/create',
+    //         ],
+    //         [
+    //             'label' => 'Search Application',
+    //             'icon' => 'fas.magnifying-glass',
+    //             'link' => '/dashboard/application/search',
+    //         ],
+    //     ],
+    // ],
+    // [
+    //     'label' => 'Bookmark',
+    //     'icon' => 'fas.bookmark',
+    //     'link' => '/bookmarks',
+    // ],
 ];
 $sideMenu = array_filter($sideMenu, function ($menuItem) use ($userRole) {
     return isset($menuItem['roles']) && in_array($userRole, $menuItem['roles']);
