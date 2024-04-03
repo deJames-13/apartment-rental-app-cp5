@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class ApplicationSuccess extends Mailable
+class ApplicationRejected extends Mailable
 {
   use Queueable, SerializesModels;
 
@@ -28,7 +28,7 @@ class ApplicationSuccess extends Mailable
   public function envelope(): Envelope
   {
     return new Envelope(
-      subject: 'Application Success',
+      subject: 'Application Rejected',
     );
   }
 
@@ -38,7 +38,7 @@ class ApplicationSuccess extends Mailable
   public function content(): Content
   {
     return new Content(
-      view: 'mail.application-success',
+      view: 'mail.application-rejected',
     );
   }
 

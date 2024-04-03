@@ -2,19 +2,23 @@
 
 namespace App\Livewire;
 
-use App\Models\LeaseApplication;
 use Illuminate\Support\Carbon;
+use App\Mail\ApplicationSuccess;
+use App\Mail\PendingApplication;
+use App\Models\LeaseApplication;
+use App\Mail\ApplicationRejected;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Database\Eloquent\Builder;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
-use PowerComponents\LivewirePowerGrid\Exportable;
-use PowerComponents\LivewirePowerGrid\Facades\Filter;
 use PowerComponents\LivewirePowerGrid\Footer;
 use PowerComponents\LivewirePowerGrid\Header;
 use PowerComponents\LivewirePowerGrid\PowerGrid;
+use PowerComponents\LivewirePowerGrid\Exportable;
+use PowerComponents\LivewirePowerGrid\Facades\Filter;
 use PowerComponents\LivewirePowerGrid\PowerGridFields;
-use PowerComponents\LivewirePowerGrid\PowerGridComponent;
 use PowerComponents\LivewirePowerGrid\Traits\WithExport;
+use PowerComponents\LivewirePowerGrid\PowerGridComponent;
 
 final class ApplicationTable extends PowerGridComponent
 {
@@ -151,23 +155,23 @@ final class ApplicationTable extends PowerGridComponent
   public function approve($rowId): void
   {
     $application = LeaseApplication::find($rowId);
-    $application->status = 'approved';
+    $application->status = 'accepted';
+    Mail::to(auth()->user()->email)->send(new ApplicationSuccess(auth()->user()));
     $application->save();
   }
 
   #[\Livewire\Attributes\On('reject')]
   public function reject($rowId): void
   {
-    // Retrieve the record and reject it
     $application = LeaseApplication::find($rowId);
     $application->status = 'rejected';
+    Mail::to(auth()->user()->email)->send(new ApplicationRejected(auth()->user()));
     $application->save();
   }
 
   #[\Livewire\Attributes\On('restore')]
   public function restore($rowId)
   {
-    // Retrieve the record and restore it
     $application = LeaseApplication::onlyTrashed()->find($rowId);
     $application->restore();
     return redirect()->to('/dashboard/applications/');
@@ -188,26 +192,32 @@ final class ApplicationTable extends PowerGridComponent
         ->class('btn btn-outline btn-sm rounded border-primary bg-info dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
         ->dispatch('edit', ['rowId' => $row->id])
     ];
-
-
-
-
     if (auth()->user()->role === 'landlord') {
-      $buttons[] = Button::add('approve')
-        ->slot('Approve: ' . $row->id)
-        ->id()
-        ->class('btn btn-outline btn-sm rounded border-primary bg-success dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
-        ->dispatch('approve', ['rowId' => $row->id]);
-
-      $buttons[] = Button::add('reject')
-        ->slot('Reject: ' . $row->id)
-        ->id()
-        ->class('btn btn-outline btn-sm rounded border-primary bg-error dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
-        ->dispatch('reject', ['rowId' => $row->id]);
+      if ($row->status === 'rejected') {
+        $buttons[] = Button::add('approve')
+          ->slot('Approve: ' . $row->id)
+          ->id()
+          ->class('btn btn-outline btn-sm rounded border-primary bg-success dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
+          ->dispatch('approve', ['rowId' => $row->id]);
+      } else if ($row->status === 'approved' || $row->status === 'accepted') {
+        $buttons[] = Button::add('reject')
+          ->slot('Reject: ' . $row->id)
+          ->id()
+          ->class('btn btn-outline btn-sm rounded border-primary bg-red-400 dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
+          ->dispatch('reject', ['rowId' => $row->id]);
+      } else if ($row->status === 'pending') {
+        $buttons[] = Button::add('approve')
+          ->slot('Approve: ' . $row->id)
+          ->id()
+          ->class('btn btn-outline btn-sm rounded border-primary bg-success dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
+          ->dispatch('approve', ['rowId' => $row->id]);
+        $buttons[] = Button::add('reject')
+          ->slot('Reject: ' . $row->id)
+          ->id()
+          ->class('btn btn-outline btn-sm rounded border-primary bg-red-400 dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
+          ->dispatch('reject', ['rowId' => $row->id]);
+      }
     }
-
-
-
     if ($row->trashed()) {
       $buttons[] = Button::add('restore')
         ->slot('Restore: ' . $row->id)
