@@ -54,7 +54,6 @@ final class ApplicationTable extends PowerGridComponent
     $page = request('page', 1);
 
     $query = LeaseApplication::query()->with(['tenant', 'landlord']);
-
     if ($page === 'trash') {
       $query->onlyTrashed();
     } else if (auth()->user()->role === 'landlord') {
@@ -86,9 +85,9 @@ final class ApplicationTable extends PowerGridComponent
       ->add('created_at');
 
     if (auth()->user()->role === 'landlord') {
-      $powerGridFields->add('tenant.name');
+      $powerGridFields->add('tenant.username');
     } elseif (auth()->user()->role === 'tenant') {
-      $powerGridFields->add('landlord.name');
+      $powerGridFields->add('landlord.username');
     }
 
     return $powerGridFields;
