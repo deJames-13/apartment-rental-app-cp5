@@ -5,5 +5,8 @@
 				<x-property-card :property="$property" />
 			@endforeach
 		</div>
+		<div class="flex justify-center mt-6 mb-12">
+			{{ $propertyListings->links() }}
+		</div>
 	@endisset
 </x-default-layout>

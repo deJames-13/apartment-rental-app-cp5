@@ -5,5 +5,10 @@
 				<x-unit-card :unit="$u" />
 			@endforeach
 		</div>
+
+
+		<div class="flex justify-center mt-6 mb-12">
+			{{ $units->links() }}
+		</div>
 	@endisset
 </x-default-layout>
