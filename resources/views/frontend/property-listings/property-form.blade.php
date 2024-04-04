@@ -198,16 +198,16 @@
 					</div>
 					<div class="my-5 lg:max-w-sm">
 						@if ($property_thumbnail)
+							<input type="file" accept="image/*" class="hidden w-full file-input file-input-bordered" id="imageUpload"
+								name="added_images[]" wire:model="added_images" multiple />
 							<div class="flex flex-col gap-2">
 								<label for="added_images[]"
-									class="flex gap-4 font-bold transition-all ease-in-out btn btn-outline bg-slide-l hover:scale-105 active:scale-90">
+									class="flex gap-4 font-bold transition-all ease-in-out btn btn-outline bg-slide-l hover:scale-105 active:scale-90"
+									onclick="window.document.getElementById('imageUpload').click()">
 									<x-icon name="fas.images" />
 									Add Images
 								</label>
-								<x-input type="file" accept="image/*" class="hidden w-full file-input file-input-bordered"
-									name="added_images[]" wire:model="added_images" multiple />
 							</div>
-
 							@if ($added_images)
 								<div class="grid grid-cols-2 gap-2">
 									@foreach ($added_images as $image)

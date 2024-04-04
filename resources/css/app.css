@@ -96,6 +96,8 @@
 }
 
 .bg-slide:hover {
+  transform: scale(1.1);
+  transition: all 0.3s ease-in-out;
   background-color: #4d6eff;
   background-position: 0% -100%;
 }
@@ -107,6 +109,8 @@
 }
 
 .bg-slide-r:hover {
+  transform: scale(1.1);
+  transition: all 0.3s ease-in-out;
   background-color: #4d6eff;
   background-position: -100% 0%;
   color: #fff;
@@ -119,6 +123,8 @@
 }
 
 .bg-slide-l:hover {
+  transform: scale(1.1);
+  transition: all 0.3s ease-in-out;
   background-color: #4d6eff;
   background-position: 100% 0%;
   color: #fff;

@@ -75,7 +75,7 @@ final class ApplicationTable extends PowerGridComponent
     $powerGridFields = PowerGrid::fields()
       ->add('id')
       ->add('property_id')
-      ->add('unit_id')
+      ->add('unit_id')applica
       ->add('rent_amount')
       ->add('status')
       ->add('title')
@@ -159,10 +159,10 @@ final class ApplicationTable extends PowerGridComponent
   #[\Livewire\Attributes\On('approve')]
   public function approve($rowId): void
   {
-    $application = LeaseApplication::with('propertyListing')->find($rowId);
+    $application = LeaseApplication::with(['propertyListing','tenant','landlord'])->find($rowId);
     $application->status = 'accepted';
     $application->propertyListing->status = 'unavailable';
-    Mail::to(auth()->user()->email)->send(new ApplicationSuccess(auth()->user()));
+    Mail::to($application->tenant->email)->send(new ApplicationSuccess(auth()->user()));
     $application->propertyListing->save();
     $application->save();
   }
@@ -170,9 +170,9 @@ final class ApplicationTable extends PowerGridComponent
   #[\Livewire\Attributes\On('reject')]
   public function reject($rowId): void
   {
-    $application = LeaseApplication::find($rowId);
+    $application = LeaseApplication::with(['propertyListing','tenant','landlord'])->find($rowId);
     $application->status = 'rejected';
-    Mail::to(auth()->user()->email)->send(new ApplicationRejected(auth()->user()));
+    Mail::to($application->tenant->email)->send(new ApplicationRejected(auth()->user()));
     $application->save();
   }
 

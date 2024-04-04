@@ -57,6 +57,13 @@ class PropertyForm extends Component
       $this->type = $this->property->type;
       $this->landlord_id = $this->property->landlord_id;
     }
+    if (strpos($this->property->property_thumbnail, ',') !== false) {
+      $imagePaths = explode(',', $this->property->property_thumbnail);
+      $this->property_thumbnail = array_shift($imagePaths); // Get the first image as the thumbnail
+      $this->added_images = $imagePaths; // The remaining images are the added images
+    } else {
+      $this->property_thumbnail = $this->property->property_thumbnail;
+    }
   }
 
   public function save()
@@ -102,14 +109,26 @@ class PropertyForm extends Component
     $validatedData['status'] = $this->status;
     $validatedData['type'] = $this->type;
 
+    $imagePaths = [];
     if ($this->property_thumbnail && !is_string($this->property_thumbnail)) {
       try {
         $filename = 'property_thumbnail_' . time() . '_' . Str::slug($this->property_thumbnail->getClientOriginalName());
         $this->property_thumbnail->storeAs('public/properties', $filename);
-        $validatedData['property_thumbnail'] = 'properties/' . $filename;
+        $imagePaths[] = 'properties/' . $filename;
       } catch (\Exception $e) {
       }
     }
+
+    if ($this->added_images && is_array($this->added_images)) {
+      foreach ($this->added_images as $image) {
+        $filename = time() . '_' . Str::slug($image->getClientOriginalName());
+        $image->storeAs('public/properties', $filename);
+        $imagePaths[] = 'properties/' . $filename;
+      }
+    }
+
+    $validatedData['property_thumbnail'] = implode(',', $imagePaths); // store paths as comma-separated string
+
 
 
     $validatedData['landlord_id'] = $landlord_id;
