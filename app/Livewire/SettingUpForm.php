@@ -26,7 +26,7 @@ class SettingUpForm extends Component
   {
     $this->application = $application->exists ? $application : null;
     $this->units = Unit::all()->pluck('unit_code', 'id')->toArray();
-    if ($application->exists) {
+    if ($application && $application->exists) {
       $this->tenant_id = $application->tenant_id;
       $this->landlord_id = $application->landlord_id;
       $this->status = $application->status;
@@ -41,7 +41,7 @@ class SettingUpForm extends Component
       $this->property_name = $application->propertyListing->property_name;
       $this->unit_id =  $application->unit_id;
     }
-    if ($property->exists) {
+    if ($property && $property->exists) {
       $this->property_id = $property->id;
       $this->property = $property;
       $this->property_name = $property->name;
@@ -50,7 +50,7 @@ class SettingUpForm extends Component
     }
   }
 
-  public function submit()
+  public function save()
   {
     try {
 
@@ -86,7 +86,6 @@ class SettingUpForm extends Component
       session()->flash('message', 'Application submitted successfully!');
       $this->reset();
       $user = auth()->user();
-      Mail::to($user->email)->send(new PendingApplication($user));
       $this->toast(
         type: 'success',
         title: 'Created successfully',
@@ -96,6 +95,8 @@ class SettingUpForm extends Component
         css: 'alert-success',
         timeout: 3000,
       );
+      Mail::to($user->email)->send(new PendingApplication($user));
+      $this->reset();
     } catch (\Throwable $th) {
       dd($th);
     }

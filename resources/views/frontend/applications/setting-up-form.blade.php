@@ -102,7 +102,7 @@
 		@endif
 
 
-		<x-form wire:submit="{{ 'submit' }}" method="post">
+		<x-form wire:submit="{{ $form }}" method="post">
 			@csrf
 
 			<div class="grid items-start gap-4 lg:grid-cols-3">
@@ -249,8 +249,7 @@
 
 	<x-button
 		class="hover:bg-btn-secondary btn-outline btn-primary bg-button-gradient bg-200% transition-all duration-500 ease-out hover:bg-right hApplicover:text-white"
-		type="submit" :disabled="$status !== 'pending'">
-
+		type="submit" :disabled="$status !== 'pending'" spinner="{{ $form }}">
 		Save
 	</x-button>
 	{{-- <x-button
