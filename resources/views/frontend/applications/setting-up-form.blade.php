@@ -116,7 +116,7 @@
 				</div>
 
 
-				<div x-data="{ property: '{{ $isEdit ? ucfirst($property_name) : 'Select Property' }}' }" class="flex flex-col justify-end gap-1">
+				<div x-data="{ property: '{{ $isEdit ? ucfirst($property_name) : ($property ? $property_name : 'Select Property') }}' }" class="flex flex-col justify-end gap-1">
 					<label for="property_id" class="text-sm font-bold">Property</label>
 					<x-input :disabled="$status !== 'pending'" type="hidden" name="property_id" id="property_id" wire:model.defer='property_id' />
 					<div class="dropdown dropdown-bottom dropdown-start">
@@ -139,7 +139,7 @@
 				</div>
 
 
-				<div x-data="{ unit_code: '{{ $isEdit ? ucfirst($unit_code) : 'Select Unit' }}' }" class="flex flex-col justify-end gap-1">
+				<div x-data="{ unit_code: '{{ $isEdit ? ucfirst($unit_code) : ($unit_code ? $unit_code : 'Select Unit') }}' }" class="flex flex-col justify-end gap-1">
 					<label for="unit_code" class="text-sm font-bold">Unit Code</label>
 					<x-input :disabled="$status !== 'pending'" type="hidden" name="unit_code" id="unit_code" x-model="unit_code"
 						wire:model.defer="unit_code" />

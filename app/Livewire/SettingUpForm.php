@@ -20,6 +20,13 @@ class SettingUpForm extends Component
   public $application, $property, $property_id, $property_name, $units, $unit, $unit_id, $unit_code;
   public $tenant_id, $landlord_id, $status = "pending", $title, $notes, $tenant_id_card, $tenant_signature;
 
+  protected $rules = [
+    'property_id' => 'required',
+    'title' => 'required|string|max:255',
+    'notes' => 'required|string|max:1000',
+    'tenant_id_card' => 'required',
+    'tenant_signature' => 'required',
+  ];
 
   public float $rent_amount;
 
@@ -49,13 +56,12 @@ class SettingUpForm extends Component
       $this->property_name = $property->property_name;
       $this->units = Unit::where('property_id', $property->id)->pluck('unit_code', 'id')->toArray();
       $this->rent_amount = $property->lowest_price ? $property->lowest_price : $property->default_price;
-      dd($this->property, $this->property_name, $this->units, $this->rent_amount);
     }
   }
 
   public function save()
   {
-    // check if there is no unit id
+    $this->validate();
     if (!$this->unit_id) {
       $this->unit = Unit::where('property_id', $this->property_id)->first();
       // if no unit is found return an error
