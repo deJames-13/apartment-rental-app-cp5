@@ -23,6 +23,7 @@ return new class extends Migration
       $table->enum('status', ['accepted', 'pending', 'rejected']);
       $table->string('title');
       $table->longText('notes');
+      $table->longText('comments')->nullable();
 
       // Foreign keys
       $table->foreign('tenant_id')->references('id')->on('users');

@@ -10,7 +10,7 @@
 			@click="openModal = false; $wire.set('detail', detail);window.dispatchEvent(new CustomEvent('pg:eventRefresh-default'));"
 			class="btn-outline btn-error" icon='fas.trash' spinner='delete' type='submit'>
 			@if (!$minimized)
-				<span class="hidden lg:block">Delete</span>
+				<span class="hidden lg:block">{{ $label ?? 'Delete' }}</span>
 			@endif
 		</x-button>
 	</x-form>

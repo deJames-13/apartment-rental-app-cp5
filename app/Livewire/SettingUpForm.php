@@ -18,8 +18,24 @@ class SettingUpForm extends Component
   use Toast;
 
   public $application, $property, $property_id, $property_name, $units, $unit, $unit_id, $unit_code;
-  public $tenant_id, $landlord_id, $start_date, $end_date, $status, $title, $notes, $tenant_id_card, $tenant_signature;
+  public $tenant_id, $landlord_id, $start_date, $end_date, $status = "pending", $title, $notes, $tenant_id_card, $tenant_signature, $comment;
   public float $rent_amount;
+
+  protected $rules = [
+    'property_id' => 'required',
+    // 'unit_code' => 'required',
+    'rent_amount' => 'required|numeric',
+    'title' => 'required|string|max:100',
+    'notes' => 'required|string|max:1000',
+    "tenant_id_card" => 'required',
+    "tenant_signature" => 'required',
+  ];
+  protected $messages = [
+    'property_id' => 'The property is required.',
+    'unit_code' => 'The property unit is required',
+    'rent_amount' => 'Please enter a valid amount.',
+    'notes' => 'Application Description is required, please specify your purpose for the application',
+  ];
 
 
   public function mount(LeaseApplication $application = null, PropertyListing $property = null)
@@ -35,6 +51,10 @@ class SettingUpForm extends Component
       $this->tenant_id_card = $application->tenant_id_card;
       $this->tenant_signature = $application->tenant_signature;
       $this->property_id =  $application->property_id;
+      $this->unit = $application->unit;
+      $this->unit_code = $application->unit->unit_code;
+      $this->property = $application->propertyListing;
+      $this->property_name = $application->propertyListing->property_name;
       $this->unit_id =  $application->unit_id;
     }
     if ($property->exists) {
@@ -48,6 +68,8 @@ class SettingUpForm extends Component
 
   public function submit()
   {
+    dd($this->unit_id);
+    $this->validate();
     try {
 
 
@@ -100,10 +122,19 @@ class SettingUpForm extends Component
   }
 
 
-
-  public function update()
+  public function saveComment()
   {
+    dd($this->comment);
+    $this->validateOnly([
+      'comment' => 'required|max:1000'
+    ]);
+
+    $this->application->update([
+      'comments' => $this->comment
+    ]);
+    $this->comment = '';
   }
+
   public function setProperty($propertyId)
   {
     $this->property_id = $propertyId;

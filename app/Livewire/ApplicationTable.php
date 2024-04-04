@@ -188,6 +188,13 @@ final class ApplicationTable extends PowerGridComponent
     $this->showTrash = !$this->showTrash;
   }
 
+
+  #[\Livewire\Attributes\On('comment')]
+  public function comment($rowId)
+  {
+    return redirect()->to('/applications/edit/' . $rowId);
+  }
+
   public function actions(LeaseApplication $row): array
   {
     $buttons = [
@@ -197,6 +204,13 @@ final class ApplicationTable extends PowerGridComponent
         ->class('btn btn-outline btn-sm rounded border-primary bg-info dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
         ->dispatch('edit', ['rowId' => $row->id])
     ];
+    if (auth()->user()->role === 'tenant' && $row->status === 'accepted') {
+      $buttons[] = Button::add('comment')
+        ->slot('Comment: ' . $row->id)
+        ->id()
+        ->class('btn btn-outline btn-sm rounded border-primary bg-success dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
+        ->dispatch('comment', ['rowId' => $row->id]);
+    }
     if (auth()->user()->role === 'landlord') {
       if ($row->status === 'rejected') {
         $buttons[] = Button::add('approve')

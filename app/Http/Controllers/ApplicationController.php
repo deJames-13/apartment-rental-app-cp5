@@ -102,7 +102,7 @@ class ApplicationController extends Controller
    */
   public function edit($id)
   {
-    $application = LeaseApplication::findOrFail($id);
+    $application = LeaseApplication::with('tenant', 'landlord', 'propertyListing', 'unit')->findOrFail($id);
     return view('frontend.applications.edit', compact('application'));
   }
 

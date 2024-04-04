@@ -38,7 +38,7 @@ $sideMenu = [
             [
                 'label' => 'Search Property',
                 'icon' => 'fas.magnifying-glass',
-                'link' => '/profile/properties/search',
+                'link' => '/profile/properties',
             ],
         ],
     ],
@@ -61,7 +61,7 @@ $sideMenu = [
             [
                 'label' => 'Search Unit',
                 'icon' => 'fas.magnifying-glass',
-                'link' => '/profile/units/search',
+                'link' => '/profile/units',
             ],
         ],
     ],

@@ -28,7 +28,7 @@ $sideMenu = [
             [
                 'label' => 'Search Property',
                 'icon' => 'fas.magnifying-glass',
-                'link' => '/dashboard/properties/search',
+                'link' => '/dashboard/properties',
             ],
         ],
     ],
@@ -51,7 +51,7 @@ $sideMenu = [
             [
                 'label' => 'Search Unit',
                 'icon' => 'fas.magnifying-glass',
-                'link' => '/dashboard/units/search',
+                'link' => '/dashboard/units',
             ],
         ],
     ],
@@ -75,7 +75,7 @@ $sideMenu = [
             [
                 'label' => 'Search Application',
                 'icon' => 'fas.magnifying-glass',
-                'link' => '/dashboard/applications/search',
+                'link' => '/dashboard/applications',
             ],
         ],
     ],

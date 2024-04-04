@@ -20,15 +20,36 @@
 
 
 @php
-	$isEdit = false;
+	$isEdit = $application->exists ?? false;
 	$form = $isEdit ? 'update' : 'save';
 @endphp
 <div>
 	<x-card class="container flex flex-col min-h-screen gap-4 p-4 mx-auto mb-12 shadow-xl lg:gap-12 lg:p-12 ">
 
+		@switch($status)
+			@case('accepted')
+				<div class="bg-green-400 badge badge-md">
+					{{ $status }}
+				</div>
+			@break
+
+			@case('rejected')
+				<div class="bg-red-400 badge badge-md">
+					{{ $status }}
+				</div>
+			@break
+
+			@case('pending')
+				<div class="bg-yellow-400 badge badge-md">
+					{{ $status }}
+				</div>
+			@break
+
+			@default
+		@endswitch
 		<div class="flex items-center justify-between mb-12">
 			@if ($isEdit)
-				<h2 class="text-2xl font-semibold text-gray-700">Edit Form: {{ $property->id }}</h2>
+				<h2 class="text-2xl font-semibold text-gray-700">Edit Form: {{ $application->id }}</h2>
 			@else
 				<h2 class="text-2xl font-semibold text-gray-700">Create Form</h2>
 			@endif
@@ -90,7 +111,7 @@
 					<h1 class="text-lg font-bold uppercase">
 						Setting Up Application Form
 					</h1>
-					<p class="italic text-gray-400 text-xs">
+					<p class="text-xs italic text-gray-400">
 						These are pre-requisite information needed to setup the application form.
 					</p>
 				</div>
@@ -98,9 +119,10 @@
 
 				<div x-data="{ property: '{{ $isEdit ? ucfirst($property_name) : ($property_name ? $property_name : 'Select Property') }}' }" class="flex flex-col justify-end gap-1">
 					<label for="property_id" class="text-sm font-bold">Property</label>
-					<x-input type="hidden" name="property_id" id="property_id" x-model="property" wire:model.defer="property_id" />
+					<x-input :disabled="$status !== 'pending'" type="hidden" name="property_id" id="property_id" x-model="property"
+						wire:model.defer="property_id" />
 					<div class="dropdown dropdown-bottom dropdown-start">
-						<x-button role="button" type="button" icon="o-home"
+						<x-button :disabled="$status !== 'pending'" role="button" type="button" icon="o-home"
 							class="flex items-center justify-start w-full gap-1 btn bg-base-100">
 							<span x-text="property">
 							</span>
@@ -122,9 +144,10 @@
 
 				<div x-data="{ unit_code: '{{ $isEdit ? ucfirst($unit_code) : ($unit_code ? $unit_code : 'Select Unit') }}' }" class="flex flex-col justify-end gap-1">
 					<label for="unit_code" class="text-sm font-bold">Unit Code</label>
-					<x-input type="hidden" name="unit_code" id="unit_code" x-model="unit_code" wire:model.defer="unit_code" />
+					<x-input :disabled="$status !== 'pending'" type="hidden" name="unit_code" id="unit_code" x-model="unit_code"
+						wire:model.defer="unit_code" />
 					<div class="dropdown dropdown-bottom dropdown-start">
-						<x-button role="button" type="button" icon="o-home"
+						<x-button :disabled="$status !== 'pending'" role="button" type="button" icon="o-home"
 							class="flex items-center justify-start w-full gap-1 btn bg-base-100">
 							<span x-text="unit_code"></span>
 						</x-button>
@@ -132,7 +155,7 @@
 							@foreach ($units as $u => $k)
 								<li>
 									<button wire:click="setUnit('{{ $u }}')"
-										x-on:click="unit_code='{{ ucfirst($k) }}' ; document.elementById('unit_id').value='{{ $u }}';"
+										x-on:click="unit_code='{{ ucfirst($k) }}' ; document.elementById('unit_code').value='{{ $u }}';"
 										class="justify-start font-normal btn btn-xs btn-ghost hover:font-bold hover:text-primary" type="button">
 										{{ ucfirst($u) }}: {{ ucfirst($k) }}
 									</button>
@@ -144,7 +167,8 @@
 
 				@if ($property && $property->id)
 					<div class="lg:col-span-3">
-						<x-range wire:model.debounce="rent_amount" min="{{ $property->lowest_price ?? $property->default_price }}"
+						<x-range :disabled="$status !== 'pending'" wire:model.debounce="rent_amount"
+							min="{{ $property->lowest_price ?? $property->default_price }}"
 							max="{{ $property->max_price ?? $property->default_price + 10000 }}" step="1000" label="Select a level"
 							class="range-accent" />
 						{{-- value of $rent_amount --}}
@@ -158,15 +182,36 @@
 
 
 				<div class="lg:col-span-3">
-					<x-input type="text" class="input input-sm lg:input-md" label="Application Title" name="title"
-						wire:model="title" />
+					<x-input :disabled="$status !== 'pending'" type="text" class="input input-sm lg:input-md" label="Application Title"
+						name="title" wire:model="title" />
 				</div>
+
 				<div class="lg:col-span-3">
-					<x-textarea label="Application Note" wire:model="notes" placeholder="add description ..." hint="Max 1000 chars"
-						rows="5" inline class="resize-none" />
+					<x-textarea :disabled="$status !== 'pending'" label="Application Note" wire:model="notes" placeholder="add description ..."
+						hint="Max 1000 chars" rows="5" inline class="resize-none" />
 				</div>
-				<div class="lg:col-span-3 max-w-lg">
-					<x-input type="file" accept="image/*" class="file-input file-input-bordered w-full "
+
+
+
+				@if ($status !== 'pending')
+					<div class="lg:col-span-3">
+						<label for="comment" class="my-2 text-sm font-bold">
+							Add Comment
+						</label>
+						<x-textarea label="Add Comment" wire:model="comment" placeholder="add comment ..." hint="Max 1000 chars"
+							rows="5" inline class="resize-none" />
+					</div>
+					<div class="flex justify-end w-full lg:col-span-3">
+						<x-button
+							class="hover:bg-btn-secondary btn-outline btn-primary bg-button-gradient bg-200% transition-all duration-500 ease-out hover:bg-right hover:text-white"
+							type="button" wire.click="saveComment" spinner>
+							Send Comment
+						</x-button>
+					</div>
+				@endif
+
+				<div class="max-w-lg lg:col-span-3">
+					<x-input :disabled="$status !== 'pending'" type="file" accept="image/*" class="w-full file-input file-input-bordered "
 						label="Applicant Signature" name="tenant_signature" wire:model="tenant_signature" />
 
 					@if ($tenant_signature)
@@ -178,8 +223,8 @@
 					@endif
 				</div>
 
-				<div class="lg:col-span-3 max-w-lg">
-					<x-input type="file" accept="image/*" class="file-input file-input-bordered w-full "
+				<div class="max-w-lg lg:col-span-3">
+					<x-input :disabled="$status !== 'pending'" type="file" accept="image/*" class="w-full file-input file-input-bordered "
 						label="Identification Card" name="tenant_id_card" wire:model="tenant_id_card" />
 
 					@if ($tenant_id_card)
@@ -207,7 +252,8 @@
 
 	<x-button
 		class="hover:bg-btn-secondary btn-outline btn-primary bg-button-gradient bg-200% transition-all duration-500 ease-out hover:bg-right hApplicover:text-white"
-		type="submit">
+		type="submit" :disabled="$status !== 'pending'">
+
 		Save
 	</x-button>
 	{{-- <x-button
