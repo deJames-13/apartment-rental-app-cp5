@@ -16,9 +16,20 @@ class SendComment extends Mailable
   /**
    * Create a new message instance.
    */
-  public function __construct()
-  {
-    //
+  public string $comment;
+  public $tenant;
+  public $landlord;
+  public $application;
+  public function __construct(
+    string $comment,
+    $tenant,
+    $landlord,
+    $application
+  ) {
+    $this->comment = $comment;
+    $this->tenant = $tenant;
+    $this->landlord = $landlord;
+    $this->application = $application;
   }
 
   /**
@@ -37,7 +48,7 @@ class SendComment extends Mailable
   public function content(): Content
   {
     return new Content(
-      view: 'view.name',
+      view: 'mail.send-comment',
     );
   }
 

@@ -53,7 +53,7 @@ final class ApplicationTable extends PowerGridComponent
   {
     $page = request('page', 1);
 
-    $query = LeaseApplication::query()->with(['tenant', 'landlord'])->orderBy('created_at', 'desc');
+    $query = LeaseApplication::query()->with(['tenant', 'landlord'])->orderBy('updated_at', 'desc');
     if ($page === 'trash') {
       $query->onlyTrashed();
     } else if (auth()->user()->role === 'landlord') {
@@ -82,6 +82,7 @@ final class ApplicationTable extends PowerGridComponent
       ->add('notes')
       ->add('tenant_id_card')
       ->add('tenant_signature')
+      ->add('comments')
       ->add('created_at');
 
     if (auth()->user()->role === 'landlord') {
@@ -117,8 +118,9 @@ final class ApplicationTable extends PowerGridComponent
       // Column::make('Tenant signature', 'tenant_signature')
       //   ->sortable()
       //   ->searchable(),
-      Column::make('Created at', 'created_at_formatted', 'created_at')
-        ->sortable(),
+      Column::make('Comments', 'comments')
+        ->sortable()
+        ->searchable(),
       Column::make('Created at', 'created_at')
         ->sortable()
         ->searchable(),

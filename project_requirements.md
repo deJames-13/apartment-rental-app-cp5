@@ -30,14 +30,14 @@ _Each machine problem requires the following:_
 
 ## Unit 1 (20pts)
 
-- [ ] Database design. Database should be normalized to at least 2NF (10pts)
-- [ ] Create all database tables using migration scripts (5pts)
-- [ ] Create database seeders for parent tables (5pts)
+- [x] Database design. Database should be normalized to at least 2NF (10pts)
+- [x] Create all database tables using migration scripts (5pts)
+- [x] Create database seeders for parent tables (5pts)
 
 ## [x] Unit Test 2 (20pts)
 
-- [ ] Program execution (errors) (10pts)
-- [ ] UI/UX Design (10pts)
+- [x] Program execution (errors) (10pts)
+- [x] UI/UX Design (10pts)
 
 ## Quizzes
 

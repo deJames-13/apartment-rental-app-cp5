@@ -8,6 +8,7 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Models\PropertyListing;
 use App\Mail\PendingApplication;
+use App\Mail\SendComment;
 use App\Models\LeaseApplication;
 use Illuminate\Support\Facades\Mail;
 use TijsVerkoyen\CssToInlineStyles\Css\Rule\Rule;
@@ -18,7 +19,7 @@ class SettingUpForm extends Component
   use Toast;
 
   public $application, $property, $property_id, $property_name, $units, $unit, $unit_id, $unit_code;
-  public $tenant_id, $landlord_id, $status = "pending", $title, $notes, $tenant_id_card, $tenant_signature;
+  public $tenant_id, $landlord_id, $status = "pending", $title, $notes, $tenant_id_card, $tenant_signature, $comment;
 
   protected $rules = [
     'property_id' => 'required',
@@ -149,6 +150,27 @@ class SettingUpForm extends Component
     $this->property_name = $unit->propertyListing->property_name;
   }
 
+
+  public function sendComment()
+  {
+    $this->validate([
+      'comment' => 'required|string|max:1000',
+    ]);
+
+    $this->application->comments = $this->comment;
+    $this->application->save();
+
+    $this->toast(
+      type: 'success',
+      title: 'Comment added',
+      description: null,
+      position: 'toast-top toast-end',
+      icon: 'o-information-circle',
+      css: 'alert-success',
+      timeout: 3000,
+    );
+    Mail::to($this->application->landlord->email)->send(new SendComment($this->comment, $this->application->tenant, $this->application->landlord, $this->application));
+  }
 
   public function render()
   {

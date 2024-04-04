@@ -202,7 +202,7 @@
 					<div class="flex justify-end w-full lg:col-span-3">
 						<x-button
 							class="hover:bg-btn-secondary btn-outline btn-primary bg-button-gradient bg-200% transition-all duration-500 ease-out hover:bg-right hover:text-white"
-							type="button" wire.click="saveComment" spinner>
+							type="button" wire:click="sendComment" spinner="sendComment">
 							Send Comment
 						</x-button>
 					</div>
