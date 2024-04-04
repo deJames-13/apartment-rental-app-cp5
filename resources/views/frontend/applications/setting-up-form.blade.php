@@ -119,8 +119,7 @@
 
 				<div x-data="{ property: '{{ $isEdit ? ucfirst($property_name) : ($property_name ? $property_name : 'Select Property') }}' }" class="flex flex-col justify-end gap-1">
 					<label for="property_id" class="text-sm font-bold">Property</label>
-					<x-input :disabled="$status !== 'pending'" type="hidden" name="property_id" id="property_id" x-model="property"
-						wire:model.defer="property_id" />
+					<x-input :disabled="$status !== 'pending'" type="hidden" name="property_id" id="property_id" wire:model.defer='property_id' />
 					<div class="dropdown dropdown-bottom dropdown-start">
 						<x-button :disabled="$status !== 'pending'" role="button" type="button" icon="o-home"
 							class="flex items-center justify-start w-full gap-1 btn bg-base-100">
@@ -130,8 +129,7 @@
 						<ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
 							@foreach ($properties as $p => $k)
 								<li>
-									<button wire:click="setProperty('{{ $k }}')"
-										x-on:click="property='{{ ucfirst($p) }}' ; document.elementById('property_id').value='{{ $p }}';"
+									<button wire:click="setProperty('{{ $k }}')" x-on:click="property='{{ ucfirst($p) }}'"
 										class="justify-start font-normal btn btn-xs btn-ghost hover:font-bold hover:text-primary" type="button">
 										{{ ucfirst($k) }}: {{ ucfirst($p) }}
 									</button>
@@ -154,8 +152,7 @@
 						<ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
 							@foreach ($units as $u => $k)
 								<li>
-									<button wire:click="setUnit('{{ $u }}')"
-										x-on:click="unit_code='{{ ucfirst($k) }}' ; document.elementById('unit_code').value='{{ $u }}';"
+									<button wire:click="setUnit('{{ $u }}')" x-on:click="unit_code='{{ ucfirst($k) }}';"
 										class="justify-start font-normal btn btn-xs btn-ghost hover:font-bold hover:text-primary" type="button">
 										{{ ucfirst($u) }}: {{ ucfirst($k) }}
 									</button>

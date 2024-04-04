@@ -18,24 +18,8 @@ class SettingUpForm extends Component
   use Toast;
 
   public $application, $property, $property_id, $property_name, $units, $unit, $unit_id, $unit_code;
-  public $tenant_id, $landlord_id, $start_date, $end_date, $status = "pending", $title, $notes, $tenant_id_card, $tenant_signature, $comment;
+  public $tenant_id, $landlord_id, $start_date, $end_date, $status = "pending", $title, $notes, $tenant_id_card, $tenant_signature;
   public float $rent_amount;
-
-  protected $rules = [
-    'property_id' => 'required',
-    // 'unit_code' => 'required',
-    'rent_amount' => 'required|numeric',
-    'title' => 'required|string|max:100',
-    'notes' => 'required|string|max:1000',
-    "tenant_id_card" => 'required',
-    "tenant_signature" => 'required',
-  ];
-  protected $messages = [
-    'property_id' => 'The property is required.',
-    'unit_code' => 'The property unit is required',
-    'rent_amount' => 'Please enter a valid amount.',
-    'notes' => 'Application Description is required, please specify your purpose for the application',
-  ];
 
 
   public function mount(LeaseApplication $application = null, PropertyListing $property = null)
@@ -68,8 +52,6 @@ class SettingUpForm extends Component
 
   public function submit()
   {
-    dd($this->unit_id);
-    $this->validate();
     try {
 
 
@@ -122,31 +104,19 @@ class SettingUpForm extends Component
   }
 
 
-  public function saveComment()
-  {
-    dd($this->comment);
-    $this->validateOnly([
-      'comment' => 'required|max:1000'
-    ]);
-
-    $this->application->update([
-      'comments' => $this->comment
-    ]);
-    $this->comment = '';
-  }
-
   public function setProperty($propertyId)
   {
     $this->property_id = $propertyId;
-    $this->property = PropertyListing::findOrFail($propertyId);
+    $this->property = PropertyListing::find($propertyId);
     $this->units = Unit::where('property_id', $propertyId)->pluck('unit_code', 'id')->toArray();
-    $this->unit_code = null;
     $this->rent_amount = $this->property->lowest_price ? $this->property->lowest_price : $this->property->default_price;
+    $this->unit_code = null;
   }
+
   public function setUnit($unitId)
   {
     $this->unit_id = $unitId;
-    $u = Unit::findOrFail($unitId);
+    $u = Unit::find($unitId);
     $this->unit = $u;
     $this->unit_code = $u->unit_code;
     $this->property = $u->propertyListing;
