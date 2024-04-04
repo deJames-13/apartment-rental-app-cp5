@@ -12,7 +12,7 @@ class PropertyForm extends Component
   use WithFileUploads;
   public $property;
 
-  public $property_name, $no_of_floors, $no_of_units, $address, $city, $region, $country, $postal_code, $default_price, $property_thumbnail, $heading, $description, $lowest_price, $max_price, $status, $type, $landlord_id;
+  public $property_name, $no_of_floors, $no_of_units, $address, $city, $region, $country, $postal_code, $default_price, $property_thumbnail, $added_images, $heading, $description, $lowest_price, $max_price, $status, $type, $landlord_id;
 
   protected $rules = [
     'status' => 'required',
@@ -124,6 +124,10 @@ class PropertyForm extends Component
   public function updated($propertyName)
   {
     $this->validateOnly($propertyName);
+  }
+
+  public function addImages()
+  {
   }
 
 

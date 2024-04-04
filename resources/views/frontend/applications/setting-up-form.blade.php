@@ -2,7 +2,7 @@
 	if (Auth::check()) {
 	    $id = Auth::user()->id;
 	    $userData = App\Models\User::find($id);
-	    $properties = App\Models\PropertyListing::pluck('id', 'property_name')->toArray();
+	    $properties = App\Models\PropertyListing::orderBy('created_at', 'asc')->pluck('id', 'property_name')->toArray();
 	    $types = [
 	        'Fixed-Term Lease',
 	        'Month-to-Month Lease',
@@ -125,11 +125,12 @@
 							<span x-text="property">
 							</span>
 						</x-button>
-						<ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+						<ul tabindex="0"
+							class="dropdown-content z-[1] menu flex flex-col gap-1 p-2 shadow bg-base-100 rounded-box w-52 max-h-[200px] overflow-y-auto">
 							@foreach ($properties as $p => $k)
 								<li>
 									<button wire:click="setProperty('{{ $k }}')" x-on:click="property='{{ ucfirst($p) }}'"
-										class="justify-start font-normal btn btn-xs btn-ghost hover:font-bold hover:text-primary" type="button">
+										class="font-normal btn btn-xs btn-ghost hover:font-bold hover:text-primary" type="button">
 										{{ ucfirst($k) }}: {{ ucfirst($p) }}
 									</button>
 								</li>
@@ -165,14 +166,14 @@
 
 				@if ($property && $property->id)
 					<div class="lg:col-span-3">
-						<x-range :disabled="$status !== 'pending'" wire:model.debounce="rent_amount"
+						{{-- <x-range :disabled="$status !== 'pending'" wire:model.debounce="rent_amount"
 							min="{{ $property->lowest_price ?? $property->default_price }}"
 							max="{{ $property->max_price ?? $property->default_price + 10000 }}" step="1000" label="Select a level"
 							class="range-accent" />
-						{{-- value of $rent_amount --}}
-						<label for="rent_amount">
+						value of $rent_amount --}}
+						<p>
 							Rent Amount: {{ $rent_amount }}
-						</label>
+						</p>
 					</div>
 				@endif
 
@@ -223,7 +224,7 @@
 
 				<div class="max-w-lg lg:col-span-3">
 					<x-input :disabled="$status !== 'pending'" type="file" accept="image/*" class="w-full file-input file-input-bordered "
-						label="Identification Card" name="tenant_id_card" wire:model="tenant_id_card" />
+						label="Valid Identification Card" name="tenant_id_card" wire:model="tenant_id_card" />
 
 					@if ($tenant_id_card)
 						@if (is_object($tenant_id_card))
