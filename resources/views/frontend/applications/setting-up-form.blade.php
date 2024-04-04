@@ -3,7 +3,6 @@
 	    $id = Auth::user()->id;
 	    $userData = App\Models\User::find($id);
 	    $properties = App\Models\PropertyListing::pluck('id', 'property_name')->toArray();
-	    $property_name = $property ? $property->property_name : false;
 	    $types = [
 	        'Fixed-Term Lease',
 	        'Month-to-Month Lease',
@@ -118,7 +117,8 @@
 
 
 				<div x-data="{ property: '{{ $isEdit ? ucfirst($property_name) : 'Select Property' }}' }" class="flex flex-col justify-end gap-1">
-					<p class="text-sm font-bold">Property</p>
+					<label for="property_id" class="text-sm font-bold">Property</label>
+					<x-input :disabled="$status !== 'pending'" type="hidden" name="property_id" id="property_id" wire:model.defer='property_id' />
 					<div class="dropdown dropdown-bottom dropdown-start">
 						<x-button :disabled="($status !== 'pending')" role="button" type="button" icon="o-home"
 							class="flex items-center justify-start w-full gap-1 btn bg-base-100">

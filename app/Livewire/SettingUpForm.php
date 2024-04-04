@@ -46,61 +46,75 @@ class SettingUpForm extends Component
     if ($property && $property->exists) {
       $this->property_id = $property->id;
       $this->property = $property;
-      $this->property_name = $property->name;
+      $this->property_name = $property->property_name;
       $this->units = Unit::where('property_id', $property->id)->pluck('unit_code', 'id')->toArray();
       $this->rent_amount = $property->lowest_price ? $property->lowest_price : $property->default_price;
+      dd($this->property, $this->property_name, $this->units, $this->rent_amount);
     }
   }
 
   public function save()
   {
-    try {
-
-
-      if ($this->tenant_id_card) {
-        $this->tenant_id_card = $this->tenant_id_card->store('tenant_id_cards', 'public');
+    // check if there is no unit id
+    if (!$this->unit_id) {
+      $this->unit = Unit::where('property_id', $this->property_id)->first();
+      // if no unit is found return an error
+      if (!$this->unit) {
+        $this->toast(
+          type: 'error',
+          title: 'Error',
+          description: 'No unit found for this property',
+          position: 'toast-top toast-end',
+          icon: 'o-information-circle',
+          css: 'alert-danger',
+          timeout: 3000,
+        );
+        return;
       }
-      if ($this->tenant_signature) {
-        $this->tenant_signature = $this->tenant_signature->store('tenant_signatures', 'public');
-      }
-
-
-      $this->landlord_id = $this->property->landlord_id;
-      $this->tenant_id = auth()->id();
-      $this->status = 'pending';
-
-
-
-      LeaseApplication::create([
-        'tenant_id' => $this->tenant_id,
-        'landlord_id' => $this->landlord_id,
-        'property_id' => $this->property_id,
-        'unit_id' => $this->unit_id,
-        'rent_amount' => $this->rent_amount,
-        'status' => $this->status,
-        'title' => $this->title,
-        'notes' => $this->notes,
-        'tenant_id_card' => $this->tenant_id_card,
-        'tenant_signature' => $this->tenant_signature,
-      ]);
-
-
-      session()->flash('message', 'Application submitted successfully!');
-      $this->reset();
-      $user = auth()->user();
-      $this->toast(
-        type: 'success',
-        title: 'Created successfully',
-        description: null,
-        position: 'toast-top toast-end',
-        icon: 'o-information-circle',
-        css: 'alert-success',
-        timeout: 3000,
-      );
-      Mail::to($user->email)->send(new PendingApplication($user));
-    } catch (\Throwable $th) {
-      dd($th);
+      $this->unit_id = $this->unit->id;
+      $this->unit_code = $this->unit->unit_code;
     }
+    if ($this->tenant_id_card) {
+      $this->tenant_id_card = $this->tenant_id_card->store('tenant_id_cards', 'public');
+    }
+    if ($this->tenant_signature) {
+      $this->tenant_signature = $this->tenant_signature->store('tenant_signatures', 'public');
+    }
+
+
+    $this->landlord_id = $this->property->landlord_id;
+    $this->tenant_id = auth()->id();
+    $this->status = 'pending';
+
+
+
+    LeaseApplication::create([
+      'tenant_id' => $this->tenant_id,
+      'landlord_id' => $this->landlord_id,
+      'property_id' => $this->property_id,
+      'unit_id' => $this->unit_id,
+      'rent_amount' => $this->rent_amount,
+      'status' => $this->status,
+      'title' => $this->title,
+      'notes' => $this->notes,
+      'tenant_id_card' => $this->tenant_id_card,
+      'tenant_signature' => $this->tenant_signature,
+    ]);
+
+
+    session()->flash('message', 'Application submitted successfully!');
+    $this->reset();
+    $user = auth()->user();
+    $this->toast(
+      type: 'success',
+      title: 'Created successfully',
+      description: null,
+      position: 'toast-top toast-end',
+      icon: 'o-information-circle',
+      css: 'alert-success',
+      timeout: 3000,
+    );
+    Mail::to($user->email)->send(new PendingApplication($user));
 
     return redirect()->route('applications.index');
   }
