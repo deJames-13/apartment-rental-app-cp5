@@ -18,15 +18,24 @@ class SettingUpForm extends Component
   use Toast;
 
   public $application, $property, $property_id, $property_name, $units, $unit, $unit_id, $unit_code;
-  public $tenant_id, $landlord_id, $start_date, $end_date, $status = "pending", $title, $notes, $tenant_id_card, $tenant_signature;
+  public $tenant_id, $landlord_id, $status = "pending", $title, $notes, $tenant_id_card, $tenant_signature;
+
+  protected $rules = [
+    'property_id' => 'required',
+    'title' => 'required|string|max:255',
+    'notes' => 'required|string|max:1000',
+    'tenant_id_card' => 'required',
+    'tenant_signature' => 'required',
+  ];
+
   public float $rent_amount;
 
 
   public function mount(LeaseApplication $application = null, PropertyListing $property = null)
   {
-    $this->application = $application->exists ? $application : null;
+    $this->application = $application && $application->exists ? $application : null;
     $this->units = Unit::all()->pluck('unit_code', 'id')->toArray();
-    if ($application->exists) {
+    if ($application && $application->exists) {
       $this->tenant_id = $application->tenant_id;
       $this->landlord_id = $application->landlord_id;
       $this->status = $application->status;
@@ -41,17 +50,36 @@ class SettingUpForm extends Component
       $this->property_name = $application->propertyListing->property_name;
       $this->unit_id =  $application->unit_id;
     }
-    if ($property->exists) {
+    if ($property && $property->exists) {
       $this->property_id = $property->id;
       $this->property = $property;
-      $this->property_name = $property->name;
+      $this->property_name = $property->property_name;
       $this->units = Unit::where('property_id', $property->id)->pluck('unit_code', 'id')->toArray();
       $this->rent_amount = $property->lowest_price ? $property->lowest_price : $property->default_price;
     }
   }
 
-  public function submit()
+  public function save()
   {
+    $this->validate();
+    if (!$this->unit_id) {
+      $this->unit = Unit::where('property_id', $this->property_id)->first();
+      // if no unit is found return an error
+      if (!$this->unit) {
+        $this->toast(
+          type: 'error',
+          title: 'Error',
+          description: 'No unit found for this property',
+          position: 'toast-top toast-end',
+          icon: 'o-information-circle',
+          css: 'alert-danger',
+          timeout: 3000,
+        );
+        return;
+      }
+      $this->unit_id = $this->unit->id;
+      $this->unit_code = $this->unit->unit_code;
+    }
     if ($this->tenant_id_card) {
       $this->tenant_id_card = $this->tenant_id_card->store('tenant_id_cards', 'public');
     }
@@ -83,7 +111,6 @@ class SettingUpForm extends Component
     session()->flash('message', 'Application submitted successfully!');
     $this->reset();
     $user = auth()->user();
-    Mail::to($user->email)->send(new PendingApplication($user));
     $this->toast(
       type: 'success',
       title: 'Created successfully',
@@ -93,6 +120,7 @@ class SettingUpForm extends Component
       css: 'alert-success',
       timeout: 3000,
     );
+    Mail::to($user->email)->send(new PendingApplication($user));
 
     return redirect()->route('applications.index');
   }
@@ -101,21 +129,27 @@ class SettingUpForm extends Component
   public function setProperty($propertyId)
   {
     $this->property_id = $propertyId;
-    $this->property = PropertyListing::find($propertyId);
+    $property = PropertyListing::find($propertyId);
+    $this->property = $property;
+    $this->property_name = $property->property_name;
     $this->units = Unit::where('property_id', $propertyId)->pluck('unit_code', 'id')->toArray();
-    $this->rent_amount = $this->property->lowest_price ? $this->property->lowest_price : $this->property->default_price;
+    $this->rent_amount = $property->lowest_price ? $property->lowest_price : $property->default_price;
     $this->unit_code = null;
+    $this->unit_id = null;
+    $this->unit = null;
   }
 
   public function setUnit($unitId)
   {
     $this->unit_id = $unitId;
-    $u = Unit::find($unitId);
-    $this->unit = $u;
-    $this->unit_code = $u->unit_code;
-    $this->property = $u->propertyListing;
-    $this->property_name = $this->property_name;
+    $unit = Unit::with('propertyListing')->find($unitId);
+    $this->unit = $unit;
+    $this->unit_code = $unit->unit_code;
+    $this->property = $unit->propertyListing;
+    $this->property_name = $unit->propertyListing->property_name;
   }
+
+
   public function render()
   {
     return view('frontend.applications.setting-up-form');
