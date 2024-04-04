@@ -53,7 +53,7 @@ final class ApplicationTable extends PowerGridComponent
   {
     $page = request('page', 1);
 
-    $query = LeaseApplication::query()->with(['tenant', 'landlord']);
+    $query = LeaseApplication::query()->with(['tenant', 'landlord'])->orderBy('created_at', 'desc');
     if ($page === 'trash') {
       $query->onlyTrashed();
     } else if (auth()->user()->role === 'landlord') {

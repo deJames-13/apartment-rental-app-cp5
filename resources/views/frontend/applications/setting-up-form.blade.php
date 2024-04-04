@@ -117,11 +117,10 @@
 				</div>
 
 
-				<div x-data="{ property: '{{ $isEdit ? ucfirst($property_name) : ($property_name ? $property_name : 'Select Property') }}' }" class="flex flex-col justify-end gap-1">
-					<label for="property_id" class="text-sm font-bold">Property</label>
-					<x-input :disabled="$status !== 'pending'" type="hidden" name="property_id" id="property_id" wire:model.defer='property_id' />
+				<div x-data="{ property: '{{ $isEdit ? ucfirst($property_name) : 'Select Property' }}' }" class="flex flex-col justify-end gap-1">
+					<p class="text-sm font-bold">Property</p>
 					<div class="dropdown dropdown-bottom dropdown-start">
-						<x-button :disabled="$status !== 'pending'" role="button" type="button" icon="o-home"
+						<x-button :disabled="($status !== 'pending')" role="button" type="button" icon="o-home"
 							class="flex items-center justify-start w-full gap-1 btn bg-base-100">
 							<span x-text="property">
 							</span>
@@ -140,7 +139,7 @@
 				</div>
 
 
-				<div x-data="{ unit_code: '{{ $isEdit ? ucfirst($unit_code) : ($unit_code ? $unit_code : 'Select Unit') }}' }" class="flex flex-col justify-end gap-1">
+				<div x-data="{ unit_code: '{{ $isEdit ? ucfirst($unit_code) : 'Select Unit' }}' }" class="flex flex-col justify-end gap-1">
 					<label for="unit_code" class="text-sm font-bold">Unit Code</label>
 					<x-input :disabled="$status !== 'pending'" type="hidden" name="unit_code" id="unit_code" x-model="unit_code"
 						wire:model.defer="unit_code" />
@@ -152,7 +151,7 @@
 						<ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
 							@foreach ($units as $u => $k)
 								<li>
-									<button wire:click="setUnit('{{ $u }}')" x-on:click="unit_code='{{ ucfirst($k) }}';"
+									<button wire:click.defer="setUnit('{{ $u }}')" x-on:click="unit_code='{{ ucfirst($k) }}';"
 										class="justify-start font-normal btn btn-xs btn-ghost hover:font-bold hover:text-primary" type="button">
 										{{ ucfirst($u) }}: {{ ucfirst($k) }}
 									</button>
@@ -161,6 +160,8 @@
 						</ul>
 					</div>
 				</div>
+
+
 
 				@if ($property && $property->id)
 					<div class="lg:col-span-3">
