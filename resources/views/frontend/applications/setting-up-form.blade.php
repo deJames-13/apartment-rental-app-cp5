@@ -3,7 +3,6 @@
 	    $id = Auth::user()->id;
 	    $userData = App\Models\User::find($id);
 	    $properties = App\Models\PropertyListing::pluck('id', 'property_name')->toArray();
-	    $property_name = $property ? $property->property_name : false;
 	    $types = [
 	        'Fixed-Term Lease',
 	        'Month-to-Month Lease',
@@ -102,7 +101,7 @@
 		@endif
 
 
-		<x-form wire:submit="{{ 'submit' }}" method="post">
+		<x-form wire:submit="{{ $form }}" method="post">
 			@csrf
 
 			<div class="grid items-start gap-4 lg:grid-cols-3">
@@ -117,11 +116,11 @@
 				</div>
 
 
-				<div x-data="{ property: '{{ $isEdit ? ucfirst($property_name) : ($property_name ? $property_name : 'Select Property') }}' }" class="flex flex-col justify-end gap-1">
+				<div x-data="{ property: '{{ $isEdit ? ucfirst($property_name) : ($property ? $property_name : 'Select Property') }}' }" class="flex flex-col justify-end gap-1">
 					<label for="property_id" class="text-sm font-bold">Property</label>
 					<x-input :disabled="$status !== 'pending'" type="hidden" name="property_id" id="property_id" wire:model.defer='property_id' />
 					<div class="dropdown dropdown-bottom dropdown-start">
-						<x-button :disabled="$status !== 'pending'" role="button" type="button" icon="o-home"
+						<x-button :disabled="($status !== 'pending')" role="button" type="button" icon="o-home"
 							class="flex items-center justify-start w-full gap-1 btn bg-base-100">
 							<span x-text="property">
 							</span>
@@ -152,7 +151,7 @@
 						<ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
 							@foreach ($units as $u => $k)
 								<li>
-									<button wire:click="setUnit('{{ $u }}')" x-on:click="unit_code='{{ ucfirst($k) }}';"
+									<button wire:click.defer="setUnit('{{ $u }}')" x-on:click="unit_code='{{ ucfirst($k) }}';"
 										class="justify-start font-normal btn btn-xs btn-ghost hover:font-bold hover:text-primary" type="button">
 										{{ ucfirst($u) }}: {{ ucfirst($k) }}
 									</button>
@@ -161,6 +160,8 @@
 						</ul>
 					</div>
 				</div>
+
+
 
 				@if ($property && $property->id)
 					<div class="lg:col-span-3">
@@ -249,8 +250,7 @@
 
 	<x-button
 		class="hover:bg-btn-secondary btn-outline btn-primary bg-button-gradient bg-200% transition-all duration-500 ease-out hover:bg-right hApplicover:text-white"
-		type="submit" :disabled="$status !== 'pending'">
-
+		type="submit" :disabled="$status !== 'pending'" spinner="{{ $form }}">
 		Save
 	</x-button>
 	{{-- <x-button
